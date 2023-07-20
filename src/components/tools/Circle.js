@@ -1,14 +1,17 @@
 import { fabric } from "fabric";
+import { Icon } from '@iconify/react';
 
 const Circle = ({ canvas, onCancelDraw }) => {
     const addCircle = () => {
         const circle = new fabric.Circle({
-            radius: 100,
+            originX: 'center',
+            originY: 'center',
+            radius: 50,
             fill: 'transparent',
-            left: 200,
-            top: 200,
+            left: canvas.getCenter().left,
+            top: canvas.getCenter().top,
             stroke: 'black',
-            strokeWidth: 2,
+            strokeWidth: 1,
         });
         canvas.add(circle);
         canvas.renderAll();
@@ -23,7 +26,9 @@ const Circle = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button onClick={handleAddCircle}>Circle</button>
+            <button className='text-4xl' onClick={handleAddCircle}>
+                <Icon className='transition duration-100 hover:scale-110' icon="octicon:circle-16" />
+            </button>
         </div>
     )
 }

@@ -1,15 +1,18 @@
 import { fabric } from "fabric";
+import { Icon } from '@iconify/react';
 
 const Rectangle = ({ canvas, onCancelDraw }) => {
     const addRec = () => {
         const rect = new fabric.Rect({
-            left: 200,
-            top: 200,
-            height: 150,
+            originX: 'center',
+            originY: 'center',
+            left: canvas.getCenter().left,
+            top: canvas.getCenter().top,
+            height: 50,
             width: 100,
             fill: 'transparent',
             stroke: 'black',
-            strokeWidth: 2
+            strokeWidth: 1
         });
         canvas.add(rect);
         canvas.renderAll();
@@ -22,7 +25,9 @@ const Rectangle = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button onClick={handleAddRec}>Rectangle</button>
+            <button className='text-4xl' onClick={handleAddRec}>
+                <Icon className='transition duration-100 hover:scale-110' icon="icon-park:rectangle-one" />
+            </button>
         </div>
     )
 }

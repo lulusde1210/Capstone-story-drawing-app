@@ -1,10 +1,10 @@
 
-const Canvas = ({ canvas }) => {
+const Canvas = () => {
     return (
         <div>
             <canvas
                 className='rounded-lg'
-                id="canvas" />
+                id='canvas' />
         </div>
     );
 }

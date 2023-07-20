@@ -1,4 +1,5 @@
 import { fabric } from "fabric";
+import { Icon } from '@iconify/react';
 
 const Line = ({ canvas, onCancelDraw }) => {
     const addLine = () => {
@@ -17,7 +18,10 @@ const Line = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button onClick={handleAddLine}>Line</button>
+            <button className='text-4xl' onClick={handleAddLine}>
+                <Icon className='transition duration-100 hover:scale-110' icon="pepicons-print:line-x" />
+
+            </button>
         </div>
     )
 }

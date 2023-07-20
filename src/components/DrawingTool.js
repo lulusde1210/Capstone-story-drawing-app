@@ -1,29 +1,36 @@
 import { CirclePicker } from "react-color";
 import { Icon } from '@iconify/react';
+import { useState } from "react";
+import colors from "../data/colors";
 
-const DrawingTool = ({ brushSize, onChooseColor, onChangeSize, onClickBrush }) => {
-    const colors =
-        ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3",
-            "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39",
-            "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#000000"]
+const DrawingTool = ({ canvas }) => {
+    const [brushSize, setBrushSize] = useState(10)
+    const [penColor, setPenColor] = useState('black')
+
+    const enableDrawing = (color, size) => {
+        canvas.isDrawingMode = true
+        canvas.freeDrawingBrush.color = color
+        canvas.freeDrawingBrush.width = size
+    }
 
     const handleChangeComplete = (color) => {
-        onChooseColor(color.hex)
-    }
+        setPenColor(color.hex)
+        enableDrawing(color.hex, brushSize)
+    };
 
     const handleChangeBrushSize = (e) => {
-        console.log(e.target.value)
-        onChangeSize(e.target.value)
-    }
+        setBrushSize(e.target.value)
+        enableDrawing(penColor, e.target.value)
+    };
 
     const handleClickBrush = () => {
-        onClickBrush()
-    }
+        enableDrawing('black', 10)
+    };
 
     return (
         <>
             <div className="flex flex-col justify-center items-start gap-5">
-                <Icon onClick={handleClickBrush} className='text-3xl cursor-pointer' icon="ph:paint-brush-bold" />
+                <Icon onClick={handleClickBrush} className='text-3xl cursor-pointer transition duration-100 hover:scale-110' icon="ph:paint-brush-bold" />
 
                 <CirclePicker
                     width={150}
@@ -33,7 +40,7 @@ const DrawingTool = ({ brushSize, onChooseColor, onChangeSize, onClickBrush }) =
                 />
 
                 <label
-                    htmlForfor="steps-range"
+                    htmlFor="steps-range"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Pen Size
                 </label>

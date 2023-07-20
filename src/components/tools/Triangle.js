@@ -1,13 +1,18 @@
 import { fabric } from "fabric";
+import { Icon } from '@iconify/react';
 
 const Triangle = ({ canvas, onCancelDraw }) => {
     const addTriangle = () => {
         const triangle = new fabric.Triangle({
-            width: 100,
-            height: 120,
-            fill: 'blue',
-            left: 200,
-            top: 200,
+            originX: 'center',
+            originY: 'center',
+            width: 50,
+            height: 70,
+            fill: 'transparent',
+            stroke: 'black',
+            strokeWidth: 1,
+            left: canvas.getCenter().left,
+            top: canvas.getCenter().top,
         });
         canvas.add(triangle);
         canvas.renderAll();
@@ -21,7 +26,9 @@ const Triangle = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button onClick={handleAddTriangle}>Triangle</button>
+            <button className='text-4xl' onClick={handleAddTriangle}>
+                <Icon className='transition duration-100 hover:scale-110' icon="icon-park:triangle" />
+            </button>
         </div>
     )
 }
