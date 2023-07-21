@@ -24,8 +24,8 @@ const Text = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button className='text-4xl' onClick={handleAddText}>
-                <Icon className='transition duration-100 hover:scale-110' icon="fluent-emoji-flat:a-button-blood-type" />
+            <button onClick={handleAddText}>
+                <Icon className='icon' icon="fluent-emoji-flat:a-button-blood-type" />
             </button>
         </div>
     )

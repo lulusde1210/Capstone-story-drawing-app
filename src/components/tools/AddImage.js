@@ -21,8 +21,8 @@ const AddImage = ({ canvas }) => {
 
     return (
         <div >
-            <label htmlFor='img' className='text-4xl cursor-pointer'>
-                <Icon className='transition duration-100 hover:scale-110' icon="fluent-emoji-flat:framed-picture" />
+            <label htmlFor='img' >
+                <Icon className='icon' icon="fluent-emoji-flat:framed-picture" />
             </label>
             <input
                 className='hidden'

@@ -25,8 +25,8 @@ const Rectangle = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button className='text-4xl' onClick={handleAddRec}>
-                <Icon className='transition duration-100 hover:scale-110' icon="icon-park:rectangle-one" />
+            <button onClick={handleAddRec}>
+                <Icon className='icon' icon="icon-park:rectangle-one" />
             </button>
         </div>
     )

@@ -26,8 +26,8 @@ const Circle = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button className='text-4xl' onClick={handleAddCircle}>
-                <Icon className='transition duration-100 hover:scale-110' icon="octicon:circle-16" />
+            <button onClick={handleAddCircle}>
+                <Icon className='icon' icon="octicon:circle-16" />
             </button>
         </div>
     )

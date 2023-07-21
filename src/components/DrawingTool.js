@@ -2,6 +2,7 @@ import { CirclePicker } from "react-color";
 import { Icon } from '@iconify/react';
 import { useState } from "react";
 import colors from "../data/colors";
+import EraserBrush from "./tools/EraserBrush";
 
 const DrawingTool = ({ canvas }) => {
     const [brushSize, setBrushSize] = useState(10)
@@ -27,23 +28,20 @@ const DrawingTool = ({ canvas }) => {
         enableDrawing('black', 10)
     };
 
+    const handleClickEraser = () => {
+        canvas.freeDrawingBrush = new EraserBrush(canvas);
+        canvas.freeDrawingBrush.color = '#FAF3F0'
+        canvas.isDrawingMode = true;
+        canvas.freeDrawingBrush.width = 20;
+    }
+
     return (
         <>
             <div className="flex flex-col justify-center items-start gap-5">
-                <Icon onClick={handleClickBrush} className='text-3xl cursor-pointer transition duration-100 hover:scale-110' icon="ph:paint-brush-bold" />
-
-                <CirclePicker
-                    width={150}
-                    circleSize={40}
-                    colors={colors}
-                    onChangeComplete={handleChangeComplete}
-                />
-
-                <label
-                    htmlFor="steps-range"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Pen Size
-                </label>
+                <Icon
+                    onClick={handleClickBrush}
+                    className='icon'
+                    icon="ph:paint-brush-bold" />
 
                 <input
                     className="w-full h-2 rounded-lg appearance-none cursor-pointer"
@@ -53,6 +51,18 @@ const DrawingTool = ({ canvas }) => {
                     value={brushSize}
                     onChange={handleChangeBrushSize}
                 />
+                <CirclePicker
+                    width={150}
+                    circleSize={40}
+                    colors={colors}
+                    onChangeComplete={handleChangeComplete}
+                />
+
+                <Icon
+                    onClick={handleClickEraser}
+                    className='icon'
+                    icon="fluent:eraser-small-20-filled" />
+
             </div>
 
         </>

@@ -18,8 +18,8 @@ const Line = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button className='text-4xl' onClick={handleAddLine}>
-                <Icon className='transition duration-100 hover:scale-110' icon="pepicons-print:line-x" />
+            <button onClick={handleAddLine}>
+                <Icon className='icon' icon="pepicons-print:line-x" />
 
             </button>
         </div>

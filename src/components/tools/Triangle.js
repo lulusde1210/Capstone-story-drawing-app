@@ -26,8 +26,8 @@ const Triangle = ({ canvas, onCancelDraw }) => {
 
     return (
         <div>
-            <button className='text-4xl' onClick={handleAddTriangle}>
-                <Icon className='transition duration-100 hover:scale-110' icon="icon-park:triangle" />
+            <button onClick={handleAddTriangle}>
+                <Icon className='icon' icon="icon-park:triangle" />
             </button>
         </div>
     )
