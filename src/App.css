@@ -1,12 +1,8 @@
 .App {
-  width: 100vh;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+  @apply w-screen h-screen flex justify-center items-center 
 }
 
 .icon {
   @apply text-4xl cursor-pointer transition duration-100 hover:scale-110
 }
+

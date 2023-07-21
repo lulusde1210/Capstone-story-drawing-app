@@ -8,7 +8,10 @@ const SelectArrow = ({ onCancelDraw }) => {
     }
     return (
         <div >
-            <Icon className='icon' onClick={handleClickSelectArrow} icon="grommet-icons:select" />
+            <Icon
+                className='icon'
+                onClick={handleClickSelectArrow}
+                icon="grommet-icons:select" />
         </div>
     )
 }

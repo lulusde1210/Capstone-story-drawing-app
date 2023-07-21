@@ -12,7 +12,7 @@ const Rectangle = ({ canvas, onCancelDraw }) => {
             width: 100,
             fill: 'transparent',
             stroke: 'black',
-            strokeWidth: 1
+            strokeWidth: 1,
         });
         canvas.add(rect);
         canvas.renderAll();
