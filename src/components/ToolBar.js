@@ -8,6 +8,7 @@ import Text from "./tools/Text";
 import Stickers from "./tools/Stickers";
 import SelectArrow from "./tools/SelectArrow";
 import DeleteOne from "./tools/DeleteOne";
+import UndoRedo from "./tools/UndoRedo";
 
 const ToolBar = ({ canvas }) => {
 
@@ -16,17 +17,18 @@ const ToolBar = ({ canvas }) => {
     };
 
     return (
-        <div className="shadow-md flex flex-col justify-center items-center gap-2  bg-red-100 p-5 rounded-md">
+        <div className="grid grid-cols-2 shadow-md py-5 gap-5 bg-red-100 rounded-md">
             <SelectArrow onCancelDraw={disableDrawing} />
+            <UndoRedo canvas={canvas} />
             <Rectangle canvas={canvas} onCancelDraw={disableDrawing} />
             <Circle canvas={canvas} onCancelDraw={disableDrawing} />
             <Triangle canvas={canvas} onCancelDraw={disableDrawing} />
             <Line canvas={canvas} onCancelDraw={disableDrawing} />
             <Text canvas={canvas} onCancelDraw={disableDrawing} />
-            <Stickers />
-            <AddImage canvas={canvas} />
-            <DeleteOne canvas={canvas} />
-            <Clear canvas={canvas} />
+            <Stickers canvas={canvas} onCancelDraw={disableDrawing} />
+            <AddImage canvas={canvas} onCancelDraw={disableDrawing} />
+            <DeleteOne canvas={canvas} onCancelDraw={disableDrawing} />
+            <Clear canvas={canvas} onCancelDraw={disableDrawing} />
         </div>
     )
 };

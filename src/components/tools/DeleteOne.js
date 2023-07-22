@@ -1,8 +1,7 @@
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
-const DeleteOne = ({ canvas }) => {
-
-
+const DeleteOne = ({ canvas, onCancelDraw }) => {
     const handleDeleteOne = () => {
         console.log('inside deleteObects canvas', canvas)
         const activeObjs = canvas.getActiveObjects();
@@ -20,12 +19,10 @@ const DeleteOne = ({ canvas }) => {
         }
     });
 
-    // it will delete the whole text when text if editting
-
     return (
-        <div >
+        <ToolButton className='flex justify-center items-center'>
             <Icon className='icon' onClick={handleDeleteOne} icon="mdi:clear-outline" />
-        </div>
+        </ToolButton>
     )
 }
 

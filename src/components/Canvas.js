@@ -1,10 +1,8 @@
 
 const Canvas = () => {
     return (
-        <div>
-            <canvas
-                className='rounded-lg'
-                id='canvas' />
+        <div >
+            <canvas className='rounded-lg' id='canvas' />
         </div>
     );
 }

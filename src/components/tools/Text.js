@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const Text = ({ canvas, onCancelDraw }) => {
     const addText = () => {
@@ -22,12 +23,12 @@ const Text = ({ canvas, onCancelDraw }) => {
     }
 
     return (
-        <div>
+        <ToolButton>
             <button onClick={handleAddText}>
                 <Icon className='icon' icon="fluent-emoji-flat:a-button-blood-type" />
             </button>
-        </div>
+        </ToolButton>
     )
-}
+};
 
 export default Text;

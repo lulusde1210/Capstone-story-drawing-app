@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const Triangle = ({ canvas, onCancelDraw }) => {
     const addTriangle = () => {
@@ -25,11 +26,11 @@ const Triangle = ({ canvas, onCancelDraw }) => {
 
 
     return (
-        <div>
+        <ToolButton>
             <button onClick={handleAddTriangle}>
                 <Icon className='icon' icon="icon-park:triangle" />
             </button>
-        </div>
+        </ToolButton>
     )
 }
 

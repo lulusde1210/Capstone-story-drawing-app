@@ -1,12 +1,13 @@
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const Stickers = () => {
     return (
-        <div>
+        <ToolButton>
             <button >
                 <Icon className='icon' icon="fluent-emoji-flat:cat-face" />
             </button>
-        </div>
+        </ToolButton>
     )
 }
 

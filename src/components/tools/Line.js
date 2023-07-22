@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const Line = ({ canvas, onCancelDraw }) => {
     const addLine = () => {
@@ -17,12 +18,12 @@ const Line = ({ canvas, onCancelDraw }) => {
 
 
     return (
-        <div>
+        <ToolButton className='flex justify-center items-center'>
             <button onClick={handleAddLine}>
                 <Icon className='icon' icon="pepicons-print:line-x" />
 
             </button>
-        </div>
+        </ToolButton>
     )
 }
 

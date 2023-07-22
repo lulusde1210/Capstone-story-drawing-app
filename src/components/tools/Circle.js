@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const Circle = ({ canvas, onCancelDraw }) => {
     const addCircle = () => {
@@ -22,14 +23,12 @@ const Circle = ({ canvas, onCancelDraw }) => {
         onCancelDraw()
     }
 
-
-
     return (
-        <div>
+        <ToolButton>
             <button onClick={handleAddCircle}>
                 <Icon className='icon' icon="octicon:circle-16" />
             </button>
-        </div>
+        </ToolButton>
     )
 }
 

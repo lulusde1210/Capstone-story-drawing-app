@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react';
 import { fabric } from 'fabric';
 import { useRef } from 'react';
+import ToolButton from '../UI/ToolButton';
 
-const AddImage = ({ canvas }) => {
+const AddImage = ({ canvas, onCancelDraw }) => {
     const imgRef = useRef();
 
     const handleAddImage = (e) => {
@@ -15,14 +16,16 @@ const AddImage = ({ canvas }) => {
             originY: 'center',
             left: canvas.getCenter().left,
             top: canvas.getCenter().top,
-            // erasable: false, ??? no working!!
+            erasable: false
+            //??? no working!!
 
         })
         imgRef.current.value = null
+        onCancelDraw()
     };
 
     return (
-        <div >
+        <ToolButton>
             <label htmlFor='img' >
                 <Icon className='icon' icon="fluent-emoji-flat:framed-picture" />
             </label>
@@ -35,7 +38,7 @@ const AddImage = ({ canvas }) => {
                 accept='image/*'
                 onChange={handleAddImage}
             />
-        </div>
+        </ToolButton>
     )
 }
 

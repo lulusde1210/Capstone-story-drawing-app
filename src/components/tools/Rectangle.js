@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const Rectangle = ({ canvas, onCancelDraw }) => {
 
@@ -25,12 +26,12 @@ const Rectangle = ({ canvas, onCancelDraw }) => {
     }
 
     return (
-        <div>
+        <ToolButton>
             <button onClick={handleAddRec}>
                 <Icon className='icon' icon="icon-park:rectangle-one" />
             </button>
-        </div>
+        </ToolButton>
     )
-}
+};
 
-export default Rectangle
+export default Rectangle;

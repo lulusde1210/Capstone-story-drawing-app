@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const SelectArrow = ({ onCancelDraw }) => {
 
@@ -7,12 +8,12 @@ const SelectArrow = ({ onCancelDraw }) => {
         onCancelDraw()
     }
     return (
-        <div >
+        <ToolButton >
             <Icon
                 className='icon'
                 onClick={handleClickSelectArrow}
                 icon="grommet-icons:select" />
-        </div>
+        </ToolButton>
     )
 }
 

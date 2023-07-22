@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import ToolButton from '../UI/ToolButton';
 
 const PenBrushes = ({ onBrushStyle }) => {
     const handleClickPencilBrush = () => {
@@ -10,7 +11,7 @@ const PenBrushes = ({ onBrushStyle }) => {
     };
 
     return (
-        <div className='flex gap-2'>
+        <ToolButton>
             <Icon
                 onClick={handleClickPencilBrush}
                 className='icon'
@@ -20,9 +21,7 @@ const PenBrushes = ({ onBrushStyle }) => {
                 onClick={handleClickSprayBrush}
                 className='icon'
                 icon="lucide:spray-can" />
-
-
-        </div>
+        </ToolButton>
     )
 }
 
