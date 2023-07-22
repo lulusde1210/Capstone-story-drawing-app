@@ -21,7 +21,6 @@ const Text = ({ canvas, onCancelDraw }) => {
         onCancelDraw()
     }
 
-
     return (
         <div>
             <button onClick={handleAddText}>

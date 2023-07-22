@@ -1,18 +1,18 @@
 import { Icon } from '@iconify/react';
 
-const PenBrushes = ({ onBrush }) => {
-    const handleClickBaseBrush = () => {
-        onBrush('pencil')
+const PenBrushes = ({ onBrushStyle }) => {
+    const handleClickPencilBrush = () => {
+        onBrushStyle('pencil')
     };
 
     const handleClickSprayBrush = () => {
-        onBrush('spray')
+        onBrushStyle('spray')
     };
 
     return (
         <div className='flex gap-2'>
             <Icon
-                onClick={handleClickBaseBrush}
+                onClick={handleClickPencilBrush}
                 className='icon'
                 icon="ph:paint-brush-bold" />
 

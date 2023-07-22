@@ -1,14 +1,16 @@
-import React from 'react'
 import { Icon } from '@iconify/react';
 
-const Clear = ({ onClear }) => {
+const Clear = ({ canvas }) => {
+    const clearCanvas = () => {
+        canvas.getObjects().forEach((obj) => {
+            canvas.remove(obj);
+        })
+        canvas.renderAll()
+    };
 
-    const handleClear = () => {
-        onClear()
-    }
     return (
         <div >
-            <Icon className='icon' onClick={handleClear} icon="icon-park:delete" />
+            <Icon className='icon' onClick={clearCanvas} icon="icon-park:delete" />
         </div>
     )
 }

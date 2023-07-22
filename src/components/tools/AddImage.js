@@ -15,6 +15,8 @@ const AddImage = ({ canvas }) => {
             originY: 'center',
             left: canvas.getCenter().left,
             top: canvas.getCenter().top,
+            // erasable: false, ??? no working!!
+
         })
         imgRef.current.value = null
     };

@@ -7,19 +7,26 @@ import Clear from "./tools/Clear";
 import Text from "./tools/Text";
 import Stickers from "./tools/Stickers";
 import SelectArrow from "./tools/SelectArrow";
+import DeleteOne from "./tools/DeleteOne";
 
-const ToolBar = ({ canvas, onCancelDraw, onClear }) => {
+const ToolBar = ({ canvas }) => {
+
+    const disableDrawing = () => {
+        canvas.isDrawingMode = false
+    };
+
     return (
         <div className="shadow-md flex flex-col justify-center items-center gap-2  bg-red-100 p-5 rounded-md">
-            <SelectArrow onCancelDraw={onCancelDraw} />
-            <Rectangle canvas={canvas} onCancelDraw={onCancelDraw} />
-            <Circle canvas={canvas} onCancelDraw={onCancelDraw} />
-            <Triangle canvas={canvas} onCancelDraw={onCancelDraw} />
-            <Line canvas={canvas} onCancelDraw={onCancelDraw} />
-            <Text canvas={canvas} onCancelDraw={onCancelDraw} />
+            <SelectArrow onCancelDraw={disableDrawing} />
+            <Rectangle canvas={canvas} onCancelDraw={disableDrawing} />
+            <Circle canvas={canvas} onCancelDraw={disableDrawing} />
+            <Triangle canvas={canvas} onCancelDraw={disableDrawing} />
+            <Line canvas={canvas} onCancelDraw={disableDrawing} />
+            <Text canvas={canvas} onCancelDraw={disableDrawing} />
             <Stickers />
             <AddImage canvas={canvas} />
-            <Clear onClear={onClear} />
+            <DeleteOne canvas={canvas} />
+            <Clear canvas={canvas} />
         </div>
     )
 };

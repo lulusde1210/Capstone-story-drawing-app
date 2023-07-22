@@ -2,6 +2,7 @@ import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
 
 const Rectangle = ({ canvas, onCancelDraw }) => {
+
     const addRec = () => {
         const rect = new fabric.Rect({
             originX: 'center',
