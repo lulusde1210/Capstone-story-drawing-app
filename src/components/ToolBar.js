@@ -27,7 +27,7 @@ const ToolBar = ({ canvas }) => {
             <Text canvas={canvas} onCancelDraw={disableDrawing} />
             <Stickers canvas={canvas} onCancelDraw={disableDrawing} />
             <AddImage canvas={canvas} onCancelDraw={disableDrawing} />
-            <DeleteOne canvas={canvas} onCancelDraw={disableDrawing} />
+            <DeleteOne canvas={canvas} />
             <Clear canvas={canvas} onCancelDraw={disableDrawing} />
         </div>
     )

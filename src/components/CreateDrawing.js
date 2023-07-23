@@ -8,6 +8,8 @@ import 'fabric-history';
 const CreateDrawing = () => {
     const [canvas, setCanvas] = useState({});
 
+    console.log('canvas states', canvas)
+
     useEffect(() => {
         console.log('creating canvas')
         setCanvas(initCanvas());

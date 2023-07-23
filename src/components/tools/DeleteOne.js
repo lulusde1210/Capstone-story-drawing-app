@@ -1,11 +1,10 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
 
-const DeleteOne = ({ canvas, onCancelDraw }) => {
+const DeleteOne = ({ canvas }) => {
+
     const handleDeleteOne = () => {
-        console.log('inside deleteObects canvas', canvas)
         const activeObjs = canvas.getActiveObjects();
-        console.log('active-obj', activeObjs)
         for (const object of activeObjs) {
             canvas.remove(object)
         }

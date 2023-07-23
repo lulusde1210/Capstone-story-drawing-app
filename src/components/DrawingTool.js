@@ -7,9 +7,10 @@ import EraserBrush from "./tools/EraserBrush";
 import PenBrushes from "./tools/PenBrushes";
 
 const DrawingTool = ({ canvas }) => {
-    const [brushSize, setBrushSize] = useState(10)
-    const [penColor, setPenColor] = useState('black')
-    const [penStyle, setPenStyle] = useState('')
+    const [brushSize, setBrushSize] = useState(10);
+    const [penColor, setPenColor] = useState('black');
+    const [penStyle, setPenStyle] = useState('');
+    const [isFirstRender, setIsFirstRender] = useState(true);
 
     const enableDrawing = useCallback((color, size, style) => {
         console.log('enable drawing...')
@@ -25,10 +26,15 @@ const DrawingTool = ({ canvas }) => {
 
 
     // useEffect(() => {
-    //     console.log('state change, call useEffect')
-    //     enableDrawing(penColor, brushSize, penStyle)
-    // }, [penColor, brushSize, penStyle, enableDrawing])
-    // how to make it do not render at the beginning??????
+    //     if (isFirstRender) {
+    //         setIsFirstRender(false)
+    //         return
+    //     } else {
+    //         console.log('state change, call useEffect')
+    //         enableDrawing(penColor, brushSize, penStyle)
+    //     }
+    // }, [penColor, brushSize, penStyle, enableDrawing, isFirstRender])
+    // how to make it do not render at the beginning ??????
 
     const handleChangeComplete = (color) => {
         setPenColor(color.hex)
