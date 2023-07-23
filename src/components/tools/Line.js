@@ -1,27 +1,25 @@
-import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
+import { fabric } from 'fabric';
+import { useDispatch } from "react-redux"
+import { disableDrawing, addObj } from "../../store/canvasSlice";
 
-const Line = ({ canvas, onCancelDraw }) => {
-    const addLine = () => {
+
+const Line = () => {
+    const dispatch = useDispatch();
+
+    const handleAddLine = () => {
         const line = new fabric.Line([50, 100, 200, 100], {
             stroke: 'black'
         });
-        canvas.add(line);
-        canvas.renderAll();
+        dispatch(addObj(line));
+        dispatch(disableDrawing());
     };
-
-    const handleAddLine = (canvas) => {
-        addLine(canvas);
-        onCancelDraw()
-    }
-
 
     return (
         <ToolButton className='flex justify-center items-center'>
             <button onClick={handleAddLine}>
                 <Icon className='icon' icon="pepicons-print:line-x" />
-
             </button>
         </ToolButton>
     )

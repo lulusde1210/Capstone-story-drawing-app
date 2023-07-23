@@ -1,9 +1,15 @@
-import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
+import { fabric } from 'fabric';
+import { useDispatch, useSelector } from "react-redux"
+import { disableDrawing, addObj } from "../../store/canvasSlice";
 
-const Triangle = ({ canvas, onCancelDraw }) => {
-    const addTriangle = () => {
+
+const Triangle = () => {
+    const canvas = useSelector((state) => state.canvas.canvas)
+    const dispatch = useDispatch();
+
+    const handleAddTriangle = () => {
         const triangle = new fabric.Triangle({
             originX: 'center',
             originY: 'center',
@@ -15,15 +21,9 @@ const Triangle = ({ canvas, onCancelDraw }) => {
             left: canvas.getCenter().left,
             top: canvas.getCenter().top,
         });
-        canvas.add(triangle);
-        canvas.renderAll();
+        dispatch(addObj(triangle));
+        dispatch(disableDrawing());
     };
-
-    const handleAddTriangle = (canvas) => {
-        addTriangle(canvas);
-        onCancelDraw()
-    }
-
 
     return (
         <ToolButton>

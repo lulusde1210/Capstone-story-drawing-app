@@ -2,26 +2,27 @@ import { Icon } from '@iconify/react';
 import { fabric } from 'fabric';
 import { useRef } from 'react';
 import ToolButton from '../UI/ToolButton';
+import { useDispatch, useSelector } from "react-redux"
+import { disableDrawing, addObj } from "../../store/canvasSlice";
 
-const AddImage = ({ canvas, onCancelDraw }) => {
+const AddImage = () => {
+    const canvas = useSelector((state) => state.canvas.canvas)
+    const dispatch = useDispatch();
+
     const imgRef = useRef();
 
     const handleAddImage = (e) => {
         const url = URL.createObjectURL(e.target.files[0]);
-        fabric.Image.fromURL(url, img => {
-            canvas.add(img);
-            canvas.renderAll();
+        new fabric.Image.fromURL(url, img => {
+            dispatch(addObj(img))
         }, {
             originX: 'center',
             originY: 'center',
             left: canvas.getCenter().left,
             top: canvas.getCenter().top,
-            erasable: false
-            //??? no working!!
-
         })
         imgRef.current.value = null
-        onCancelDraw()
+        dispatch(disableDrawing)
     };
 
     return (

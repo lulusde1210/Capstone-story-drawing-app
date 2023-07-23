@@ -1,29 +1,21 @@
 import { fabric } from "fabric";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { CirclePicker } from "react-color";
 import { Icon } from '@iconify/react';
 import colors from "../data/colors";
 import EraserBrush from "./tools/EraserBrush";
 import PenBrushes from "./tools/PenBrushes";
+import { useDispatch, useSelector } from "react-redux";
+import { enableDrawing } from "../store/canvasSlice";
 
-const DrawingTool = ({ canvas }) => {
+const DrawingTool = () => {
+    const canvas = useSelector((state) => state.canvas.canvas)
+    const dispatch = useDispatch();
+
     const [brushSize, setBrushSize] = useState(10);
     const [penColor, setPenColor] = useState('black');
     const [penStyle, setPenStyle] = useState('');
-    const [isFirstRender, setIsFirstRender] = useState(true);
-
-    const enableDrawing = useCallback((color, size, style) => {
-        console.log('enable drawing...')
-        canvas.isDrawingMode = true
-        if (style === 'spray') {
-            canvas.freeDrawingBrush = new fabric.SprayBrush(canvas)
-        } else {
-            canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)
-        }
-        canvas.freeDrawingBrush.color = color
-        canvas.freeDrawingBrush.width = size
-    }, [canvas]);
-
+    // const [isFirstRender, setIsFirstRender] = useState(true);
 
     // useEffect(() => {
     //     if (isFirstRender) {
@@ -31,19 +23,20 @@ const DrawingTool = ({ canvas }) => {
     //         return
     //     } else {
     //         console.log('state change, call useEffect')
-    //         enableDrawing(penColor, brushSize, penStyle)
+    //         dispatch(enableDrawing({ color: penColor, size: brushSize, style: penStyle }))
+    //         // enableDrawing(penColor, brushSize, penStyle)
     //     }
-    // }, [penColor, brushSize, penStyle, enableDrawing, isFirstRender])
-    // how to make it do not render at the beginning ??????
+    // }, [penColor, brushSize, penStyle, isFirstRender, dispatch])
+    // // how to make it do not render at the beginning ??????
 
     const handleChangeComplete = (color) => {
         setPenColor(color.hex)
-        enableDrawing(color.hex, brushSize, penStyle)
+        dispatch(enableDrawing({ color: color.hex, size: brushSize, style: penStyle }))
     };
 
     const handleChangeBrushSize = (e) => {
         setBrushSize(+e.target.value)
-        enableDrawing(penColor, +e.target.value, penStyle)
+        dispatch(enableDrawing({ color: penColor, size: +e.target.value, style: penStyle }))
     };
 
     const chooseBrushStyle = (style = 'pencil') => {
@@ -54,7 +47,7 @@ const DrawingTool = ({ canvas }) => {
             setPenStyle('pencil')
             canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)
         }
-        enableDrawing(penColor, brushSize, style)
+        dispatch(enableDrawing({ color: penColor, size: brushSize, style: style }))
     };
 
     const handleClickEraser = () => {
