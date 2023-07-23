@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fabric } from "fabric";
 
+
+const initialState = {
+    canvas: {}
+}
+
 const canvasSlice = createSlice({
     name: 'canvas',
-    initialState: {},
+    initialState,
     reducers: {
         initCanvas: (state) => {
             const canvas = new fabric.Canvas('canvas', {

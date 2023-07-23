@@ -12,10 +12,13 @@ const AddImage = () => {
     const imgRef = useRef();
 
     const handleAddImage = (e) => {
+        console.log(e.target.files[0])
         const url = URL.createObjectURL(e.target.files[0]);
-        new fabric.Image.fromURL(url, img => {
+        fabric.Image.fromURL(url, img => {
             dispatch(addObj(img))
         }, {
+            scaleX: 1,
+            scaleY: 1,
             originX: 'center',
             originY: 'center',
             left: canvas.getCenter().left,

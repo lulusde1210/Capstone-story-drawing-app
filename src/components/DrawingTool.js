@@ -15,6 +15,7 @@ const DrawingTool = () => {
     const [brushSize, setBrushSize] = useState(10);
     const [penColor, setPenColor] = useState('black');
     const [penStyle, setPenStyle] = useState('');
+
     // const [isFirstRender, setIsFirstRender] = useState(true);
 
     // useEffect(() => {
