@@ -10,25 +10,21 @@ import SelectArrow from "./tools/SelectArrow";
 import DeleteOne from "./tools/DeleteOne";
 import UndoRedo from "./tools/UndoRedo";
 
-const ToolBar = ({ canvas }) => {
-
-    const disableDrawing = () => {
-        canvas.isDrawingMode = false
-    };
+const ToolBar = () => {
 
     return (
         <div className="grid grid-cols-2 shadow-md py-5 gap-5 bg-red-100 rounded-md">
-            <SelectArrow onCancelDraw={disableDrawing} />
-            <UndoRedo canvas={canvas} />
-            <Rectangle canvas={canvas} onCancelDraw={disableDrawing} />
-            <Circle canvas={canvas} onCancelDraw={disableDrawing} />
-            <Triangle canvas={canvas} onCancelDraw={disableDrawing} />
-            <Line canvas={canvas} onCancelDraw={disableDrawing} />
-            <Text canvas={canvas} onCancelDraw={disableDrawing} />
-            <Stickers canvas={canvas} onCancelDraw={disableDrawing} />
-            <AddImage canvas={canvas} onCancelDraw={disableDrawing} />
-            <DeleteOne canvas={canvas} />
-            <Clear canvas={canvas} onCancelDraw={disableDrawing} />
+            <SelectArrow />
+            <UndoRedo />
+            <Rectangle />
+            <Circle />
+            <Triangle />
+            <Line />
+            <Text />
+            <Stickers />
+            <AddImage />
+            <DeleteOne />
+            <Clear />
         </div>
     )
 };

@@ -1,11 +1,14 @@
 import React from 'react'
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
+import { useDispatch } from "react-redux"
+import { disableDrawing } from "../../store/canvasSlice";
 
-const SelectArrow = ({ onCancelDraw }) => {
+const SelectArrow = () => {
+    const dispatch = useDispatch();
 
     const handleClickSelectArrow = () => {
-        onCancelDraw()
+        dispatch(disableDrawing())
     }
     return (
         <ToolButton >

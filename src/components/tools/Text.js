@@ -1,9 +1,14 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
+import { useDispatch, useSelector } from "react-redux"
+import { addObj, disableDrawing } from "../../store/canvasSlice";
 
-const Text = ({ canvas, onCancelDraw }) => {
-    const addText = () => {
+const Text = () => {
+    const canvas = useSelector((state) => state.canvas.canvas)
+    const dispatch = useDispatch();
+
+    const handleAddText = () => {
         const text = new fabric.IText(
             'Tap and Type', {
             fontFamily: 'arial',
@@ -13,13 +18,8 @@ const Text = ({ canvas, onCancelDraw }) => {
             left: canvas.getCenter().left,
             top: canvas.getCenter().top,
         });
-        canvas.add(text);
-        canvas.renderAll();
-    };
-
-    const handleAddText = (canvas) => {
-        addText(canvas);
-        onCancelDraw()
+        dispatch(addObj(text));
+        dispatch(disableDrawing());
     }
 
     return (

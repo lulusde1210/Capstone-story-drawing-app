@@ -1,7 +1,9 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
+import { useSelector } from "react-redux"
 
-const DeleteOne = ({ canvas }) => {
+const DeleteOne = () => {
+    const canvas = useSelector((state) => state.canvas.canvas)
 
     const handleDeleteOne = () => {
         const activeObjs = canvas.getActiveObjects();
