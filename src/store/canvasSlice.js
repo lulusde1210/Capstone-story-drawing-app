@@ -5,7 +5,7 @@ import { fabric } from "fabric";
 const initialState = {
     canvas: {},
     canvasURL: '',
-    canvasSVG: '',
+    canvasJSON: {},
 }
 
 const canvasSlice = createSlice({
@@ -41,8 +41,8 @@ const canvasSlice = createSlice({
         saveCanvasURL: (state, action) => {
             state.canvasURL = action.payload
         },
-        saveCanvasSVG: (state, action) => {
-            state.canvasSVG = action.payload
+        saveCanvasJSON: (state, action) => {
+            state.canvasJSON = action.payload
         }
     }
 });
@@ -50,4 +50,4 @@ const canvasSlice = createSlice({
 
 export default canvasSlice.reducer;
 export const
-    { initCanvas, enableDrawing, disableDrawing, addObj, saveCanvasURL, saveCanvasSVG } = canvasSlice.actions;
+    { initCanvas, enableDrawing, disableDrawing, addObj, saveCanvasURL, saveCanvasJSON } = canvasSlice.actions;

@@ -11,11 +11,11 @@ const CreateDrawing = () => {
     const dispatch = useDispatch();
     const canvas = useSelector((state) => state.canvas.canvas)
     const canvasURL = useSelector((state) => state.canvas.canvasURL)
-    const canvasSVG = useSelector((state) => state.canvas.canvasSVG)
+    const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
 
     console.log('canvas states', canvas)
     console.log('canvasURL states', canvasURL)
-    console.log('canvasSVG states', canvasSVG)
+    console.log('canvasJSON states', canvasJSON)
 
     useEffect(() => {
         console.log('creating canvas')

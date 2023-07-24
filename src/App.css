@@ -1,8 +1,11 @@
 .App {
-  @apply w-screen h-screen flex justify-center items-center 
+  @apply w-screen h-screen flex justify-center items-center
 }
 
 .icon {
   @apply text-4xl cursor-pointer transition duration-100 hover:scale-110
 }
 
+.icon-small {
+  @apply text-2xl cursor-pointer transition duration-100 hover:scale-110
+}

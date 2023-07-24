@@ -1,14 +1,13 @@
 import './App.css'
 import CreateDrawing from './components/CreateDrawing';
-
-import ShowCanvasImage from './components/ShowCanvasImage';
+import StoryList from './components/stories/StoryList';
 
 const App = () => {
 
   return (
-    <div className='w-full flex flex-col justify-center items-center gap-6'>
+    <div className='w-full my-48 h-max flex flex-col justify-center items-center gap-6'>
       <CreateDrawing />
-      <ShowCanvasImage />
+      <StoryList />
     </div>
   );
 }

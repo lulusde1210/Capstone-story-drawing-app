@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #root {
-  @apply w-screen h-screen flex justify-center items-center
+  @apply w-screen h-fit flex justify-center items-center
 }
 
 body {
