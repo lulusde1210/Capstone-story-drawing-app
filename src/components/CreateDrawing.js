@@ -5,7 +5,8 @@ import DrawingTool from './DrawingTool';
 import 'fabric-history';
 import { useSelector, useDispatch } from "react-redux";
 import { initCanvas } from '../store/canvasSlice';
-
+import SaveBar from './SaveBar';
+import DownLoad from './tools/DownLoad';
 
 const CreateDrawing = () => {
     const dispatch = useDispatch();
@@ -19,7 +20,10 @@ const CreateDrawing = () => {
 
     return (
         <div className='w-full flex justify-center items-center gap-10'>
-            <ToolBar />
+            <div className='flex flex-col gap-8'>
+                <ToolBar />
+                <SaveBar />
+            </div>
             <Canvas />
             <DrawingTool />
         </div>

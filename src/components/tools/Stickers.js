@@ -1,19 +1,28 @@
 import { Icon } from '@iconify/react';
-import ToolButton from '../UI/ToolButton';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { fabric } from 'fabric';
 import { disableDrawing, addObj } from "../../store/canvasSlice";
-
+import ToolButton from '../UI/ToolButton';
+import Tabs from '../UI/Tabs';
+import { Tab } from '@headlessui/react'
 
 const importAll = (r) => {
     let images = {};
     r.keys().forEach((item) => { images[item.replace('./', '')] = r(item); });
     return images
 };
-const images = importAll(require.context('/public/stickers', false, /\.(png|jpe?g|svg)$/));
-const imageNames = Object.keys(images);
+
+const animalStickers = importAll(require.context('/public/stickers/animals', false, /\.(png|jpe?g|svg)$/));
+const foodStickers = importAll(require.context('/public/stickers/food', false, /\.(png|jpe?g|svg)$/));
+const lifeStickers = importAll(require.context('/public/stickers/life', false, /\.(png|jpe?g|svg)$/));
+
+const categories = {
+    Animals: animalStickers,
+    Food: foodStickers,
+    Life: lifeStickers,
+};
 
 const Stickers = () => {
     const canvas = useSelector((state) => state.canvas.canvas);
@@ -27,8 +36,8 @@ const Stickers = () => {
         fabric.Image.fromURL(url, img => {
             dispatch(addObj(img))
         }, {
-            scaleX: 0.2,
-            scaleY: 0.2,
+            scaleX: 0.3,
+            scaleY: 0.3,
             originX: 'center',
             originY: 'center',
             left: canvas.getCenter().left,
@@ -38,18 +47,21 @@ const Stickers = () => {
         dispatch(disableDrawing())
     };
 
-    const stickersBody = (
-        <div className='flex gap-3'>
-            {imageNames.map((imageName, index) => (
-                <img
-                    className='hover:scale-110'
-                    onClick={() => handleClickSticker(images[imageName])}
-                    key={index}
-                    width='50px'
-                    src={images[imageName]}
-                    alt={imageName} />
-            ))}
-        </div>
+
+    const tabContent = (
+        Object.values(categories).map((stickers, idx) => (
+            <Tab.Panel key={idx} className='flex flex-wrap gap-3'>
+                {Object.keys(stickers).map((stickerName, index) => (
+                    <img
+                        className='hover:scale-110'
+                        onClick={() => handleClickSticker(stickers[stickerName])}
+                        key={index}
+                        width='70px'
+                        src={stickers[stickerName]}
+                        alt={stickerName} />
+                ))}
+            </Tab.Panel>
+        ))
     );
 
     return (
@@ -75,7 +87,7 @@ const Stickers = () => {
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <div className="flex min-h-full items-center justify-center text-center">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -85,9 +97,9 @@ const Stickers = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <div className="mt-2">
-                                        {stickersBody}
+                                <Dialog.Panel className="w-full max-w-md transform rounded-xl bg-white p-5 py-0 transition-all">
+                                    <div>
+                                        <Tabs categories={categories} tabContent={tabContent} />
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
