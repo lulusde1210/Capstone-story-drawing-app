@@ -37,11 +37,10 @@ const storySlice = createSlice({
             existingStory.imgJSON = action.payload.dataJSON
             existingStory.title = action.payload.title
             existingStory.description = action.payload.description
-        }
+        },
 
     }
-
-})
+});
 
 
 export default storySlice.reducer;

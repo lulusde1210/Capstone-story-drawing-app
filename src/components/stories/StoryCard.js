@@ -1,9 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Icon } from '@iconify/react';
-import { deleteStory } from "../../store/storySlice";
+import { deleteStory, setStoryId } from "../../store/storySlice";
 import { Link } from "react-router-dom";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
-import { setStoryId } from "../../store/storySlice";
 
 
 const StoryCard = ({ id, storyTitle, imgURL, imgJSON }) => {
