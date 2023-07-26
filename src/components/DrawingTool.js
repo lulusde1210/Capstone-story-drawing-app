@@ -18,26 +18,21 @@ const DrawingTool = () => {
 
     // const [isFirstRender, setIsFirstRender] = useState(true);
 
-    // useEffect(() => {
-    //     if (isFirstRender) {
-    //         setIsFirstRender(false)
-    //         return
-    //     } else {
-    //         console.log('state change, call useEffect')
-    //         dispatch(enableDrawing({ color: penColor, size: brushSize, style: penStyle }))
-    //         // enableDrawing(penColor, brushSize, penStyle)
-    //     }
-    // }, [penColor, brushSize, penStyle, isFirstRender, dispatch])
-    // // how to make it do not render at the beginning ??????
+    useEffect(() => {
+        console.log('state change, call useEffect')
+        dispatch(enableDrawing({ color: penColor, size: brushSize, style: penStyle }))
+        // enableDrawing(penColor, brushSize, penStyle)
+    }, [penColor, brushSize, penStyle, dispatch])
+    // how to make it do not render at the beginning ??????
 
     const handleChangeComplete = (color) => {
         setPenColor(color.hex)
-        dispatch(enableDrawing({ color: color.hex, size: brushSize, style: penStyle }))
+        // dispatch(enableDrawing({ color: color.hex, size: brushSize, style: penStyle }))
     };
 
     const handleChangeBrushSize = (e) => {
         setBrushSize(+e.target.value)
-        dispatch(enableDrawing({ color: penColor, size: +e.target.value, style: penStyle }))
+        // dispatch(enableDrawing({ color: penColor, size: +e.target.value, style: penStyle }))
     };
 
     const chooseBrushStyle = (style = 'pencil') => {
@@ -48,7 +43,7 @@ const DrawingTool = () => {
             setPenStyle('pencil')
             canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)
         }
-        dispatch(enableDrawing({ color: penColor, size: brushSize, style: style }))
+        // dispatch(enableDrawing({ color: penColor, size: brushSize, style: style }))
     };
 
     const handleClickEraser = () => {

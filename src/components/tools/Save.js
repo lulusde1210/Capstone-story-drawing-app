@@ -1,7 +1,8 @@
 import ToolButton from "../UI/ToolButton"
 import { Icon } from '@iconify/react';
 import { useDispatch, useSelector } from "react-redux"
-import { disableDrawing, saveCanvasURL, saveCanvasJSON } from "../../store/canvasSlice";
+import { addStory } from "../../store/storySlice";
+import { Link } from "react-router-dom";
 
 const Save = () => {
     const canvas = useSelector((state) => state.canvas.canvas)
@@ -15,18 +16,18 @@ const Save = () => {
             format: 'png',
             quality: 1,
         });
-
         const dataJSON = JSON.stringify(canvas);
 
-        dispatch(saveCanvasURL(dataURL))
-        dispatch(saveCanvasJSON(dataJSON))
+        dispatch(addStory({ dataURL, dataJSON, title: "test title", description: "test description" }))
 
     };
 
     return (
         <ToolButton >
-            <button onClick={handleSave}>
-                <Icon className='icon' icon="icon-park:save" />
+            <button >
+                <Link to='/mylibrary'>
+                    <Icon onClick={handleSave} className='icon' icon="icon-park:save" />
+                </Link>
             </button>
         </ToolButton>
     )
