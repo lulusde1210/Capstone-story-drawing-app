@@ -1,30 +1,27 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from 'react';
+import { deleteSelectedObjects } from '../../store/canvasSlice';
 
 const DeleteOne = () => {
-    const canvas = useSelector((state) => state.canvas.canvas)
+    const canvas = useSelector((state) => state.canvas.canvas);
+    const dispatch = useDispatch();
 
-    const handleDeleteOne = () => {
-        const activeObjs = canvas.getActiveObjects();
-        for (const object of activeObjs) {
-            canvas.remove(object)
-        }
-        canvas.renderAll()
-    };
+    useEffect(() => {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Backspace") {
+                (Object.keys(canvas).length > 0) && dispatch(deleteSelectedObjects())
+            }
+        })
+    }, [canvas, dispatch]);
 
-    window.addEventListener('keydown', ({ key }) => {
-        console.log('key', key)
-        if (key === 'Backspace') {
-            (canvas.width) && handleDeleteOne()
-        }
-    });
 
     return (
         <ToolButton className='flex justify-center items-center'>
-            <Icon className='icon' onClick={handleDeleteOne} icon="mdi:clear-outline" />
+            <Icon className='icon' onClick={() => dispatch(deleteSelectedObjects())} icon="mdi:clear-outline" />
         </ToolButton>
     )
-}
+};
 
-export default DeleteOne
+export default DeleteOne;

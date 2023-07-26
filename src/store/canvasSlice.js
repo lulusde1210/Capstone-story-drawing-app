@@ -43,6 +43,19 @@ const canvasSlice = createSlice({
         },
         saveCanvasJSON: (state, action) => {
             state.canvasJSON = action.payload
+        },
+        deleteSelectedObjects: (state) => {
+            const activeObjs = state.canvas.getActiveObjects();
+            for (const object of activeObjs) {
+                state.canvas.remove(object)
+            }
+            state.canvas.renderAll()
+        },
+        clearCanvas: (state) => {
+            state.canvas.getObjects().forEach((obj) => {
+                state.canvas.remove(obj);
+            })
+            state.canvas.renderAll()
         }
     }
 });
@@ -50,4 +63,15 @@ const canvasSlice = createSlice({
 
 export default canvasSlice.reducer;
 export const
-    { initCanvas, enableDrawing, disableDrawing, addObj, saveCanvasURL, saveCanvasJSON } = canvasSlice.actions;
+    {
+        initCanvas,
+        enableDrawing,
+        disableDrawing,
+        addObj,
+        saveCanvasURL,
+        saveCanvasJSON,
+        deleteSelectedObjects,
+        clearCanvas,
+
+    }
+        = canvasSlice.actions;

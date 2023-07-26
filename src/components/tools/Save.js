@@ -4,18 +4,33 @@ import { useDispatch, useSelector } from "react-redux"
 import { addStory, editStory, setStoryId } from "../../store/storySlice";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 import { Link } from "react-router-dom";
+import InputField from "../UI/InputField";
+
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
 
 const Save = () => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [inputTitle, setInputTitle] = useState("")
+    const [inputDescription, setInputDescription] = useState("")
     const canvas = useSelector((state) => state.canvas.canvas)
-    const canvasURL = useSelector((state) => state.canvas.canvasURL)
-    const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
-
     const storyId = useSelector((state) => state.story.storyId)
-    const storyState = useSelector((state) => state.story)
-
-    console.log('story id', storyId)
-
     const dispatch = useDispatch();
+
+    const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
+    const canvasURL = useSelector((state) => state.canvas.canvasURL)
+
+    console.log('json', canvasJSON)
+    console.log('url', canvasURL)
+
+
+    const closeModal = () => {
+        setIsOpen(false)
+    };
+
+    const openModal = () => {
+        setIsOpen(true)
+    };
 
     const handleSave = () => {
         const dataURL = canvas.toDataURL({
@@ -25,24 +40,109 @@ const Save = () => {
         const dataJSON = JSON.stringify(canvas);
 
         if (!storyId) {
-            dispatch(addStory({ dataURL, dataJSON, title: "test title", description: "test description" }))
+            dispatch(addStory({ dataURL, dataJSON, title: inputTitle, description: inputDescription }))
         } else {
-            dispatch(editStory({ storyId, dataURL, dataJSON, title: "updated title", description: "updated description" }))
+            dispatch(editStory({ storyId, dataURL, dataJSON, title: inputTitle, description: inputDescription }))
         }
 
         dispatch(saveCanvasJSON(''))
         dispatch(saveCanvasURL(''))
         dispatch(setStoryId(null))
+        closeModal()
     };
 
     return (
-        <ToolButton >
-            <button >
-                <Link to='/mylibrary'>
-                    <Icon onClick={handleSave} className='icon' icon="icon-park:save" />
-                </Link>
-            </button>
-        </ToolButton>
+        <>
+            <ToolButton >
+                <button >
+                    <Icon
+                        onClick={openModal}
+                        className='icon'
+                        icon="icon-park:save" />
+                </button>
+            </ToolButton>
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        Tell me something about your story!
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                        <form
+                                            className="my-8 grid grid-cols-[auto,1fr] gap-4 items-center"
+                                        >
+                                            <InputField
+                                                type="text"
+                                                label="Story Title"
+                                                value={inputTitle}
+                                                setValue={setInputTitle}
+                                            />
+                                            <InputField
+                                                type="text"
+                                                label="Story Description"
+                                                value={inputDescription}
+                                                setValue={setInputDescription}
+                                            />
+                                        </form>
+                                    </div>
+
+                                    <div className="flex gap-5 justify-center mt-4">
+                                        <Link to='/mylibrary'>
+                                            <button
+                                                type="submit"
+                                                className='btn-secondary'
+                                                onClick={handleSave}
+                                            >
+                                                Save
+                                            </button>
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            className='btn-secondary'
+                                            onClick={closeModal}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+        </>
+
+
+
+
+
+
     )
 };
 

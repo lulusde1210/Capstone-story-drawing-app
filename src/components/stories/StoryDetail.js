@@ -20,16 +20,16 @@ const StoryDetail = () => {
 
     return (
         <div className="flex flex-col justify-center items-center gap-10 m-10 w-3/4">
-            <h1 className="text-3xl">{story.title}</h1>
+            <h1 className="h1">{story.title.toUpperCase()}</h1>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                <Link to='/'>
+                <Link to='/createstory'>
                     <Icon onClick={handleEditStory} className='icon-small' icon="akar-icons:edit" />
                 </Link>
                 <Link to='/mylibrary'>
                     <Icon onClick={() => dispatch(deleteStory(story.id))} className='icon-small' icon="material-symbols:delete-outline" />
                 </Link>
             </div>
-            <p className="text-center w-3/4">{story.content}</p>
+            <p className="text-center w-3/4">{story.description}</p>
             <img src={story.imgURL} alt={`${story.title}`} className="rounded-xl" />
         </div>
     )

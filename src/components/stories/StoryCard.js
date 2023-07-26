@@ -7,29 +7,24 @@ import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 
 const StoryCard = ({ id, storyTitle, imgURL, imgJSON }) => {
     const dispatch = useDispatch();
-    const canvas = useSelector((state) => state.canvas.canvas)
-    const canvasURL = useSelector((state) => state.canvas.canvasURL)
-    const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
-    const stories = useSelector((state) => state.story.stories)
 
     const handleEditStory = () => {
         dispatch(saveCanvasJSON(imgJSON))
         dispatch(saveCanvasURL(imgURL))
         dispatch(setStoryId(id))
-        // canvas.loadFromJSON(imgJSON, canvas.renderAll.bind(canvas))
     };
 
     return (
-        <div className="max-w-sm rounded-xl overflow-hidden shadow-lg transition duration-100 hover:scale-105">
+        <div className="card">
             <Link to={`/mylibrary/${id}`}>
-                <img className="w-full" src={imgURL} alt="Sunset in the mountains" />
+                <img className="w-full" src={imgURL} alt={storyTitle} />
                 <div className="px-6 py-4">
-                    <h1 className="text-2xl">{storyTitle}</h1>
+                    <h1 className="h1">{storyTitle.toUpperCase()}</h1>
                     <p>here will be date created</p>
                 </div>
             </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                <Link to='/'>
+                <Link to='/createstory'>
                     <Icon onClick={handleEditStory} className='icon-small' icon="akar-icons:edit" />
                 </Link>
                 <Icon onClick={() => dispatch(deleteStory(id))} className='icon-small' icon="material-symbols:delete-outline" />

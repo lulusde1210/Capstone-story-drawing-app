@@ -3,12 +3,11 @@
 @tailwind utilities;
 
 #root {
-  @apply flex flex-col justify-between items-center gap-10 p-10
+  @apply h-screen flex flex-col justify-between items-center gap-10 px-10
 }
 
 body {
-  @apply h-screen;
-
+  @apply h-screen text-gray-700;
   background: hsla(298, 68%, 90%, 1);
   background: linear-gradient(90deg, hsla(298, 68%, 90%, 1) 0%, hsla(30, 82%, 91%, 1) 100%);
   background: -moz-linear-gradient(90deg, hsla(298, 68%, 90%, 1) 0%, hsla(30, 82%, 91%, 1) 100%);
@@ -16,7 +15,6 @@ body {
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#f6d5f7", endColorstr="#fbe9d7", GradientType=1);
 }
 
-/* 
 main {
-  @apply flex flex-col justify-center items-center gap-6;
-} */
+  @apply mt-48 flex flex-col justify-center items-center
+}

@@ -1,8 +1,25 @@
-
 .icon {
   @apply text-4xl cursor-pointer transition duration-100 hover:scale-110
 }
 
 .icon-small {
   @apply text-2xl cursor-pointer transition duration-100 hover:scale-110
+}
+
+.btn-primary {
+  @apply text-base px-4 py-2 rounded-xl font-bold border text-white border-sky-200 bg-sky-300;
+  @apply hover:text-sky-300 hover:bg-white hover:border-sky-300 hover:border-2
+}
+
+.btn-secondary {
+  @apply rounded-xl px-6 py-2 min-w-max cursor-pointer text-center bg-sky-300;
+  @apply hover:scale-105 transition-all duration-300;
+}
+
+.card {
+  @apply max-w-sm rounded-xl overflow-hidden shadow-lg transition duration-100 hover:scale-105
+}
+
+h1 {
+  @apply text-3xl font-bold;
 }
