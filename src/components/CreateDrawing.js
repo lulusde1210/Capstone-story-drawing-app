@@ -16,6 +16,7 @@ const CreateDrawing = () => {
     // const canvasURL = useSelector((state) => state.canvas.canvasURL)
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
     const canvasState = useSelector((state) => state.canvas)
+    // const storyState = useSelector((state) => state.story)
 
 
     useEffect(() => {
@@ -24,6 +25,7 @@ const CreateDrawing = () => {
     }, [dispatch]);
 
     console.log('canvas state', canvasState)
+    // console.log('story state', storyState)
     // console.log('canvasURL', canvasURL)
     // console.log('canvasJSON', canvasJSON)
 

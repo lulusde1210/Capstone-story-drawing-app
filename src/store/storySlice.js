@@ -3,7 +3,8 @@ import stories from '../data/stories';
 
 
 const initialState = {
-    stories: stories
+    stories: stories,
+    storyId: null,
 };
 
 
@@ -26,18 +27,22 @@ const storySlice = createSlice({
             const idx = state.stories.findIndex(story => story.id === action.payload)
             state.stories.splice(idx, 1)
         },
-        // editStory: (state, action) => {
-        //     console.log('payload id', action.payload.id)
-        //     const existingStoryIdx = state.stories.findIndex(story => story.id === action.payload.id)
-        //     console.log(existingStoryIdx)
-        //     const existingStory = state.stories[existingStoryIdx]; //return true or null(not existing)
-        //     console.log(existingStory)
-        //     action.payload.canvas.loadFromJSON(existingStory.imgJSON, action.payload.canvas.renderAll.bind(action.payload.canvas))
-        // }
+        setStoryId: (state, action) => {
+            state.storyId = action.payload
+        },
+        editStory: (state, action) => {
+            const idx = state.stories.findIndex(story => story.id === action.payload.storyId)
+            const existingStory = state.stories[idx]
+            existingStory.imgURL = action.payload.dataURL
+            existingStory.imgJSON = action.payload.dataJSON
+            existingStory.title = action.payload.title
+            existingStory.description = action.payload.description
+        }
+
     }
 
 })
 
 
 export default storySlice.reducer;
-export const { addStory, deleteStory } = storySlice.actions;
+export const { addStory, deleteStory, editStory, setStoryId } = storySlice.actions;

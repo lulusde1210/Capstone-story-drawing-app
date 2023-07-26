@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Icon } from '@iconify/react';
 import { deleteStory } from "../../store/storySlice";
-import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 import { Link } from "react-router-dom";
+import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
+import { setStoryId } from "../../store/storySlice";
 
 
 const StoryCard = ({ id, storyTitle, imgURL, imgJSON }) => {
@@ -15,25 +16,26 @@ const StoryCard = ({ id, storyTitle, imgURL, imgJSON }) => {
     const handleEditStory = () => {
         dispatch(saveCanvasJSON(imgJSON))
         dispatch(saveCanvasURL(imgURL))
+        dispatch(setStoryId(id))
         // canvas.loadFromJSON(imgJSON, canvas.renderAll.bind(canvas))
     };
 
     return (
         <div className="max-w-sm rounded-xl overflow-hidden shadow-lg transition duration-100 hover:scale-105">
-            <img className="w-full" src={imgURL} alt="Sunset in the mountains" />
-            <div className="px-6 py-4">
-                <Link to={`/mylibrary/${id}`} className="font-bold text-xl mb-2">
-                    {storyTitle}
-                </Link>
-                <p>here will be date created</p>
-            </div>
+            <Link to={`/mylibrary/${id}`}>
+                <img className="w-full" src={imgURL} alt="Sunset in the mountains" />
+                <div className="px-6 py-4">
+                    <h1 className="text-2xl">{storyTitle}</h1>
+                    <p>here will be date created</p>
+                </div>
+            </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
                 <Link to='/'>
                     <Icon onClick={handleEditStory} className='icon-small' icon="akar-icons:edit" />
                 </Link>
                 <Icon onClick={() => dispatch(deleteStory(id))} className='icon-small' icon="material-symbols:delete-outline" />
             </div>
-        </div>
+        </div >
     )
 }
 
