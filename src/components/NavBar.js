@@ -12,7 +12,7 @@ const NavBar = () => {
                 </NavLink >
                 <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
                     <Icon className='text-xl' icon="ion:library-outline" />
-                    <span>My Library</span>
+                    <span>My Gallery</span>
                 </NavLink>
             </div>
             <div className='flex justify-center items-center gap-5 px-10'>
@@ -20,8 +20,8 @@ const NavBar = () => {
                     to='/createstory'
                     className="btn-primary flex justify-center items-center gap-1 text-base"
                 >
-                    <Icon className='text-xl' icon="zondicons:add-outline" />
-                    <span>Create a story</span>
+                    <Icon className='text-xl' icon="tabler:brush" />
+                    <span>Start Drawing</span>
                 </NavLink>
                 <NavLink to='/' className='text-base'> Sign in</NavLink >
                 <NavLink to='/' className='text-base'> Log out</NavLink >

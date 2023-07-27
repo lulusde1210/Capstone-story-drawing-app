@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import canvasReducer from './canvasSlice';
-import storyReducer from './storySlice';
+import drawingSlice from "./drawingSlice";
 
 
 const store = configureStore({
     reducer: {
         canvas: canvasReducer,
-        story: storyReducer,
+        drawings: drawingSlice,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

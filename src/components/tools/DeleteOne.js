@@ -14,6 +14,7 @@ const DeleteOne = () => {
                 (Object.keys(canvas).length > 0) && dispatch(deleteSelectedObjects())
             }
         })
+
     }, [canvas, dispatch]);
 
 

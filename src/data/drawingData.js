@@ -1,4 +1,4 @@
-const stories = [
+const drawingData = [
     {
         id: 1,
         title: 'Flamingo',
@@ -20,4 +20,4 @@ const stories = [
 ]
 
 
-export default stories;
+export default drawingData;

@@ -1,11 +1,10 @@
 import ToolButton from "../UI/ToolButton"
 import { Icon } from '@iconify/react';
 import { useDispatch, useSelector } from "react-redux"
-import { addStory, editStory, setStoryId } from "../../store/storySlice";
+import { addDrawing, editDrawing, setDrawingId } from "../../store/drawingSlice";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 import { Link } from "react-router-dom";
 import InputField from "../UI/InputField";
-
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
@@ -13,8 +12,9 @@ const Save = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [inputTitle, setInputTitle] = useState("")
     const [inputDescription, setInputDescription] = useState("")
+
     const canvas = useSelector((state) => state.canvas.canvas)
-    const storyId = useSelector((state) => state.story.storyId)
+    const drawingId = useSelector((state) => state.drawings.drawingId)
     const dispatch = useDispatch();
 
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
@@ -22,7 +22,6 @@ const Save = () => {
 
     console.log('json', canvasJSON)
     console.log('url', canvasURL)
-
 
     const closeModal = () => {
         setIsOpen(false)
@@ -39,15 +38,15 @@ const Save = () => {
         });
         const dataJSON = JSON.stringify(canvas);
 
-        if (!storyId) {
-            dispatch(addStory({ dataURL, dataJSON, title: inputTitle, description: inputDescription }))
+        if (!drawingId) {
+            dispatch(addDrawing({ dataURL, dataJSON, title: inputTitle, description: inputDescription }))
         } else {
-            dispatch(editStory({ storyId, dataURL, dataJSON, title: inputTitle, description: inputDescription }))
+            dispatch(editDrawing({ drawingId, dataURL, dataJSON, title: inputTitle, description: inputDescription }))
         }
 
         dispatch(saveCanvasJSON(''))
         dispatch(saveCanvasURL(''))
-        dispatch(setStoryId(null))
+        dispatch(setDrawingId(null))
         closeModal()
     };
 
@@ -91,7 +90,9 @@ const Save = () => {
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     >
-                                        Tell me something about your story!
+                                        <span>Well Done Little Picasso!</span>
+                                        <br></br>
+                                        <span>Tell me something about your art!</span>
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <form
@@ -99,13 +100,13 @@ const Save = () => {
                                         >
                                             <InputField
                                                 type="text"
-                                                label="Story Title"
+                                                label="Title"
                                                 value={inputTitle}
                                                 setValue={setInputTitle}
                                             />
                                             <InputField
                                                 type="text"
-                                                label="Story Description"
+                                                label="Description"
                                                 value={inputDescription}
                                                 setValue={setInputDescription}
                                             />
@@ -119,7 +120,7 @@ const Save = () => {
                                                 className='btn-secondary'
                                                 onClick={handleSave}
                                             >
-                                                Save
+                                                Save Drawing
                                             </button>
                                         </Link>
                                         <button
@@ -127,7 +128,7 @@ const Save = () => {
                                             className='btn-secondary'
                                             onClick={closeModal}
                                         >
-                                            Cancel
+                                            Keep Editting
                                         </button>
                                     </div>
                                 </Dialog.Panel>
