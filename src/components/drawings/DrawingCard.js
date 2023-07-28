@@ -8,7 +8,7 @@ import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 const DrawingCard = ({ id, title, imgURL, imgJSON }) => {
     const dispatch = useDispatch();
 
-    const handleEditStory = () => {
+    const handleEditDrawing = () => {
         dispatch(saveCanvasJSON(imgJSON))
         dispatch(saveCanvasURL(imgURL))
         dispatch(setDrawingId(id))
@@ -24,9 +24,8 @@ const DrawingCard = ({ id, title, imgURL, imgJSON }) => {
                 </div>
             </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                {/* <Link to='/createstory'> */}
-                <Link to={`/mylibrary/${id}/edit`}>
-                    <Icon onClick={handleEditStory} className='icon-small' icon="akar-icons:edit" />
+                <Link to={'/createstory'}>
+                    < Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                 </Link>
                 <Icon onClick={() => dispatch(deleteDrawing(id))} className='icon-small' icon="material-symbols:delete-outline" />
             </div>

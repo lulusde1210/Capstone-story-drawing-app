@@ -46,3 +46,7 @@ h1 {
 .form-invalid {
   @apply text-red-500
 }
+
+/* .active {
+  @apply underline
+} */

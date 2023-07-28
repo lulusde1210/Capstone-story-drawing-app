@@ -9,6 +9,7 @@ import Stickers from "./tools/Stickers";
 import SelectArrow from "./tools/SelectArrow";
 import DeleteOne from "./tools/DeleteOne";
 import UndoRedo from "./tools/UndoRedo";
+import Reset from "./tools/Reset";
 
 const ToolBar = () => {
 
@@ -25,6 +26,7 @@ const ToolBar = () => {
             <AddImage />
             <DeleteOne />
             <Clear />
+            <Reset />
         </div>
     )
 };

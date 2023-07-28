@@ -13,6 +13,7 @@ const CreateDrawing = () => {
     const canvas = useSelector((state) => state.canvas.canvas)
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
     const canvasState = useSelector((state) => state.canvas)
+    const drawingId = useSelector((state) => state.drawings.drawingId)
 
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const CreateDrawing = () => {
         dispatch(initCanvas())
     }, [dispatch]);
 
-    console.log('canvas state', canvasState)
+    // console.log('canvas state', canvasState)
 
     useEffect(() => {
         console.log('Load canvasJSON...')
@@ -30,15 +31,22 @@ const CreateDrawing = () => {
     }, [canvas, canvasJSON])
 
 
+
     return (
         <>
-            <div className='w-full flex justify-center items-center gap-10'>
-                <div className='flex flex-col gap-8'>
-                    <ToolBar />
-                    <SaveBar />
+            <div className='flex flex-col justify-center items-center gap-10'>
+                <div>
+                    {drawingId ? <h1>Edit Drawing</h1> : <h1>Create new Drawing</h1>}
                 </div>
-                <Canvas />
-                <DrawingTool />
+                <div className='w-full flex justify-center items-center gap-10'>
+                    <div className='flex flex-col gap-8'>
+                        <ToolBar />
+                        <SaveBar />
+                    </div>
+                    <Canvas />
+                    <DrawingTool />
+                </div>
+
             </div >
         </>
     );
