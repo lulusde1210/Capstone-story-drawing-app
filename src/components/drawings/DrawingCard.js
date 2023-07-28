@@ -3,9 +3,14 @@ import { Icon } from '@iconify/react';
 import { deleteDrawing, setDrawingId } from "../../store/drawingSlice";
 import { Link } from "react-router-dom";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
-
+import Modal from "../UI/Modal";
+import { useState } from "react";
 
 const DrawingCard = ({ id, title, imgURL, imgJSON }) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const closeModal = () => { setIsOpen(false) };
+    const openModal = () => { setIsOpen(true) };
+
     const dispatch = useDispatch();
 
     const handleEditDrawing = () => {
@@ -24,10 +29,28 @@ const DrawingCard = ({ id, title, imgURL, imgJSON }) => {
                 </div>
             </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                <Link to={'/createstory'}>
+                <Link to={`/mylibrary/${id}`}>
                     < Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                 </Link>
-                <Icon onClick={() => dispatch(deleteDrawing(id))} className='icon-small' icon="material-symbols:delete-outline" />
+                <div>
+                    <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />
+                    <Modal
+                        dialogTitle='Do you want to delete the drawing?'
+                        isOpen={isOpen}
+                        closeModal={closeModal}
+                        body={
+                            <div className="flex justify-center gap-5 mt-7">
+                                <button className='btn-secondary' onClick={() => dispatch(deleteDrawing(id))}>
+                                    delete
+                                </button>
+                                <button className='btn-secondary' onClick={closeModal}>
+                                    cancel
+                                </button>
+                            </div>
+                        } />
+                </div>
+
+
             </div>
         </div >
     )
