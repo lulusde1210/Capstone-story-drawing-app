@@ -1,11 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fabric } from "fabric";
-
 
 const initialState = {
-    // canvas: {},
     canvasURL: '',
-    canvasJSON: {},
+    canvasJSON: '',
 }
 
 const canvasSlice = createSlice({
@@ -23,16 +20,4 @@ const canvasSlice = createSlice({
 
 
 export default canvasSlice.reducer;
-export const
-    {
-        initCanvas,
-        enableDrawing,
-        disableDrawing,
-        addObj,
-        saveCanvasURL,
-        saveCanvasJSON,
-        deleteSelectedObjects,
-        clearCanvas,
-
-    }
-        = canvasSlice.actions;
+export const { saveCanvasURL, saveCanvasJSON } = canvasSlice.actions;

@@ -10,8 +10,7 @@ const store = configureStore({
         drawings: drawingReducer,
         auth: authReducer
     },
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware(),
+    middleware: getDefaultMiddleware => getDefaultMiddleware(),
     devTools: true
 });
 
