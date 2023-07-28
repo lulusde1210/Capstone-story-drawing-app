@@ -1,6 +1,8 @@
 import ToolButton from "../UI/ToolButton";
 import { Icon } from "@iconify/react";
 import ToolTip from "../UI/ToolTip";
+import { Link } from "react-router-dom";
+
 
 const Reset = () => {
     const handleReload = () => {
@@ -10,10 +12,12 @@ const Reset = () => {
     return (
         <ToolButton>
             <button onClick={handleReload}>
-                <Icon className='icon' icon="twemoji:new-button" />
+                <Link to='/createstory'>
+                    <Icon className='icon' icon="twemoji:new-button" />
+                </Link>
             </button>
-            <ToolTip content='Start a new drawing' />
-        </ToolButton>)
+        </ToolButton>
+    )
 }
 
 export default Reset

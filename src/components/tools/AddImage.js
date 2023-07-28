@@ -12,7 +12,7 @@ const AddImage = () => {
     const imgRef = useRef();
 
     const handleAddImage = (e) => {
-        console.log(e.target.files[0])
+        // console.log(e.target.files[0])
         const url = URL.createObjectURL(e.target.files[0]);
         fabric.Image.fromURL(url, img => {
             dispatch(addObj(img))
