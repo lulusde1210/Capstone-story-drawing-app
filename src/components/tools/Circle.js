@@ -1,12 +1,8 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
 import { fabric } from 'fabric';
-import { useDispatch, useSelector } from "react-redux"
-import { disableDrawing, addObj } from "../../store/canvasSlice";
 
-const Circle = () => {
-    const canvas = useSelector((state) => state.canvas.canvas)
-    const dispatch = useDispatch();
+const Circle = ({ canvas }) => {
 
     const handleAddCircle = () => {
         const circle = new fabric.Circle({
@@ -19,8 +15,9 @@ const Circle = () => {
             stroke: 'black',
             strokeWidth: 1,
         });
-        dispatch(addObj(circle))
-        dispatch(disableDrawing())
+        canvas.add(circle);
+        canvas.renderAll();
+        canvas.isDrawingMode = false;
     };
 
     return (

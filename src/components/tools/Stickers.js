@@ -24,9 +24,7 @@ const categories = {
     Life: lifeStickers,
 };
 
-const Stickers = () => {
-    const canvas = useSelector((state) => state.canvas.canvas);
-    const dispatch = useDispatch();
+const Stickers = ({ canvas }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const closeModal = () => { setIsOpen(false) };
@@ -34,7 +32,8 @@ const Stickers = () => {
 
     const handleClickSticker = (url) => {
         fabric.Image.fromURL(url, img => {
-            dispatch(addObj(img))
+            canvas.add(img);
+            canvas.renderAll();
         }, {
             scaleX: 0.3,
             scaleY: 0.3,
@@ -44,7 +43,7 @@ const Stickers = () => {
             top: canvas.getCenter().top,
         })
         setIsOpen(false)
-        dispatch(disableDrawing())
+        canvas.isDrawingMode = false;
     };
 
 

@@ -1,15 +1,14 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
-import { useDispatch } from "react-redux"
-import { disableDrawing, clearCanvas } from "../../store/canvasSlice";
 
 
-const Clear = () => {
-    const dispatch = useDispatch();
-
+const Clear = ({ canvas }) => {
     const handleClearCanvas = () => {
-        dispatch(clearCanvas())
-        dispatch(disableDrawing());
+        canvas.getObjects().forEach((obj) => {
+            canvas.remove(obj);
+        })
+        canvas.renderAll()
+        canvas.isDrawingMode = false
     };
 
     return (

@@ -1,26 +1,30 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
-import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from 'react';
-import { deleteSelectedObjects } from '../../store/canvasSlice';
+import { useCallback, useEffect } from 'react';
 
-const DeleteOne = () => {
-    const canvas = useSelector((state) => state.canvas.canvas);
-    const dispatch = useDispatch();
+const DeleteOne = ({ canvas }) => {
+
+    const deleteSelectedObjects = useCallback(() => {
+        const activeObjs = canvas.getActiveObjects();
+        for (const object of activeObjs) {
+            canvas.remove(object)
+        }
+        canvas.renderAll()
+    }, [canvas]);
 
     useEffect(() => {
         document.addEventListener('keydown', (e) => {
             if (e.key === "Backspace") {
-                (Object.keys(canvas).length > 0) && dispatch(deleteSelectedObjects())
+                (Object.keys(canvas).length > 0) && deleteSelectedObjects()
             }
         })
 
-    }, [canvas, dispatch]);
+    }, [deleteSelectedObjects, canvas]);
 
 
     return (
         <ToolButton className='flex justify-center items-center'>
-            <Icon className='icon' onClick={() => dispatch(deleteSelectedObjects())} icon="mdi:clear-outline" />
+            <Icon className='icon' onClick={() => { deleteSelectedObjects() }} icon="mdi:clear-outline" />
         </ToolButton>
     )
 };

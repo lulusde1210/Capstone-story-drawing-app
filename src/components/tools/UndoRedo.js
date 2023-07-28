@@ -2,8 +2,7 @@ import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
 import { useSelector } from "react-redux"
 
-const UndoRedo = () => {
-    const canvas = useSelector((state) => state.canvas.canvas)
+const UndoRedo = ({ canvas }) => {
 
     return (
         <ToolButton>
