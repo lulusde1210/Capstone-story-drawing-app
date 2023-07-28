@@ -24,7 +24,8 @@ const DrawingCard = ({ id, title, imgURL, imgJSON }) => {
                 </div>
             </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                <Link to='/createstory'>
+                {/* <Link to='/createstory'> */}
+                <Link to={`/mylibrary/${id}/edit`}>
                     <Icon onClick={handleEditStory} className='icon-small' icon="akar-icons:edit" />
                 </Link>
                 <Icon onClick={() => dispatch(deleteDrawing(id))} className='icon-small' icon="material-symbols:delete-outline" />

@@ -18,6 +18,7 @@ const App = () => {
         <Route path="mylibrary" >
           <Route index element={<DrawingList />} />
           <Route path=":id" element={<DrawingDetail />} />
+          <Route path=":id/edit" element={<CreateDrawing />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />

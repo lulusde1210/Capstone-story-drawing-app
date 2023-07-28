@@ -1,38 +1,15 @@
 import ToolButton from "../UI/ToolButton"
+import Modal from "../UI/Modal";
+import Input from "../UI/Input";
 import { Icon } from '@iconify/react';
+import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { addDrawing, editDrawing, setDrawingId } from "../../store/drawingSlice";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
-import { Link } from "react-router-dom";
-import { useState, useReducer, useCallback } from 'react'
-import Input from "../UI/Input";
 import { VALIDATOR_REQUIRE } from "../util/validators";
-import Modal from "../UI/Modal";
+import { useForm } from "../../hooks/form-hook";
 
-
-const formReducer = (state, action) => {
-    switch (action.type) {
-        case 'INPUT_CHANGE':
-            let formIsValid = true;
-            for (const inputId in state.inputs) {
-                if (inputId === action.inputId) {
-                    formIsValid = formIsValid && action.isValid;
-                } else {
-                    formIsValid = formIsValid && state.inputs[inputId].isValid;
-                }
-            }
-            return {
-                ...state,
-                inputs: {
-                    ...state.inputs,
-                    [action.inputId]: { value: action.value, isValid: action.isValid }
-                },
-                isValid: formIsValid
-            };
-        default:
-            return state;
-    }
-};
 
 const Save = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -41,37 +18,36 @@ const Save = () => {
     const drawingId = useSelector((state) => state.drawings.drawingId)
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
     const canvasURL = useSelector((state) => state.canvas.canvasURL)
+    const drawings = useSelector((state) => state.drawings.drawings)
 
-    const [formState, dispatchForm] = useReducer(formReducer, {
-        inputs: {
-            title: {
-                value: '',
-                isValid: false
-            },
-            description: {
-                value: '',
-                isValid: false
-            }
+    const closeModal = () => { setIsOpen(false) };
+    const openModal = () => { setIsOpen(true) };
+
+    const [formState, inputHandler] = useForm({
+        title: {
+            value: '',
+            isValid: false
         },
-        isValid: false
-    });
+        description: {
+            value: '',
+            isValid: false
+        }
+    }, false)
 
-    const inputHandler = useCallback((id, value, isValid) => {
-        dispatchForm({
-            type: 'INPUT_CHANGE',
-            value: value,
-            isValid: isValid,
-            inputId: id
-        });
-    }, []);
-
-    const closeModal = () => {
-        setIsOpen(false)
+    let titleValue;
+    let descriptionValue;
+    let valid
+    if (drawingId) {
+        const drawing = drawings.filter((drawing => (drawing.id === drawingId)))[0]
+        titleValue = drawing.title
+        descriptionValue = drawing.description
+        valid = true
+    } else {
+        titleValue = ''
+        descriptionValue = ''
+        valid = false
     };
 
-    const openModal = () => {
-        setIsOpen(true)
-    };
 
     const handleSave = () => {
         const dataURL = canvas.toDataURL({
@@ -105,15 +81,18 @@ const Save = () => {
     };
 
     const body =
-        <form className="flex flex-col">
+        <form className="flex gap-5 flex-col">
             <Input
                 id="title"
                 element="input"
                 type="text"
                 label="Title"
                 validators={[VALIDATOR_REQUIRE()]}
-                errorText="You need a title for your art :)"
+                placeholder='Name for the art'
+                errorText="You need a name for your art :)"
                 onInput={inputHandler}
+                defaultValue={titleValue}
+                valid={valid}
             />
             <Input
                 id="description"
@@ -122,6 +101,9 @@ const Save = () => {
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="What is your art about?"
                 onInput={inputHandler}
+                placeholder='Tell us something about your art...'
+                defaultValue={descriptionValue}
+                valid={valid}
             />
             <div className="flex gap-5 justify-center mt-4">
                 <Link to='/mylibrary'>

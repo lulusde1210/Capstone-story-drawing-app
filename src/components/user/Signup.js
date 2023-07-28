@@ -1,7 +1,10 @@
-import InputField from "../UI/InputField"
 import { Link } from "react-router-dom";
+import Input from "../UI/Input";
 
 const Signup = () => {
+    const inputHandler = () => {
+
+    }
     return (
         <div className="flex flex-col items-center justify-center w-96 lg:py-0">
             <div className="w-full bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -11,27 +14,36 @@ const Signup = () => {
                     </h1>
                     <form className="flex flex-col space-y-4 md:space-y-6">
                         <div>
-                            <InputField
+                            <Input
+                                id="email"
+                                element="input"
                                 type="email"
                                 label="Your Email"
-                                value={null}
-                                setValue={null}
+                                validators={[]}
+                                errorText="Please entere a valid email"
+                                onInput={inputHandler}
                             />
                         </div>
                         <div>
-                            <InputField
+                            <Input
+                                id="password"
+                                element="input"
                                 type="password"
                                 label="Your Password"
-                                value={null}
-                                setValue={null}
+                                validators={[]}
+                                errorText="Please entere your password"
+                                onInput={inputHandler}
                             />
                         </div>
                         <div>
-                            <InputField
+                            <Input
+                                id="password"
+                                element="input"
                                 type="password"
-                                label="Confirm your password"
-                                value={null}
-                                setValue={null}
+                                label="Your Password"
+                                validators={[]}
+                                errorText="Please confirm your password"
+                                onInput={inputHandler}
                             />
                         </div>
                         <button type="submit" className="self-center btn-primary">Sign Up</button>

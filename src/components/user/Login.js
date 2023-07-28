@@ -1,7 +1,10 @@
-import InputField from "../UI/InputField"
+import Input from "../UI/Input"
 import { Link } from "react-router-dom"
 
 const Login = () => {
+    const inputHandler = () => {
+
+    }
     return (
         <div className="flex flex-col items-center justify-center px-6 mx-auto lg:py-0">
             <div className="w-full bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -11,19 +14,25 @@ const Login = () => {
                     </h1>
                     <form className="flex flex-col space-y-4 md:space-y-6" action="#">
                         <div>
-                            <InputField
+                            <Input
+                                id="email"
+                                element="input"
                                 type="email"
                                 label="Your Email"
-                                value={null}
-                                setValue={null}
+                                validators={[]}
+                                errorText="Please entere a valid email"
+                                onInput={inputHandler}
                             />
                         </div>
                         <div>
-                            <InputField
+                            <Input
+                                id="password"
+                                element="input"
                                 type="password"
                                 label="Your Password"
-                                value={null}
-                                setValue={null}
+                                validators={[]}
+                                errorText="Please entere your password"
+                                onInput={inputHandler}
                             />
                         </div>
                         <button type="submit" className="self-center btn-primary">Sign In</button>
