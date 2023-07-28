@@ -11,11 +11,9 @@ import { VALIDATOR_REQUIRE } from "../util/validators";
 import { useForm } from "../../hooks/form-hook";
 
 
-const Save = () => {
-
+const Save = ({ canvas }) => {
     const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch();
-    const canvas = useSelector((state) => state.canvas.canvas)
     const drawingId = useSelector((state) => state.drawings.drawingId)
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
     const canvasURL = useSelector((state) => state.canvas.canvasURL)
@@ -39,7 +37,7 @@ const Save = () => {
     let descriptionValue;
     let valid
     if (drawingId) {
-        const drawing = drawings.filter((drawing => (drawing.id === drawingId)))[0]
+        const drawing = drawings.find((drawing => (drawing.id === drawingId)))
         titleValue = drawing.title
         descriptionValue = drawing.description
         valid = true

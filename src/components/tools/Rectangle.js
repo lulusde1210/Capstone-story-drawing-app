@@ -1,13 +1,8 @@
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
 import { fabric } from 'fabric';
-import { useDispatch, useSelector } from "react-redux"
-import { disableDrawing, addObj } from "../../store/canvasSlice";
 
-const Rectangle = () => {
-    const canvas = useSelector((state) => state.canvas.canvas)
-    const dispatch = useDispatch();
-
+const Rectangle = ({ canvas }) => {
     const handleAddRec = () => {
         const rect = new fabric.Rect({
             originX: 'center',
@@ -20,8 +15,9 @@ const Rectangle = () => {
             stroke: 'black',
             strokeWidth: 1,
         });
-        dispatch(addObj(rect));
-        dispatch(disableDrawing());
+        canvas.add(rect);
+        canvas.renderAll();
+        canvas.isDrawingMode = false;
     };
 
     return (

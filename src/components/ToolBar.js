@@ -11,22 +11,24 @@ import DeleteOne from "./tools/DeleteOne";
 import UndoRedo from "./tools/UndoRedo";
 import Reset from "./tools/Reset";
 
-const ToolBar = () => {
+const ToolBar = ({ canvas }) => {
 
     return (
         <div className="grid grid-cols-2 shadow-md py-5 gap-5 bg-red-100 rounded-md">
-            <SelectArrow />
-            <UndoRedo />
-            <Rectangle />
-            <Circle />
-            <Triangle />
-            <Line />
-            <Text />
-            <Stickers />
-            <AddImage />
-            <DeleteOne />
-            <Clear />
-            <Reset />
+            <SelectArrow canvas={canvas} />
+            <UndoRedo canvas={canvas} />
+            <Rectangle canvas={canvas} />
+            <Circle canvas={canvas} />
+            <Triangle canvas={canvas} />
+            <Line canvas={canvas} />
+            <Text canvas={canvas} />
+            <AddImage canvas={canvas} />
+            <Stickers canvas={canvas} />
+            <DeleteOne canvas={canvas} />
+            <Clear canvas={canvas} />
+            <Reset canvas={canvas} />
+
+
         </div>
     )
 };

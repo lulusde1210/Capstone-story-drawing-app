@@ -1,12 +1,8 @@
 import { fabric } from "fabric";
 import { Icon } from '@iconify/react';
 import ToolButton from '../UI/ToolButton';
-import { useDispatch, useSelector } from "react-redux"
-import { addObj, disableDrawing } from "../../store/canvasSlice";
 
-const Text = () => {
-    const canvas = useSelector((state) => state.canvas.canvas)
-    const dispatch = useDispatch();
+const Text = ({ canvas }) => {
 
     const handleAddText = () => {
         const text = new fabric.IText(
@@ -18,8 +14,9 @@ const Text = () => {
             left: canvas.getCenter().left,
             top: canvas.getCenter().top,
         });
-        dispatch(addObj(text));
-        dispatch(disableDrawing());
+        canvas.add(text);
+        canvas.renderAll();
+        canvas.isDrawingMode = false;
     }
 
     return (

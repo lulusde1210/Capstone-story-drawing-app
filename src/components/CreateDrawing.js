@@ -1,36 +1,36 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { initCanvas } from '../store/canvasSlice';
-import 'fabric-history';
+import { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import Canvas from './Canvas';
 import ToolBar from './ToolBar';
 import DrawingTool from './DrawingTool';
 import SaveBar from './SaveBar';
+import { fabric } from 'fabric';
+import 'fabric-history';
 
 
 const CreateDrawing = () => {
-    const dispatch = useDispatch();
-    const canvas = useSelector((state) => state.canvas.canvas)
+    const [canvas, setCanvas] = useState({})
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
-    const canvasState = useSelector((state) => state.canvas)
     const drawingId = useSelector((state) => state.drawings.drawingId)
-
 
     useEffect(() => {
         console.log('Creating Canvas...')
-        dispatch(initCanvas())
-    }, [dispatch]);
+        const canvas = new fabric.Canvas('canvas', {
+            height: 650,
+            width: 1000,
+            backgroundColor: '#FAF3F0',
+        });
+        setCanvas(canvas)
+    }, []);
 
-    // console.log('canvas state', canvasState)
+    console.log('in createcanvas canvas object', canvas)
 
     useEffect(() => {
         console.log('Load canvasJSON...')
-        if (Object.keys(canvas).length > 0 && canvasJSON.length > 0) {
+        if (canvas['_objects'] && canvasJSON.length > 0) {
             canvas.loadFromJSON(canvasJSON, canvas.renderAll.bind(canvas))
         }
-    }, [canvas, canvasJSON])
-
-
+    }, [canvasJSON, canvas])
 
     return (
         <>
@@ -40,13 +40,12 @@ const CreateDrawing = () => {
                 </div>
                 <div className='w-full flex justify-center items-center gap-10'>
                     <div className='flex flex-col gap-8'>
-                        <ToolBar />
-                        <SaveBar />
+                        <ToolBar canvas={canvas} />
+                        <SaveBar canvas={canvas} />
                     </div>
-                    <Canvas />
-                    <DrawingTool />
+                    <Canvas canvas={canvas} />
+                    <DrawingTool canvas={canvas} />
                 </div>
-
             </div >
         </>
     );
