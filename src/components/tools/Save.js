@@ -39,7 +39,7 @@ const Save = () => {
     let descriptionValue;
     let valid
     if (drawingId) {
-        const drawing = drawings.filter((drawing => (drawing.id === drawingId)))[0]
+        const drawing = drawings.find((drawing => (drawing.id === drawingId)))
         titleValue = drawing.title
         descriptionValue = drawing.description
         valid = true
