@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 import { deleteDrawing, setDrawingId } from "../../store/drawingSlice";
+import Modal from "../UI/Modal";
+import { useState } from "react";
 
 
 const DrawingDetail = () => {
@@ -12,6 +14,10 @@ const DrawingDetail = () => {
     const drawings = useSelector((state) => state.drawings.drawings)
     const drawing = drawings.filter((drawing) => drawing.id === +id)[0]
     const dispatch = useDispatch();
+
+    const [isOpen, setIsOpen] = useState(false)
+    const closeModal = () => { setIsOpen(false) };
+    const openModal = () => { setIsOpen(true) };
 
     const handleEditDrawing = () => {
         dispatch(saveCanvasJSON(drawing.imgJSON))
@@ -24,12 +30,26 @@ const DrawingDetail = () => {
             <div className="flex justify-center items-center px-10 gap-10">
                 <h1 className="h1">{drawing.title}</h1>
                 <div className="flex self-end">
-                    <Link to={'/createstory'}>
+                    <Link to={`/mylibrary/${id}/edit`}>
                         <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                     </Link>
-                    <Link to='/mylibrary'>
-                        <Icon onClick={() => dispatch(deleteDrawing(drawing.id))} className='icon-small' icon="material-symbols:delete-outline" />
-                    </Link>
+                    <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />
+                    <Modal
+                        dialogTitle='Do you want to delete the drawing?'
+                        isOpen={isOpen}
+                        closeModal={closeModal}
+                        body={
+                            <div className="flex justify-center gap-5 mt-10">
+                                <Link to='/mylibrary'>
+                                    <button className='btn-secondary' onClick={() => dispatch(deleteDrawing(drawing.id))}>
+                                        delete
+                                    </button>
+                                </Link>
+                                <button className='btn-secondary' onClick={closeModal}>
+                                    cancel
+                                </button>
+                            </div>
+                        } />
                 </div>
             </div>
             <p className="text-center w-3/4">{drawing.description}</p>
