@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Input from "../UI/Input";
-import { VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from "../util/validators"
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
+import axios from 'axios';
 
 const Signup = () => {
     const [formState, inputHandler] = useForm({
@@ -15,9 +16,25 @@ const Signup = () => {
         }
     }, false)
 
-    const handleSubmit = (e) => {
+    console.log(formState)
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(formState)
+
+        const body = {
+            username: formState.inputs.username.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+        }
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/users/signup', body);
+            console.log(response)
+            const responseData = await response.data;
+            console.log("responseData", responseData)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -64,8 +81,8 @@ const Signup = () => {
                                 type="password"
                                 label="Your Password"
                                 placeholder='******'
-                                validators={[VALIDATOR_REQUIRE()]}
-                                errorText="Please enter a valid password"
+                                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
+                                errorText="Please enter a valid password with a minimun length of 6 "
                                 onInput={inputHandler}
                                 defaultValue=''
                                 valid=''

@@ -14,6 +14,7 @@ const DrawingDetail = () => {
     const drawings = useSelector((state) => state.drawings.drawings)
     const drawing = drawings.filter((drawing) => drawing.id === +id)[0]
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
 
     const [isOpen, setIsOpen] = useState(false)
     const closeModal = () => { setIsOpen(false) };
@@ -30,10 +31,10 @@ const DrawingDetail = () => {
             <div className="flex justify-center items-center px-10 gap-10">
                 <h1 className="h1">{drawing.title}</h1>
                 <div className="flex self-end">
-                    <Link to={`/mylibrary/${id}/edit`}>
+                    {auth.igLoggin && <Link to={`/mylibrary/${id}/edit`}>
                         <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
-                    </Link>
-                    <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />
+                    </Link>}
+                    {auth.isLoggin && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
                     <Modal
                         dialogTitle='Do you want to delete the drawing?'
                         isOpen={isOpen}

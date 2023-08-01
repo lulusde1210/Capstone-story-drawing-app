@@ -7,13 +7,17 @@ import DrawingDetail from './components/drawings/DrawingDetails';
 import HomeView from './components/HomeView';
 import Login from './components/user/Login';
 import Signup from './components/user/Signup';
-
+import { useSelector } from 'react-redux';
+import AllDrawings from './components/AllDrawings';
 
 const App = () => {
+  const auth = useSelector(state => state.auth);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomeView />} />
+        <Route path="alldrawings" element={<AllDrawings />} />
         <Route path="createstory" element={<CreateDrawing />} />
         <Route path="mylibrary" >
           <Route index element={<DrawingList />} />
@@ -23,8 +27,8 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         {/* <Route path="*" element={<NotFound />} /> */}
-      </Route>
-    </Routes>
+      </ Route >
+    </Routes >
   );
 }
 

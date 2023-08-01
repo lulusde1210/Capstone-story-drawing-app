@@ -1,9 +1,15 @@
 import Input from "../UI/Input"
 import { Link } from "react-router-dom"
 import { useForm } from "../../hooks/form-hook"
-import { VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from "../util/validators"
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/authSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formState, inputHandler] = useForm({
         email: {
             value: '',
@@ -16,9 +22,10 @@ const Login = () => {
     }, false)
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(formState)
-    }
+        e.preventDefault();
+        dispatch(login());
+        navigate('/')
+    };
 
     return (
         <div className="flex flex-col items-center justify-center px-6 mx-auto lg:py-0">
@@ -49,8 +56,8 @@ const Login = () => {
                                 type="password"
                                 label="Your Password"
                                 placeholder='******'
-                                validators={[VALIDATOR_REQUIRE()]}
-                                errorText="Please enter a valid password"
+                                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
+                                errorText="Please enter a valid password with a minimun lenght of 6."
                                 onInput={inputHandler}
                                 defaultValue=''
                                 valid=''

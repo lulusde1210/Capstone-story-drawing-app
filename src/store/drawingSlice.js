@@ -20,7 +20,6 @@ const drawingSlice = createSlice({
                 imgURL: action.payload.dataURL,
                 imgJSON: action.payload.dataJSON
             };
-
             state.drawings.push(newDrawing)
         },
         deleteDrawing: (state, action) => {

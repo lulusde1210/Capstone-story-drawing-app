@@ -7,7 +7,6 @@ import SaveBar from './SaveBar';
 import { fabric } from 'fabric';
 import 'fabric-history';
 
-
 const CreateDrawing = () => {
     const [canvas, setCanvas] = useState({})
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)

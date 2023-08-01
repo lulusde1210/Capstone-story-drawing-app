@@ -55,6 +55,9 @@ const Save = ({ canvas }) => {
         });
         const dataJSON = JSON.stringify(canvas);
 
+        console.log(dataURL)
+        console.log(dataJSON)
+
         if (!drawingId) {
             dispatch(addDrawing(
                 {
