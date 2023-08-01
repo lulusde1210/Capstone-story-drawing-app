@@ -30,10 +30,10 @@ const DrawingCard = ({ id, title, imgURL, imgJSON }) => {
                 </div>
             </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                {auth.isLoggin && <Link to={`/mylibrary/${id}`}>
+                {auth.isLogin && <Link to={`/mylibrary/${id}`}>
                     < Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                 </Link>}
-                {auth.isLoggin && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
+                {auth.isLogin && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
                 <Modal
                     dialogTitle='Do you want to delete the drawing?'
                     isOpen={isOpen}

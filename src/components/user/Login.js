@@ -5,11 +5,14 @@ import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+
     const [formState, inputHandler] = useForm({
         email: {
             value: '',
@@ -20,6 +23,12 @@ const Login = () => {
             isValid: false
         }
     }, false)
+
+    useEffect(() => {
+        if (auth.isLogin) {
+            navigate('/')
+        }
+    }, [navigate, auth.isLogin])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,17 +72,15 @@ const Login = () => {
                                 valid=''
                             />
                         </div>
-                        {/* <Link to='/mylibrary'> */}
                         <button
                             type="submit"
                             className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}
                             disabled={!formState.isValid}
                         >
-                            Sign In
+                            Log In
                         </button>
-                        {/* </Link> */}
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don’t have an account yet? <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+                            Don’t have an account yet? <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register</Link>
                         </p>
                     </form>
                 </div>

@@ -7,12 +7,12 @@ const HomeView = () => {
         <div className="flex flex-col justify-center items-center gap-5">
             <h1>This is home view welcome page</h1>
 
-            {!auth.isLoggin && <div className="flex gap-5">
+            {!auth.isLogin && <div className="flex gap-5">
                 <Link to='/login'>
-                    <button className="btn-secondary">Sign In</button>
+                    <button className="btn-secondary">Log In</button>
                 </Link>
                 <Link to='/signup'>
-                    <button className="btn-secondary">Sign Up</button>
+                    <button className="btn-secondary">Register</button>
                 </Link>
             </div>}
         </div>

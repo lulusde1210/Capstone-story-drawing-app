@@ -31,10 +31,10 @@ const DrawingDetail = () => {
             <div className="flex justify-center items-center px-10 gap-10">
                 <h1 className="h1">{drawing.title}</h1>
                 <div className="flex self-end">
-                    {auth.igLoggin && <Link to={`/mylibrary/${id}/edit`}>
+                    {auth.isLogin && <Link to={`/mylibrary/${id}/edit`}>
                         <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                     </Link>}
-                    {auth.isLoggin && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
+                    {auth.isLogin && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
                     <Modal
                         dialogTitle='Do you want to delete the drawing?'
                         isOpen={isOpen}

@@ -32,7 +32,7 @@ const NavBar = () => {
                     <Icon className='text-xl' icon="tabler:home" />
                     <span>All Arts</span>
                 </NavLink >
-                {auth.isLoggin && <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
+                {auth.isLogin && <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
                     <Icon className='text-xl' icon="dashicons:format-gallery" />
                     <span>My Gallery</span>
                 </NavLink>}
@@ -45,8 +45,8 @@ const NavBar = () => {
                     <Icon onClick={handleCreateDrawing} className='text-xl' icon="tabler:brush" />
                     <span>Start Drawing</span>
                 </NavLink>
-                {!auth.isLoggin && <NavLink to='/' className='text-base'> Sign in</NavLink >}
-                {auth.isLoggin && <button to='/' className='text-base' onClick={handleLogOut} > Log out</button >}
+                {!auth.isLogin && <NavLink to='/login' className='text-base'> Log In</NavLink >}
+                {auth.isLogin && <button to='/' className='text-base' onClick={handleLogOut} > Log Out</button >}
 
             </div>
         </nav >

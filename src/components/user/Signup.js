@@ -3,8 +3,14 @@ import Input from "../UI/Input";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+    const navigate = useNavigate();
+    const auth = useSelector(state => state.auth);
+
     const [formState, inputHandler] = useForm({
         email: {
             value: '',
@@ -15,6 +21,13 @@ const Signup = () => {
             isValid: false
         }
     }, false)
+
+    useEffect(() => {
+        if (auth.isLogin) {
+            navigate('/')
+        }
+    }, [navigate, auth.isLogin])
+
 
     console.log(formState)
 
@@ -94,14 +107,14 @@ const Signup = () => {
                             className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}
                             disabled={!formState.isValid}
                         >
-                            Sign Up
+                            Register
                         </button>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account?
                             <Link
                                 to='/login'
                                 className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                Sign In
+                                Log In
                             </Link>
                         </p>
                     </form>

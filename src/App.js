@@ -18,7 +18,7 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomeView />} />
         <Route path="alldrawings" element={<AllDrawings />} />
-        <Route path="createstory" element={<CreateDrawing />} />
+        <Route path="createstory" element={auth.isLogin ? <CreateDrawing /> : <Login />} />
         <Route path="mylibrary" >
           <Route index element={<DrawingList />} />
           <Route path=":id" element={<DrawingDetail />} />
