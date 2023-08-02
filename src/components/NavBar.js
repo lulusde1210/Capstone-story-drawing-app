@@ -1,24 +1,22 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { useDispatch } from 'react-redux';
-import { setDrawingId } from '../store/drawingSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
-import { useNavigate } from 'react-router-dom';
+// import MenuDropDown from './UI/MenuDropDown';
+import { setDrawing } from '../store/drawingSlice';
 
 const NavBar = () => {
-    const auth = useSelector((state) => state.auth);
+    const { userInfo } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleCreateDrawing = () => {
-        dispatch(setDrawingId(null))
+        dispatch(setDrawing(null))
     };
 
     const handleLogOut = () => {
         dispatch(logout());
         navigate('/login');
     };
-
 
     return (
         <nav className="w-screen fixed flex justify-between z-50 p-3 bg-inherit bg-orange-50">
@@ -32,7 +30,11 @@ const NavBar = () => {
                     <Icon className='text-xl' icon="tabler:home" />
                     <span>All Arts</span>
                 </NavLink >
-                {auth.isLogin && <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
+                <NavLink to='/users' className='flex justify-center items-center gap-1 text-base'>
+                    <Icon className='text-xl' icon="tabler:home" />
+                    <span>Artists</span>
+                </NavLink >
+                {userInfo && <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
                     <Icon className='text-xl' icon="dashicons:format-gallery" />
                     <span>My Gallery</span>
                 </NavLink>}
@@ -45,9 +47,9 @@ const NavBar = () => {
                     <Icon onClick={handleCreateDrawing} className='text-xl' icon="tabler:brush" />
                     <span>Start Drawing</span>
                 </NavLink>
-                {!auth.isLogin && <NavLink to='/login' className='text-base'> Log In</NavLink >}
-                {auth.isLogin && <button to='/' className='text-base' onClick={handleLogOut} > Log Out</button >}
-
+                {!userInfo && <NavLink to='/login' className='text-base'> Log In</NavLink >}
+                {userInfo && <button to='/' className='text-base' onClick={handleLogOut} > Log Out</button >}
+                {userInfo && <span>{userInfo.user.username}</span>}
             </div>
         </nav >
     )

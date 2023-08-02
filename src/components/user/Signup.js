@@ -2,16 +2,20 @@ import { Link } from "react-router-dom";
 import Input from "../UI/Input";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
-import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import Loader from "../UI/Loader";
+import { useSignupMutation } from "../../store/usersApiSlice";
+import { setCredentials } from "../../store/authSlice";
 
 const Signup = () => {
-    const navigate = useNavigate();
-    const auth = useSelector(state => state.auth);
-
     const [formState, inputHandler] = useForm({
+        username: {
+            value: '',
+            isValid: false
+        },
         email: {
             value: '',
             isValid: false
@@ -21,34 +25,32 @@ const Signup = () => {
             isValid: false
         }
     }, false)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userInfo } = useSelector(state => state.auth);
+    const [signup, { isLoading }] = useSignupMutation();
 
     useEffect(() => {
-        if (auth.isLogin) {
+        if (userInfo) {
             navigate('/')
         }
-    }, [navigate, auth.isLogin])
-
-
-    console.log(formState)
+    }, [navigate, userInfo])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const body = {
-            username: formState.inputs.username.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value
-        }
+        const username = formState.inputs.username.value
+        const email = formState.inputs.email.value
+        const password = formState.inputs.password.value
 
         try {
-            const response = await axios.post('http://localhost:5000/api/users/signup', body);
-            console.log(response)
-            const responseData = await response.data;
-            console.log("responseData", responseData)
+            const res = await signup({ username, email, password }).unwrap();
+            dispatch(setCredentials({ ...res }));
+            navigate('/')
         } catch (err) {
-            console.log(err)
+            toast.error(err?.data?.message || err.error)
         }
-    }
+    };
 
     return (
         <div className="flex flex-col items-center justify-center w-96 lg:py-0">
@@ -101,7 +103,7 @@ const Signup = () => {
                                 valid=''
                             />
                         </div>
-
+                        {isLoading && <Loader />}
                         <button
                             type="submit"
                             className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}

@@ -1,18 +1,15 @@
 import Input from "../UI/Input"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "../../hooks/form-hook"
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/authSlice";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import { useLoginMutation } from "../../store/usersApiSlice";
+import { setCredentials } from "../../store/authSlice";
+import { toast } from 'react-toastify';
+import Loader from "../UI/Loader";
 
 const Login = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth);
-
     const [formState, inputHandler] = useForm({
         email: {
             value: '',
@@ -23,17 +20,28 @@ const Login = () => {
             isValid: false
         }
     }, false)
+    const email = formState.inputs.email.value;
+    const password = formState.inputs.password.value;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [login, { isLoading }] = useLoginMutation();
+    const { userinfo } = useSelector(state => state.auth);
 
     useEffect(() => {
-        if (auth.isLogin) {
+        if (userinfo) {
             navigate('/')
         }
-    }, [navigate, auth.isLogin])
+    }, [navigate, userinfo])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(login());
-        navigate('/')
+        try {
+            const res = await login({ email, password }).unwrap();
+            dispatch(setCredentials({ ...res }));
+            navigate('/')
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
     return (
@@ -72,20 +80,21 @@ const Login = () => {
                                 valid=''
                             />
                         </div>
-                        <button
+                        {isLoading && <Loader />}
+                        {!isLoading && < button
                             type="submit"
                             className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}
                             disabled={!formState.isValid}
                         >
                             Log In
-                        </button>
+                        </button>}
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don’t have an account yet? <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register</Link>
                         </p>
                     </form>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

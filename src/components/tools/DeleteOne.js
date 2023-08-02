@@ -12,14 +12,14 @@ const DeleteOne = ({ canvas }) => {
         canvas.renderAll()
     }, [canvas]);
 
-    useEffect(() => {
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Backspace") {
-                (Object.keys(canvas).length > 0) && deleteSelectedObjects()
-            }
-        })
+    // useEffect(() => {
+    //     document.addEventListener('keydown', (e) => {
+    //         if (e.key === "Backspace") {
+    //             (Object.keys(canvas).length > 0) && deleteSelectedObjects()
+    //         }
+    //     })
 
-    }, [deleteSelectedObjects, canvas]);
+    // }, [deleteSelectedObjects, canvas]);
 
 
     return (

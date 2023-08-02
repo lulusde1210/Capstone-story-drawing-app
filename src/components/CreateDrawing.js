@@ -10,10 +10,9 @@ import 'fabric-history';
 const CreateDrawing = () => {
     const [canvas, setCanvas] = useState({})
     const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
-    const drawingId = useSelector((state) => state.drawings.drawingId)
+    const drawing = useSelector((state) => state.drawings.drawing)
 
     useEffect(() => {
-        console.log('Creating Canvas...')
         const canvas = new fabric.Canvas('canvas', {
             height: 650,
             width: 1000,
@@ -22,10 +21,7 @@ const CreateDrawing = () => {
         setCanvas(canvas)
     }, []);
 
-    console.log('in createcanvas canvas object', canvas)
-
     useEffect(() => {
-        console.log('Load canvasJSON...')
         if (canvas['_objects'] && canvasJSON.length > 0) {
             canvas.loadFromJSON(canvasJSON, canvas.renderAll.bind(canvas))
         }
@@ -35,7 +31,7 @@ const CreateDrawing = () => {
         <>
             <div className='flex flex-col justify-center items-center gap-10'>
                 <div>
-                    {drawingId ? <h1>Edit Drawing</h1> : <h1>Create new Drawing</h1>}
+                    {drawing ? <h1>Edit Drawing</h1> : <h1>Create new Drawing</h1>}
                 </div>
                 <div className='w-full flex justify-center items-center gap-10'>
                     <div className='flex flex-col gap-8'>

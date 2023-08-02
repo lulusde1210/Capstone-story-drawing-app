@@ -1,23 +1,30 @@
 // import drawingCard from "./drawingCard";
 import DrawingCard from "./drawings/DrawingCard";
-import { useSelector } from "react-redux";
+import { useGetAllDrawingsQuery } from "../store/drawingsApiSlice";
+import Loader from "./UI/Loader";
 
 const AllDrawings = () => {
-    const drawings = useSelector((state) => state.drawings.drawings)
+    const { data = [], isLoading } = useGetAllDrawingsQuery()
+    const drawingsData = data.drawings || []
+
     return (
-        <div className="flex flex-wrap justify-center  gap-10">
-            {drawings.length > 0 &&
-                drawings.map((drawing) => (
-                    <DrawingCard
-                        key={drawing.id}
-                        id={drawing.id}
-                        title={drawing.title}
-                        imgURL={drawing.imgURL}
-                        imgJSON={drawing.imgJSON}
-                    />
-                ))
-            }
-        </div>
+        <>
+            {isLoading && <Loader />}
+            {!isLoading && <div className="flex flex-wrap justify-center  gap-10">
+                {drawingsData.length > 0 &&
+                    drawingsData.map((drawing) => (
+                        <DrawingCard
+                            key={drawing.id}
+                            id={drawing.id}
+                            title={drawing.title}
+                            imgURL={drawing.imgURL}
+                            imgJSON={drawing.imgJSON}
+                            artist={drawing.artist}
+                        />
+                    ))
+                }
+            </div>}
+        </>
     )
 };
 

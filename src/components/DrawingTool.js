@@ -12,7 +12,6 @@ const DrawingTool = ({ canvas }) => {
     const [penStyle, setPenStyle] = useState('');
 
     const enableDrawing = useCallback((color, size, style) => {
-        console.log('enable drawing...')
         canvas.isDrawingMode = true
         if (style === 'spray') {
             canvas.freeDrawingBrush = new fabric.SprayBrush(canvas)

@@ -1,20 +1,25 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
-import { deleteDrawing, setDrawingId } from "../../store/drawingSlice";
 import Modal from "../UI/Modal";
 import { useState } from "react";
-
+import { useGetOneDrawingQuery, useDeleteDrawingMutation } from "../../store/drawingsApiSlice";
+import Loader from "../UI/Loader";
+import { toast } from 'react-toastify';
+import { setDrawing } from "../../store/drawingSlice";
 
 const DrawingDetail = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
-    console.log('inside drawingdetail id', id)
-    const drawings = useSelector((state) => state.drawings.drawings)
-    const drawing = drawings.filter((drawing) => drawing.id === +id)[0]
     const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth);
+    const { userInfo } = useSelector(state => state.auth);
+    const [deleteDrawing, { isLoading: deleteIsLoading }] = useDeleteDrawingMutation();
+
+    const { data = {}, isLoading, isFetching, isError } = useGetOneDrawingQuery(id)
+    const drawing = data.drawing || {}
+
 
     const [isOpen, setIsOpen] = useState(false)
     const closeModal = () => { setIsOpen(false) };
@@ -23,39 +28,49 @@ const DrawingDetail = () => {
     const handleEditDrawing = () => {
         dispatch(saveCanvasJSON(drawing.imgJSON))
         dispatch(saveCanvasURL(drawing.imgURL))
-        dispatch(setDrawingId(drawing.id))
+        dispatch(setDrawing(drawing))
+    };
+
+    const handleDeleteDrawing = async () => {
+        try {
+            await deleteDrawing(drawing.id).unwrap();
+            navigate('/mylibrary')
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
     return (
-        <div className="flex flex-col justify-center items-center gap-10 w-3/4">
-            <div className="flex justify-center items-center px-10 gap-10">
-                <h1 className="h1">{drawing.title}</h1>
-                <div className="flex self-end">
-                    {auth.isLogin && <Link to={`/mylibrary/${id}/edit`}>
-                        <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
-                    </Link>}
-                    {auth.isLogin && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
-                    <Modal
-                        dialogTitle='Do you want to delete the drawing?'
-                        isOpen={isOpen}
-                        closeModal={closeModal}
-                        body={
-                            <div className="flex justify-center gap-5 mt-10">
-                                <Link to='/mylibrary'>
-                                    <button className='btn-secondary' onClick={() => dispatch(deleteDrawing(drawing.id))}>
+        <>
+            {isLoading && <Loader />}
+            {!isLoading && <div className="flex flex-col justify-center items-center gap-10 w-3/4">
+                <div className="flex justify-center items-center px-10 gap-10">
+                    <h1 className="h1">{drawing.title}</h1>
+                    <div className="flex self-end">
+                        {userInfo && <Link to={`/mylibrary/${id}/edit`}>
+                            <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
+                        </Link>}
+                        {userInfo && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
+                        <Modal
+                            dialogTitle='Do you want to delete the drawing?'
+                            isOpen={isOpen}
+                            closeModal={closeModal}
+                            body={
+                                <div className="flex justify-center gap-5 mt-10">
+                                    <button className='btn-secondary' onClick={handleDeleteDrawing}>
                                         delete
                                     </button>
-                                </Link>
-                                <button className='btn-secondary' onClick={closeModal}>
-                                    cancel
-                                </button>
-                            </div>
-                        } />
+                                    <button className='btn-secondary' onClick={closeModal}>
+                                        cancel
+                                    </button>
+                                </div>
+                            } />
+                    </div>
                 </div>
-            </div>
-            <p className="text-center w-3/4">{drawing.description}</p>
-            <img src={drawing.imgURL} alt={`${drawing.title}`} className="rounded-xl" />
-        </div>
+                <p className="text-center w-3/4">{drawing.description}</p>
+                <img src={drawing.imgURL} alt={`${drawing.title}`} className="rounded-xl" />
+            </div>}
+        </>
     )
 };
 

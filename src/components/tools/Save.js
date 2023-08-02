@@ -2,22 +2,25 @@ import ToolButton from "../UI/ToolButton"
 import Modal from "../UI/Modal";
 import Input from "../UI/Input";
 import { Icon } from '@iconify/react';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { addDrawing, editDrawing, setDrawingId } from "../../store/drawingSlice";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 import { VALIDATOR_REQUIRE } from "../util/validators";
 import { useForm } from "../../hooks/form-hook";
-
+import { useCreateDrawingMutation, useUpdateDrawingMutation } from "../../store/drawingsApiSlice";
+import { toast } from 'react-toastify';
+import Loader from "../UI/Loader";
+import { setDrawing } from "../../store/drawingSlice";
 
 const Save = ({ canvas }) => {
     const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch();
-    const drawingId = useSelector((state) => state.drawings.drawingId)
-    const canvasJSON = useSelector((state) => state.canvas.canvasJSON)
-    const canvasURL = useSelector((state) => state.canvas.canvasURL)
-    const drawings = useSelector((state) => state.drawings.drawings)
+    const navigate = useNavigate();
+    const drawing = useSelector((state) => state.drawings.drawing)
+    const [createDrawing, { isLoading: createIsLoading }] = useCreateDrawingMutation();
+    const [updateDrawing, { isLoading: updateIsLoading }] = useUpdateDrawingMutation();
+    const { userInfo } = useSelector(state => state.auth);
 
     const closeModal = () => { setIsOpen(false) };
     const openModal = () => { setIsOpen(true) };
@@ -33,11 +36,11 @@ const Save = ({ canvas }) => {
         }
     }, false)
 
+
     let titleValue;
     let descriptionValue;
     let valid
-    if (drawingId) {
-        const drawing = drawings.find((drawing => (drawing.id === drawingId)))
+    if (drawing) {
         titleValue = drawing.title
         descriptionValue = drawing.description
         valid = true
@@ -48,37 +51,49 @@ const Save = ({ canvas }) => {
     };
 
 
-    const handleSave = () => {
+    const handleSave = async (e) => {
+        e.preventDefault();
+
         const dataURL = canvas.toDataURL({
             format: 'png',
             quality: 1,
         });
         const dataJSON = JSON.stringify(canvas);
 
-        console.log(dataURL)
-        console.log(dataJSON)
-
-        if (!drawingId) {
-            dispatch(addDrawing(
-                {
-                    dataURL,
-                    dataJSON,
+        if (!drawing) {
+            try {
+                const data = {
                     title: formState.inputs.title.value,
-                    description: formState.inputs.description.value
-                }))
+                    description: formState.inputs.description.value,
+                    imgURL: dataURL,
+                    imgJSON: dataJSON,
+                    artist: userInfo.user.id
+                };
+                await createDrawing(data).unwrap();
+                navigate('/mylibrary')
+            } catch (err) {
+                toast.error(err?.data?.message || err.error)
+            }
         } else {
-            dispatch(editDrawing(
-                {
-                    drawingId,
-                    dataURL,
-                    dataJSON,
+            try {
+                const data = {
                     title: formState.inputs.title.value,
-                    description: formState.inputs.description.value
-                }))
+                    description: formState.inputs.description.value,
+                    imgURL: dataURL,
+                    imgJSON: dataJSON,
+                }
+                await updateDrawing({
+                    id: drawing.id,
+                    patch: data
+                }).unwrap();
+                navigate('/mylibrary')
+            } catch (err) {
+                toast.error(err?.data?.message || err.error)
+            }
         }
         dispatch(saveCanvasJSON(''))
         dispatch(saveCanvasURL(''))
-        dispatch(setDrawingId(null))
+        dispatch(setDrawing(null))
         closeModal()
     };
 
@@ -108,16 +123,14 @@ const Save = ({ canvas }) => {
                 valid={valid}
             />
             <div className="flex gap-5 justify-center mt-4">
-                <Link to='/mylibrary'>
-                    <button
-                        type="submit"
-                        className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}
-                        onClick={handleSave}
-                        disabled={!formState.isValid}
-                    >
-                        Save Drawing
-                    </button>
-                </Link>
+                <button
+                    type="submit"
+                    className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}
+                    onClick={handleSave}
+                    disabled={!formState.isValid}
+                >
+                    Save Drawing
+                </button>
                 <button
                     type="button"
                     className='btn-secondary'
