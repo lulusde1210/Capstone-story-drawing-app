@@ -29,7 +29,7 @@ const DrawingDetail = () => {
                 <div className="flex justify-center items-center px-10 gap-10">
                     <h1 className="h1">{drawing.title}</h1>
                     <div className="flex self-end">
-                        {userInfo && <Link to={`/mylibrary/${id}/edit`}>
+                        {userInfo && <Link to={`/mygallery/${id}/edit`}>
                             <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                         </Link>}
                     </div>

@@ -1,14 +1,33 @@
 import { useSelector } from "react-redux"
-
+import { Link } from "react-router-dom";
+import DrawingList from "../drawings/DrawingList";
 const Profile = () => {
 
     const { userInfo } = useSelector(state => state.auth);
 
     return (
-        <div>
-            <h1>username: {userInfo.user.username}</h1>
-            <img src={userInfo.user.image} alt='profile' />
-        </div>
+        <>
+            <div className="flex justify-start flex-col">
+                <div
+                    className="flex gap-8 py-8 px-8 max-w-sm mx-auto rounded-xl shadow-lg">
+                    <img className="h-32 w-32 object-cover rounded-full" src={userInfo.user.image} alt="profile" />
+                    <div className="flex flex-col justify-center items-center text-center space-y-2 sm:text-left">
+                        <p className="text-lg text-black font-semibold">
+                            {userInfo.user.username}
+                        </p>
+                        <p className="text-slate-500 font-medium">
+                            Artist
+                        </p>
+                        <Link to='/editprofile'>
+                            <button type='button' className="btn-secondary">Edit Profile</button>
+                        </Link>
+                    </div>
+                </div>
+                <div className="w-full mt-10 py-8 px-8">
+                    <DrawingList />
+                </div>
+            </div>
+        </>
     )
 }
 

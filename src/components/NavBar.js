@@ -34,7 +34,7 @@ const NavBar = () => {
                     <Icon className='text-xl' icon="tabler:home" />
                     <span>Artists</span>
                 </NavLink > */}
-                {userInfo && <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
+                {userInfo && <NavLink to='/mygallery' className='flex justify-center items-center gap-1 text-base'>
                     <Icon className='text-xl' icon="fa6-regular:images" />
                     <span>My Gallery</span>
                 </NavLink>}
@@ -49,7 +49,10 @@ const NavBar = () => {
                 </NavLink>
                 {!userInfo && <NavLink to='/login' className='text-base'> Log In</NavLink >}
                 {userInfo && <button to='/' className='text-base' onClick={handleLogOut} > Log Out</button >}
-                {userInfo && <span>{userInfo.user.username}</span>}
+                {userInfo &&
+                    <img src={userInfo.user.image} alt='profile' className='h-10 w-10 object-cover rounded-full' />
+
+                }
             </div>
         </nav >
     )

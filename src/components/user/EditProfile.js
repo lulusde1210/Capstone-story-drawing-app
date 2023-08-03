@@ -3,56 +3,54 @@ import Input from "../UI/Input";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useId } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Loader from "../UI/Loader";
+import { useUpdateUserMutation } from "../../store/usersApiSlice";
 import { useSignupMutation } from "../../store/usersApiSlice";
 import { setCredentials } from "../../store/authSlice";
 import ImageUpload from "../ImageUpload";
 
-const Signup = () => {
+const EditProfile = () => {
+    const { userInfo } = useSelector(state => state.auth);
+
     const [formState, inputHandler] = useForm({
         username: {
-            value: '',
-            isValid: false
+            value: userInfo.user.username,
+            isValid: true
         },
         email: {
-            value: '',
-            isValid: false
+            value: userInfo.user.email,
+            isValid: true
         },
         password: {
-            value: '',
-            isValid: false
+            value: userInfo.user.password,
+            isValid: true
         },
         image: {
-            value: null,
-            isValid: false
+            value: userInfo.user.image,
+            isValid: true
         }
 
     }, false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { userInfo } = useSelector(state => state.auth);
-    const [signup, { isLoading }] = useSignupMutation();
-
-    useEffect(() => {
-        if (userInfo) {
-            navigate('/')
-        }
-    }, [navigate, userInfo])
+    const [updateUser, { isLoading }] = useUpdateUserMutation();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(formState.inputs)
 
         const username = formState.inputs.username.value
         const email = formState.inputs.email.value
-        const password = formState.inputs.password.value
         const image = formState.inputs.image.value
+        const password = formState.inputs.password.value
+        const userId = userInfo.user.id
+
+        console.log(formState)
+        console.log(userId)
 
         try {
-            const res = await signup({ username, email, password, image }).unwrap();
+            const res = await updateUser({ username, email, password, image, userId }).unwrap();
             dispatch(setCredentials({ ...res }));
             navigate('/mygallery')
         } catch (err) {
@@ -63,9 +61,9 @@ const Signup = () => {
     return (
         <div className="flex flex-col items-center justify-center mx-auto px-10 lg:py-0">
             <div className=" bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div className="p-6 space-y-4  md:space-y-6 sm:p-8">
+                <div className="p-6 space-y-4">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Create an account
+                        Edit Profile
                     </h1>
                     <form onSubmit={handleSubmit} className="flex flex-col space-y-4 md:space-y-6">
                         <div className="flex gap-20">
@@ -80,8 +78,8 @@ const Signup = () => {
                                         placeholder='Little Picasso'
                                         errorText="Please enter a username"
                                         onInput={inputHandler}
-                                        defaultValue=''
-                                        valid=''
+                                        defaultValue={userInfo.user.username}
+                                        valid={true}
                                     />
                                 </div>
                                 <div>
@@ -94,8 +92,8 @@ const Signup = () => {
                                         placeholder='123@email.com'
                                         errorText="Please enter a valid email"
                                         onInput={inputHandler}
-                                        defaultValue=''
-                                        valid=''
+                                        defaultValue={userInfo.user.email}
+                                        valid={true}
                                     />
                                 </div>
                                 <div>
@@ -108,35 +106,23 @@ const Signup = () => {
                                         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
                                         errorText="Please enter a valid password with a minimun length of 6 "
                                         onInput={inputHandler}
-                                        defaultValue=''
-                                        valid=''
+                                        defaultValue={userInfo.user.password}
+                                        valid={true}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <ImageUpload id='image' onInput={inputHandler} />
+                                <ImageUpload id='image' onInput={inputHandler} defaultImg={userInfo.user.image} />
                             </div>
                         </div>
-
-
-
-
                         {isLoading && <Loader />}
                         <button
                             type="submit"
                             className={formState.isValid ? 'btn-secondary' : 'btn-disabled'}
                             disabled={!formState.isValid}
                         >
-                            Register
+                            Update Profile
                         </button>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Already have an account?
-                            <Link
-                                to='/login'
-                                className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                Log In
-                            </Link>
-                        </p>
                     </form>
                 </div>
             </div>
@@ -144,4 +130,4 @@ const Signup = () => {
     )
 };
 
-export default Signup;
+export default EditProfile;

@@ -75,7 +75,7 @@ const Save = ({ canvas }) => {
                 console.log("try to save")
                 await createDrawing(data).unwrap();
                 console.log('saved')
-                navigate('/mylibrary')
+                navigate('/mygallery')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
             }
@@ -91,7 +91,7 @@ const Save = ({ canvas }) => {
                     id: drawing.id,
                     patch: data
                 }).unwrap();
-                navigate('/mylibrary')
+                navigate('/mygallery')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
 

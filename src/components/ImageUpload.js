@@ -14,7 +14,7 @@ const convertToBase64 = (file) => {
 }
 
 
-const ImageUpload = ({ id, onInput, errorText }) => {
+const ImageUpload = ({ id, onInput, errorText, defaultImg }) => {
     const imgRef = useRef();
     const [file, setFile] = useState();
     const [previewUrl, setPreviewUrl] = useState(false);
@@ -64,10 +64,9 @@ const ImageUpload = ({ id, onInput, errorText }) => {
                 onChange={handlePickImage}
             />
             <div className="rounded overflow-hidden">
+                {!previewUrl && <img src={defaultImg || '/artist.png'} alt='profile-priview' className="h-40 w-40 object-cover rounded-full" />}
                 {previewUrl && <img src={previewUrl} alt='profile-priview' className="h-40 w-40 object-cover rounded-full" />}
             </div>
-
-            {!previewUrl && <p>Pick your profile image</p>}
             {!isValid && <p>{errorText}</p>}
         </div>
 

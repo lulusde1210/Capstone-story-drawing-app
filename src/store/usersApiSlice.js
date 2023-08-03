@@ -29,9 +29,21 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 url: `${USERS_URL}/${uid}`,
                 method: 'GET',
             })
-        })
+        }),
+        updateUser: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/user/update`,
+                method: 'PATCH',
+                body: data
+            })
+        }),
     })
 })
 
 
-export const { useLoginMutation, useSignupMutation, useGetAllUsersQuery, useGetOneUserQuery } = usersApiSlice;
+export const {
+    useLoginMutation,
+    useSignupMutation,
+    useGetAllUsersQuery,
+    useGetOneUserQuery,
+    useUpdateUserMutation } = usersApiSlice;
