@@ -1,4 +1,3 @@
-// import drawingCard from "./drawingCard";
 import DrawingCard from "./drawings/DrawingCard";
 import { useGetAllDrawingsQuery } from "../store/drawingsApiSlice";
 import Loader from "./UI/Loader";

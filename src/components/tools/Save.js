@@ -55,10 +55,14 @@ const Save = ({ canvas }) => {
         e.preventDefault();
 
         const dataURL = canvas.toDataURL({
-            format: 'png',
-            quality: 1,
+            format: 'image/jpeg',
+            quality: 0.8,
         });
+
         const dataJSON = JSON.stringify(canvas);
+
+        console.log(dataURL)
+        console.log(dataJSON)
 
         if (!drawing) {
             try {
@@ -66,10 +70,13 @@ const Save = ({ canvas }) => {
                     title: formState.inputs.title.value,
                     description: formState.inputs.description.value,
                     imgURL: dataURL,
+                    // imgURL: 'https://images.unsplash.com/photo-1690380117575-82fb93cf524a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
                     imgJSON: dataJSON,
                     artist: userInfo.user.id
                 };
+                console.log("try to save")
                 await createDrawing(data).unwrap();
+                console.log('saved')
                 navigate('/mylibrary')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
@@ -80,6 +87,7 @@ const Save = ({ canvas }) => {
                     title: formState.inputs.title.value,
                     description: formState.inputs.description.value,
                     imgURL: dataURL,
+                    // imgURL: 'https://images.unsplash.com/photo-1690380117575-82fb93cf524a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
                     imgJSON: dataJSON,
                 }
                 await updateDrawing({
@@ -89,6 +97,7 @@ const Save = ({ canvas }) => {
                 navigate('/mylibrary')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
+
             }
         }
         dispatch(saveCanvasJSON(''))

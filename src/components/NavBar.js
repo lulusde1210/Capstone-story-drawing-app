@@ -41,7 +41,7 @@ const NavBar = () => {
             </div>
             <div className='flex justify-center items-center gap-5 px-10'>
                 <NavLink
-                    to='/createstory'
+                    to='/createdrawing'
                     className="btn-primary flex justify-center items-center gap-1 text-base"
                 >
                     <Icon onClick={handleCreateDrawing} className='text-xl' icon="tabler:brush" />

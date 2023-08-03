@@ -1,9 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
 import { fabric } from 'fabric';
-import { disableDrawing, addObj } from "../../store/canvasSlice";
 import ToolButton from '../UI/ToolButton';
 import Tabs from '../UI/Tabs';
 import { Tab } from '@headlessui/react'
@@ -35,6 +33,7 @@ const Stickers = ({ canvas }) => {
             canvas.add(img);
             canvas.renderAll();
         }, {
+            crossOrigin: 'Anonymous',
             scaleX: 0.3,
             scaleY: 0.3,
             originX: 'center',
