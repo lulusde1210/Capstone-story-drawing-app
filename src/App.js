@@ -10,7 +10,6 @@ import HomeView from './components/HomeView';
 import Login from './components/user/Login';
 import Signup from './components/user/Signup';
 import AllDrawings from './components/AllDrawings';
-import AllUsers from './components/AllUsers';
 import PrivateRoute from './components/PrivateRoute';
 import NotFound from './components/NotFound';
 import Profile from './components/user/Profile';
@@ -26,7 +25,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeView />} />
-          <Route path="alldrawings" element={<AllDrawings />} />
+          <Route path="alldrawings" >
+            <Route index element={<AllDrawings />} />
+            <Route path=":id" element={<DrawingDetail />} />
+            <Route path=":id/edit" element={userInfo ? <CreateDrawing /> : <Login />} />
+          </Route>
+
           <Route path="users" >
             <Route index element={<UserView />} />
             <Route path=":id" element={<UserView />} />
@@ -34,11 +38,7 @@ const App = () => {
 
           <Route path="" element={<PrivateRoute />} >
             <Route path="createdrawing" element={<CreateDrawing />} />
-            <Route path="mygallery" >
-              <Route index element={<Profile />} />
-              <Route path=":id" element={<DrawingDetail />} />
-              <Route path=":id/edit" element={<CreateDrawing />} />
-            </Route>
+            <Route path="mygallery" element={<Profile />} />
             <Route path="editprofile" element={<EditProfile />} />
           </Route>
 

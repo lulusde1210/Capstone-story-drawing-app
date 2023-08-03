@@ -36,7 +36,7 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, date, artist }) => {
 
     return (
         <div className="card">
-            <Link to={`/mygallery/${id}`}>
+            <Link to={`/alldrawings/${id}`}>
                 <img className="w-full" src={imgURL} alt={title} />
                 <div className="px-6 py-4">
                     <h1 className="h1">{title}</h1>
@@ -45,7 +45,7 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, date, artist }) => {
                 </div>
             </Link>
             <div className="flex justify-between px-6 pt-4 pb-2 ">
-                {userInfo && <Link to={`/mygallery/${id}`}>
+                {userInfo && <Link to={`/alldrawings/${id}`}>
                     < Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                 </Link>}
                 {userInfo && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}

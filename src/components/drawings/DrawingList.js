@@ -1,5 +1,4 @@
 import DrawingCard from "./DrawingCard";
-import { useSelector } from "react-redux";
 import { useGetDrawingByUserIdQuery } from "../../store/drawingsApiSlice";
 import Loader from "../UI/Loader";
 

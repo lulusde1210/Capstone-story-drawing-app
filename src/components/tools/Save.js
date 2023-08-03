@@ -60,9 +60,6 @@ const Save = ({ canvas }) => {
             quality: 0.25,
         });
 
-        console.log(dataURL)
-        console.log(dataJSON)
-
         if (!drawing) {
             try {
                 const data = {
@@ -72,9 +69,7 @@ const Save = ({ canvas }) => {
                     imgJSON: dataJSON,
                     artist: userInfo.user.id
                 };
-                console.log("try to save")
                 await createDrawing(data).unwrap();
-                console.log('saved')
                 navigate('/mygallery')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)

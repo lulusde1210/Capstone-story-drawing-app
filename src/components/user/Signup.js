@@ -3,7 +3,7 @@ import Input from "../UI/Input";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useId } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Loader from "../UI/Loader";
@@ -117,10 +117,6 @@ const Signup = () => {
                                 <ImageUpload id='image' onInput={inputHandler} />
                             </div>
                         </div>
-
-
-
-
                         {isLoading && <Loader />}
                         <button
                             type="submit"
