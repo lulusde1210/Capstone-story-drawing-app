@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Loader from "../UI/Loader";
 import { useSignupMutation } from "../../store/usersApiSlice";
 import { setCredentials } from "../../store/authSlice";
+import ImageUpload from "../ImageUpload";
 
 const Signup = () => {
     const [formState, inputHandler] = useForm({
@@ -23,7 +24,12 @@ const Signup = () => {
         password: {
             value: '',
             isValid: false
+        },
+        image: {
+            value: null,
+            isValid: false
         }
+
     }, false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -38,13 +44,15 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log(formState.inputs)
 
         const username = formState.inputs.username.value
         const email = formState.inputs.email.value
         const password = formState.inputs.password.value
+        const image = formState.inputs.image.value
 
         try {
-            const res = await signup({ username, email, password }).unwrap();
+            const res = await signup({ username, email, password, image }).unwrap();
             dispatch(setCredentials({ ...res }));
             navigate('/')
         } catch (err) {
@@ -53,56 +61,66 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-96 lg:py-0">
-            <div className="w-full bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div className="flex flex-col items-center justify-center mx-auto px-10 lg:py-0">
+            <div className=" bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div className="p-6 space-y-4  md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create an account
                     </h1>
                     <form onSubmit={handleSubmit} className="flex flex-col space-y-4 md:space-y-6">
-                        <div>
-                            <Input
-                                id="username"
-                                element="input"
-                                type="text"
-                                label="Username"
-                                validators={[VALIDATOR_REQUIRE()]}
-                                placeholder='Little Picasso'
-                                errorText="Please enter a username"
-                                onInput={inputHandler}
-                                defaultValue=''
-                                valid=''
-                            />
-                        </div>
-                        <div>
-                            <Input
-                                id="email"
-                                element="input"
-                                type="email"
-                                label="Your Email"
-                                validators={[VALIDATOR_EMAIL()]}
-                                placeholder='123@email.com'
-                                errorText="Please enter a valid email"
-                                onInput={inputHandler}
-                                defaultValue=''
-                                valid=''
-                            />
+                        <div className="flex gap-20">
+                            <div className="flex flex-col space-y-4 md:space-y-6">
+                                <div>
+                                    <Input
+                                        id="username"
+                                        element="input"
+                                        type="text"
+                                        label="Username"
+                                        validators={[VALIDATOR_REQUIRE()]}
+                                        placeholder='Little Picasso'
+                                        errorText="Please enter a username"
+                                        onInput={inputHandler}
+                                        defaultValue=''
+                                        valid=''
+                                    />
+                                </div>
+                                <div>
+                                    <Input
+                                        id="email"
+                                        element="input"
+                                        type="email"
+                                        label="Your Email"
+                                        validators={[VALIDATOR_EMAIL()]}
+                                        placeholder='123@email.com'
+                                        errorText="Please enter a valid email"
+                                        onInput={inputHandler}
+                                        defaultValue=''
+                                        valid=''
+                                    />
+                                </div>
+                                <div>
+                                    <Input
+                                        id="password"
+                                        element="input"
+                                        type="password"
+                                        label="Your Password"
+                                        placeholder='******'
+                                        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
+                                        errorText="Please enter a valid password with a minimun length of 6 "
+                                        onInput={inputHandler}
+                                        defaultValue=''
+                                        valid=''
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <ImageUpload id='image' onInput={inputHandler} />
+                            </div>
                         </div>
 
-                        <div>
-                            <Input
-                                id="password"
-                                element="input"
-                                type="password"
-                                label="Your Password"
-                                placeholder='******'
-                                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
-                                errorText="Please enter a valid password with a minimun length of 6 "
-                                onInput={inputHandler}
-                                defaultValue=''
-                                valid=''
-                            />
-                        </div>
+
+
+
                         {isLoading && <Loader />}
                         <button
                             type="submit"

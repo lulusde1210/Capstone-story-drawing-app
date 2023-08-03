@@ -12,7 +12,6 @@ const AddImage = ({ canvas }) => {
             canvas.add(img)
             canvas.renderAll();
         }, {
-            crossOrigin: 'Anonymous',
             scaleX: 1,
             scaleY: 1,
             originX: 'center',

@@ -33,7 +33,6 @@ const Stickers = ({ canvas }) => {
             canvas.add(img);
             canvas.renderAll();
         }, {
-            crossOrigin: 'Anonymous',
             scaleX: 0.3,
             scaleY: 0.3,
             originX: 'center',

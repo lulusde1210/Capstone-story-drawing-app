@@ -12,7 +12,7 @@ const Reset = () => {
     return (
         <ToolButton>
             <button onClick={handleReload}>
-                <Link to='/createstory'>
+                <Link to='/createdrawing'>
                     <Icon className='icon' icon="twemoji:new-button" />
                 </Link>
             </button>

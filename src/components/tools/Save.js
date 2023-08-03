@@ -53,13 +53,12 @@ const Save = ({ canvas }) => {
 
     const handleSave = async (e) => {
         e.preventDefault();
+        const dataJSON = JSON.stringify(canvas);
 
         const dataURL = canvas.toDataURL({
-            format: 'image/jpeg',
-            quality: 0.8,
+            format: 'jpeg',
+            quality: 0.25,
         });
-
-        const dataJSON = JSON.stringify(canvas);
 
         console.log(dataURL)
         console.log(dataJSON)
@@ -70,7 +69,6 @@ const Save = ({ canvas }) => {
                     title: formState.inputs.title.value,
                     description: formState.inputs.description.value,
                     imgURL: dataURL,
-                    // imgURL: 'https://images.unsplash.com/photo-1690380117575-82fb93cf524a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
                     imgJSON: dataJSON,
                     artist: userInfo.user.id
                 };
@@ -87,7 +85,6 @@ const Save = ({ canvas }) => {
                     title: formState.inputs.title.value,
                     description: formState.inputs.description.value,
                     imgURL: dataURL,
-                    // imgURL: 'https://images.unsplash.com/photo-1690380117575-82fb93cf524a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
                     imgJSON: dataJSON,
                 }
                 await updateDrawing({
@@ -131,6 +128,8 @@ const Save = ({ canvas }) => {
                 defaultValue={descriptionValue}
                 valid={valid}
             />
+            {createIsLoading && <Loader />}
+            {updateIsLoading && <Loader />}
             <div className="flex gap-5 justify-center mt-4">
                 <button
                     type="submit"

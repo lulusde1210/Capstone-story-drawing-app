@@ -18,6 +18,11 @@
   @apply hover:scale-105 transition-all duration-300;
 }
 
+.btn-small {
+  @apply rounded-xl px-6 py-2 min-w-max cursor-pointer text-center  bg-sky-100;
+  @apply hover:scale-105 transition-all duration-300;
+}
+
 .btn-disabled {
   @apply rounded-xl px-6 py-2 min-w-max text-center bg-gray-300 cursor-not-allowed;
 }

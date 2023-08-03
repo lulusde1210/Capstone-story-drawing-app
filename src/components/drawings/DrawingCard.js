@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDeleteDrawingMutation } from "../../store/drawingsApiSlice";
 import { toast } from 'react-toastify';
 import { setDrawing } from "../../store/drawingSlice";
+import Loader from "../UI/Loader";
 
 
 const DrawingCard = ({ id, title, imgURL, imgJSON, date, artist }) => {
@@ -53,13 +54,16 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, date, artist }) => {
                     isOpen={isOpen}
                     closeModal={closeModal}
                     body={
-                        <div className="flex justify-center gap-5 mt-7">
-                            <button className='btn-secondary' onClick={handleDeleteDrawing}>
-                                delete
-                            </button>
-                            <button className='btn-secondary' onClick={closeModal}>
-                                cancel
-                            </button>
+                        <div>
+                            {deleteIsLoading && <Loader />}
+                            <div className="flex justify-center gap-5 mt-7">
+                                <button className='btn-secondary' onClick={handleDeleteDrawing}>
+                                    delete
+                                </button>
+                                <button className='btn-secondary' onClick={closeModal}>
+                                    cancel
+                                </button>
+                            </div>
                         </div>
                     } />
             </div>

@@ -12,6 +12,9 @@ import AllDrawings from './components/AllDrawings';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AllUsers from './components/AllUsers';
+import PrivateRoute from './components/PrivateRoute';
+import NotFound from './components/NotFound';
+import Profile from './components/user/Profile';
 
 const App = () => {
   const { userInfo } = useSelector(state => state.auth);
@@ -24,15 +27,21 @@ const App = () => {
           <Route index element={<HomeView />} />
           <Route path="alldrawings" element={<AllDrawings />} />
           <Route path="users" element={<AllUsers />} />
-          <Route path="createdrawing" element={userInfo ? <CreateDrawing /> : <Login />} />
-          <Route path="mylibrary" >
-            <Route index element={<DrawingList />} />
-            <Route path=":id" element={<DrawingDetail />} />
-            <Route path=":id/edit" element={<CreateDrawing />} />
+
+          <Route path='' element={<PrivateRoute />} >
+            <Route path="createdrawing" element={<CreateDrawing />} />
+            <Route path="mylibrary" >
+              <Route index element={<DrawingList />} />
+              <Route path=":id" element={<DrawingDetail />} />
+              <Route path=":id/edit" element={<CreateDrawing />} />
+            </Route>
+            <Route path="profile" element={<Profile />} />
+
           </Route>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
+
+          <Route path="login" element={!userInfo ? <Login /> : <HomeView />} />
+          <Route path="signup" element={!userInfo ? <Signup /> : <HomeView />} />
+          <Route path="*" element={<NotFound />} />
         </ Route >
       </Routes >
     </>

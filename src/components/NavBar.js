@@ -27,15 +27,15 @@ const NavBar = () => {
                     <span>Home</span>
                 </NavLink >
                 <NavLink to='/alldrawings' className='flex justify-center items-center gap-1 text-base'>
-                    <Icon className='text-xl' icon="tabler:home" />
+                    <Icon className='text-xl' icon="ion:images-outline" />
                     <span>All Arts</span>
                 </NavLink >
-                <NavLink to='/users' className='flex justify-center items-center gap-1 text-base'>
+                {/* <NavLink to='/users' className='flex justify-center items-center gap-1 text-base'>
                     <Icon className='text-xl' icon="tabler:home" />
                     <span>Artists</span>
-                </NavLink >
+                </NavLink > */}
                 {userInfo && <NavLink to='/mylibrary' className='flex justify-center items-center gap-1 text-base'>
-                    <Icon className='text-xl' icon="dashicons:format-gallery" />
+                    <Icon className='text-xl' icon="fa6-regular:images" />
                     <span>My Gallery</span>
                 </NavLink>}
             </div>
