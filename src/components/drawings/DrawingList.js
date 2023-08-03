@@ -3,9 +3,8 @@ import { useSelector } from "react-redux";
 import { useGetDrawingByUserIdQuery } from "../../store/drawingsApiSlice";
 import Loader from "../UI/Loader";
 
-const DrawingList = () => {
-    const { userInfo } = useSelector(state => state.auth);
-    const { data = [], isLoading } = useGetDrawingByUserIdQuery(userInfo.user.id)
+const DrawingList = ({ uid }) => {
+    const { data = [], isLoading } = useGetDrawingByUserIdQuery(uid)
     const drawings = data.drawings || []
 
     return (

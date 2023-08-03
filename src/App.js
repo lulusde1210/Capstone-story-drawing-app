@@ -15,6 +15,7 @@ import PrivateRoute from './components/PrivateRoute';
 import NotFound from './components/NotFound';
 import Profile from './components/user/Profile';
 import EditProfile from './components/user/EditProfile';
+import UserView from './components/UserView';
 
 const App = () => {
   const { userInfo } = useSelector(state => state.auth);
@@ -26,7 +27,10 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeView />} />
           <Route path="alldrawings" element={<AllDrawings />} />
-          <Route path="users" element={<AllUsers />} />
+          <Route path="users" >
+            <Route index element={<UserView />} />
+            <Route path=":id" element={<UserView />} />
+          </Route>
 
           <Route path="" element={<PrivateRoute />} >
             <Route path="createdrawing" element={<CreateDrawing />} />

@@ -1,34 +1,34 @@
-import { useSelector } from "react-redux"
 import { Link } from "react-router-dom";
-import DrawingList from "../drawings/DrawingList";
-const Profile = () => {
+import { useGetOneUserQuery } from "../store/usersApiSlice";
+import { useParams } from "react-router-dom";
+import DrawingList from "./drawings/DrawingList";
 
-    const { userInfo } = useSelector(state => state.auth);
+const UserView = () => {
+    const { id } = useParams();
+    const { data: userData = {} } = useGetOneUserQuery(id)
+    const user = userData.user || {}
 
     return (
         <>
             <div className="flex justify-start flex-col">
                 <div
                     className="flex gap-8 py-8 px-8 max-w-sm mx-auto rounded-xl shadow-lg">
-                    <img className="h-32 w-32 object-cover rounded-full" src={userInfo.user.image} alt="profile" />
+                    <img className="h-32 w-32 object-cover rounded-full" src={user.image} alt="profile" />
                     <div className="flex flex-col justify-center items-center text-center space-y-2 sm:text-left">
                         <p className="text-lg text-black font-semibold">
-                            {userInfo.user.username}
+                            {user.username}
                         </p>
                         <p className="text-slate-500 font-medium">
                             Artist
                         </p>
-                        <Link to='/editprofile'>
-                            <button type='button' className="btn-secondary">Edit Profile</button>
-                        </Link>
                     </div>
                 </div>
                 <div className="w-full mt-10 py-8 px-8">
-                    <DrawingList uid={userInfo.user.id} />
+                    <DrawingList uid={user.id} />
                 </div>
             </div>
         </>
     )
 }
 
-export default Profile
+export default UserView
