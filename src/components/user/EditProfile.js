@@ -1,13 +1,13 @@
 import Input from "../UI/Input";
+import Loader from "../UI/Loader";
+import ImageUpload from "../ImageUpload";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import Loader from "../UI/Loader";
 import { useUpdateUserMutation } from "../../store/usersApiSlice";
 import { setCredentials } from "../../store/authSlice";
-import ImageUpload from "../ImageUpload";
 
 const EditProfile = () => {
     const { userInfo } = useSelector(state => state.auth);
@@ -22,7 +22,7 @@ const EditProfile = () => {
             isValid: true
         },
         password: {
-            value: userInfo.user.password,
+            value: '',
             isValid: true
         },
         image: {
@@ -30,6 +30,7 @@ const EditProfile = () => {
             isValid: true
         }
     }, false)
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [updateUser, { isLoading }] = useUpdateUserMutation();
@@ -41,14 +42,11 @@ const EditProfile = () => {
         const email = formState.inputs.email.value
         const image = formState.inputs.image.value
         const password = formState.inputs.password.value
-        const userId = userInfo.user.id
-
-        console.log(formState)
-        console.log(userId)
 
         try {
-            const res = await updateUser({ username, email, password, image, userId }).unwrap();
+            const res = await updateUser({ username, email, password, image }).unwrap();
             dispatch(setCredentials({ ...res }));
+            toast.success('Profile Updated Successfull!');
             navigate('/mygallery')
         } catch (err) {
             toast.error(err?.data?.message || err.error)

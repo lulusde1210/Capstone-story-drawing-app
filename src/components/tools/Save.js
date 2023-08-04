@@ -57,7 +57,7 @@ const Save = ({ canvas }) => {
 
         const dataURL = canvas.toDataURL({
             format: 'jpeg',
-            quality: 0.25,
+            quality: 0.5,
         });
 
         if (!drawing) {
@@ -70,6 +70,7 @@ const Save = ({ canvas }) => {
                     artist: userInfo.user.id
                 };
                 await createDrawing(data).unwrap();
+                toast.success('Drawing created Successfull!');
                 navigate('/mygallery')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
@@ -86,6 +87,7 @@ const Save = ({ canvas }) => {
                     id: drawing.id,
                     patch: data
                 }).unwrap();
+                toast.success('Drawing updated Successfull!');
                 navigate('/mygallery')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)

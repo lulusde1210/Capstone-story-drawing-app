@@ -44,11 +44,11 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, date, artist }) => {
                     <p>By {artist}</p>
                 </div>
             </Link>
-            <div className="flex justify-between px-6 pt-4 pb-2 ">
-                {userInfo && <Link to={`/alldrawings/${id}`}>
+            {userInfo && userInfo.user.id === artist && <div className="flex justify-between px-6 pt-4 pb-2 ">
+                <Link to={`/alldrawings/${id}`}>
                     < Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
-                </Link>}
-                {userInfo && <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />}
+                </Link>
+                <Icon onClick={openModal} className='icon-small' icon="material-symbols:delete-outline" />
                 <Modal
                     dialogTitle='Do you want to delete the drawing?'
                     isOpen={isOpen}
@@ -66,7 +66,7 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, date, artist }) => {
                             </div>
                         </div>
                     } />
-            </div>
+            </div>}
         </div >
     )
 }

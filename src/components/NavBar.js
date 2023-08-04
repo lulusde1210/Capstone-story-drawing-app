@@ -1,21 +1,34 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLogoutMutation } from '../store/usersApiSlice';
 import { logout } from '../store/authSlice';
-// import MenuDropDown from './UI/MenuDropDown';
 import { setDrawing } from '../store/drawingSlice';
+import { toast } from 'react-toastify';
+// import MenuDropDown from './UI/MenuDropDown';
+
 
 const NavBar = () => {
     const { userInfo } = useSelector((state) => state.auth);
+
+    const [logoutApiCall] = useLogoutMutation();
+
     const dispatch = useDispatch();
+
     const navigate = useNavigate();
+
     const handleCreateDrawing = () => {
         dispatch(setDrawing(null))
     };
 
-    const handleLogOut = () => {
-        dispatch(logout());
-        navigate('/login');
+    const handleLogOut = async () => {
+        try {
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            navigate('/login');
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
     return (

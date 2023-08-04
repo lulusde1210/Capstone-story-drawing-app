@@ -64,7 +64,7 @@ const ImageUpload = ({ id, onInput, errorText, defaultImg }) => {
                 onChange={handlePickImage}
             />
             <div className="rounded overflow-hidden">
-                {!previewUrl && <img src={defaultImg || '/artist.png'} alt='profile-priview' className="h-40 w-40 object-cover rounded-full" />}
+                {!previewUrl && <img src={defaultImg || '/profile.png'} alt='profile-priview' className="h-40 w-40 object-cover rounded-full" />}
                 {previewUrl && <img src={previewUrl} alt='profile-priview' className="h-40 w-40 object-cover rounded-full" />}
             </div>
             {!isValid && <p>{errorText}</p>}

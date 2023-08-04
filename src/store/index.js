@@ -5,6 +5,7 @@ import authReducer from './authSlice';
 import { apiSlice } from "./apiSlice";
 
 
+
 const store = configureStore({
     reducer: {
         canvas: canvasReducer,
@@ -12,9 +13,13 @@ const store = configureStore({
         auth: authReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
+
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware),
-    devTools: true
+    devTools: true,
+
+
+
 });
 
 export default store; 

@@ -34,7 +34,7 @@ const DrawingDetail = () => {
                     </Link>
                     <h1 className="h1">{drawing.title}</h1>
                     <div className="flex self-end">
-                        {userInfo && <Link to={`/alldrawings/${id}/edit`}>
+                        {userInfo && userInfo.user.id === drawing.artist && <Link to={`/alldrawings/${id}/edit`}>
                             <Icon onClick={handleEditDrawing} className='icon-small' icon="akar-icons:edit" />
                         </Link>}
                     </div>

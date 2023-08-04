@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
 import Input from "../UI/Input";
+import Loader from "../UI/Loader";
+import ImageUpload from "../ImageUpload";
+import { Link } from "react-router-dom";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import Loader from "../UI/Loader";
 import { useSignupMutation } from "../../store/usersApiSlice";
 import { setCredentials } from "../../store/authSlice";
-import ImageUpload from "../ImageUpload";
 
 const Signup = () => {
     const [formState, inputHandler] = useForm({
@@ -29,8 +29,8 @@ const Signup = () => {
             value: null,
             isValid: false
         }
-
     }, false)
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { userInfo } = useSelector(state => state.auth);
@@ -44,7 +44,6 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(formState.inputs)
 
         const username = formState.inputs.username.value
         const email = formState.inputs.email.value
