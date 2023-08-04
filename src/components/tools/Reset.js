@@ -1,6 +1,6 @@
 import ToolButton from "../UI/ToolButton";
 import { Icon } from "@iconify/react";
-import ToolTip from "../UI/ToolTip";
+// import ToolTip from "../UI/ToolTip";
 import { Link } from "react-router-dom";
 
 
