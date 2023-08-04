@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Input from "../UI/Input";
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
@@ -30,7 +29,6 @@ const EditProfile = () => {
             value: userInfo.user.image,
             isValid: true
         }
-
     }, false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
