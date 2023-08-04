@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/"
+  from = "/api"
   to = "https://drawing-app-api.onrender.com"
   status = 200
   force = true
