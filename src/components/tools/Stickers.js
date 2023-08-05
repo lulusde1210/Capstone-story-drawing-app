@@ -30,6 +30,7 @@ const Stickers = ({ canvas }) => {
 
     const handleClickSticker = (url) => {
         fabric.Image.fromURL(url, img => {
+            img.set({ crossOrigin: "anonymous" });
             canvas.add(img);
             canvas.renderAll();
         }, {

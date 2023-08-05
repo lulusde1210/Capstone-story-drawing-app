@@ -9,7 +9,8 @@ const AddImage = ({ canvas }) => {
     const handleAddImage = (e) => {
         const url = URL.createObjectURL(e.target.files[0]);
         fabric.Image.fromURL(url, img => {
-            canvas.add(img)
+            img.set({ crossOrigin: "anonymous" });
+            canvas.add(img);
             canvas.renderAll();
         }, {
             scaleX: 1,
