@@ -9,7 +9,7 @@ const AllDrawings = () => {
     return (
         <>
             {isLoading && <Loader />}
-            {!isLoading && <div className="flex flex-wrap justify-center  gap-10">
+            {!isLoading && <div className="flex flex-wrap justify-center gap-5">
                 {drawingsData.length > 0 &&
                     drawingsData.map((drawing) => (
                         <ViewCard

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #root {
-  @apply h-screen flex flex-col justify-between items-center px-10
+  @apply h-screen flex flex-col justify-between items-center
 }
 
 body {
@@ -17,6 +17,6 @@ body {
 }
 
 main {
-  @apply max-w-7xl mx-auto pt-28 px-4 w-full flex flex-1 flex-col justify-center items-center;
+  @apply w-full pt-28 flex flex-col justify-center items-center;
 
 }

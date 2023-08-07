@@ -7,7 +7,7 @@ const Profile = () => {
 
     return (
         <>
-            <div className="flex justify-start flex-col">
+            <div className="flex justify-start flex-col gap-10">
                 <div
                     className="flex gap-8 py-8 px-8 max-w-sm mx-auto rounded-xl shadow-lg">
                     <img className="h-32 w-32 object-cover rounded-full" src={userInfo.user.image} alt="profile" />
@@ -23,9 +23,7 @@ const Profile = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="w-full mt-10 py-8 px-8">
-                    <DrawingList uid={userInfo.user.id} />
-                </div>
+                <DrawingList uid={userInfo.user.id} />
             </div>
         </>
     )
