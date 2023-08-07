@@ -49,6 +49,13 @@ export const drawingsApiSlice = apiSlice.injectEndpoints({
                 method: "GET",
             }),
             providesTags: ['Drawing']
+        }),
+        updateDrawingLikeCount: builder.mutation({
+            query: ({ id }) => ({
+                url: `${DRWINGS_URL}/${id}/like`,
+                method: 'PATCH',
+            }),
+            invalidatesTags: ['Drawing']
         })
     })
 })
@@ -60,5 +67,6 @@ export const {
     useGetOneDrawingQuery,
     useUpdateDrawingMutation,
     useDeleteDrawingMutation,
-    useGetDrawingByUserIdQuery
+    useGetDrawingByUserIdQuery,
+    useUpdateDrawingLikeCountMutation
 } = drawingsApiSlice;

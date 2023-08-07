@@ -5,14 +5,16 @@ import { Icon } from '@iconify/react';
 import { Link } from "react-router-dom";
 import { saveCanvasJSON, saveCanvasURL } from "../../store/canvasSlice";
 import { useState } from "react";
-import { useDeleteDrawingMutation } from "../../store/drawingsApiSlice";
+import { useDeleteDrawingMutation, useUpdateDrawingLikeCountMutation } from "../../store/drawingsApiSlice";
 import { toast } from 'react-toastify';
 import { setDrawing } from "../../store/drawingSlice";
 
 
-const DrawingCard = ({ id, title, imgURL, imgJSON, artist }) => {
+
+const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist }) => {
     const { userInfo } = useSelector(state => state.auth);
     const [deleteDrawing, { isLoading: deleteIsLoading }] = useDeleteDrawingMutation();
+    const [updateDrawingLikeCount] = useUpdateDrawingLikeCountMutation();
     const [isOpen, setIsOpen] = useState(false)
     const closeModal = () => { setIsOpen(false) };
     const openModal = () => { setIsOpen(true) };
@@ -34,12 +36,27 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, artist }) => {
         closeModal()
     };
 
+
+    const handleLike = async () => {
+        try {
+            await updateDrawingLikeCount({ id }).unwrap()
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
+    };
+
     return (
         <div className="card relative">
             <Link to={`/alldrawings/${id}`}>
                 <img className="w-full" src={imgURL} alt={title} />
-                <div className="px-6 py-4 flex justify-between">
-                    <p className="text-xl">{title}</p>
+                <div className="flex justify-between items-center">
+                    <div className="px-6 py-4 flex justify-between">
+                        <p className="text-xl">{title}</p>
+                    </div>
+                    <div className="flex justify-center items-end px-6 gap-2 text-xs">
+                        <Icon className="text-lg hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
+                        <span>{likeCount}</span>
+                    </div>
                 </div>
             </Link>
             {userInfo && userInfo.user.id === artist._id &&
@@ -66,6 +83,7 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, artist }) => {
                             </div>
                         } />
                 </div>}
+
         </div >
     )
 }

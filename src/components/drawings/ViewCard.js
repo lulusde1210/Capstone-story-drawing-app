@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-const ViewCard = ({ id, title, imgURL, artist }) => {
+import { useUpdateDrawingLikeCountMutation } from "../../store/drawingsApiSlice";
+import { toast } from 'react-toastify';
 
-    const handleLike = () => {
+const ViewCard = ({ id, title, imgURL, likeCount, artist }) => {
 
+    const [updateDrawingLikeCount] = useUpdateDrawingLikeCountMutation();
+
+    const handleLike = async () => {
+        try {
+            await updateDrawingLikeCount({ id }).unwrap()
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
     return (
@@ -24,8 +33,8 @@ const ViewCard = ({ id, title, imgURL, artist }) => {
                 </Link>
 
                 <div className="flex justify-center items-end px-6 gap-2 text-xs">
-                    <Icon className="text-lg" icon="icon-park-outline:like" onClick={handleLike} />
-                    <span>0</span>
+                    <Icon className="text-lg hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
+                    <span>{likeCount}</span>
                 </div>
             </div>
         </div >
