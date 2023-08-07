@@ -25,7 +25,7 @@ const CreateDrawing = () => {
         if (canvas['_objects'] && canvasJSON.length > 0) {
             canvas.loadFromJSON(canvasJSON, canvas.renderAll.bind(canvas))
         }
-    }, [canvasJSON, canvas])
+    }, [canvasJSON, canvas, drawing])
 
     return (
         <>

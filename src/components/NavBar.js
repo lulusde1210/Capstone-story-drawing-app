@@ -3,9 +3,11 @@ import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../store/usersApiSlice';
 import { logout } from '../store/authSlice';
-import { setDrawing } from '../store/drawingSlice';
+import { resetDrawing } from '../store/drawingSlice';
+import { saveCanvasJSON, saveCanvasURL } from '../store/canvasSlice';
 import { toast } from 'react-toastify';
-// import MenuDropDown from './UI/MenuDropDown';
+import { Link } from 'react-router-dom';
+import MenuDropDown from './UI/MenuDropDown';
 
 
 const NavBar = () => {
@@ -18,7 +20,9 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     const handleCreateDrawing = () => {
-        dispatch(setDrawing(null))
+        dispatch(resetDrawing())
+        dispatch(saveCanvasJSON(''))
+        dispatch(saveCanvasURL(''))
     };
 
     const handleLogOut = async () => {
@@ -31,43 +35,47 @@ const NavBar = () => {
         }
     };
 
+
     return (
-        <nav className="w-screen fixed flex justify-between z-50 p-3 bg-inherit bg-orange-50">
-            <NavLink className='text-3xl px-10' to='/'>WEBSITE NAME</NavLink >
-            <div className='flex justify-center items-center gap-10'>
-                <NavLink to='/' className='flex justify-center items-center gap-1 text-base'>
-                    <Icon className='text-xl' icon="tabler:home" />
-                    <span>Home</span>
-                </NavLink >
-                <NavLink to='/alldrawings' className='flex justify-center items-center gap-1 text-base'>
-                    <Icon className='text-xl' icon="ion:images-outline" />
-                    <span>All Arts</span>
-                </NavLink >
-                {/* <NavLink to='/users' className='flex justify-center items-center gap-1 text-base'>
-                    <Icon className='text-xl' icon="tabler:home" />
-                    <span>Artists</span>
-                </NavLink > */}
-                {userInfo && <NavLink to='/mygallery' className='flex justify-center items-center gap-1 text-base'>
-                    <Icon className='text-xl' icon="fa6-regular:images" />
-                    <span>My Gallery</span>
-                </NavLink>}
-            </div>
-            <div className='flex justify-center items-center gap-5 px-10'>
+        <header
+            className="w-screen fixed flex justify-between py-3 px-4 items-center z-50
+             bg-white bg-opacity-30 backdrop-blur"
+        >
+            <Link to="/" className="flex gap-2 items-center">
+                <Icon icon="emojione-monotone:artist-palette" className="text-2xl" />
+                <span className="text-xl font-bold">Little Picasso</span>
+            </Link>
+            <nav className="hidden lg:block text-base">
+                <ul className="flex gap-10 font-semibold">
+                    <NavLink to='/' className="flex items-center gap-2">
+                        <Icon icon="tabler:home" className="text-lg inline-flex" />
+                        <span>Home</span>
+                    </NavLink>
+                    <NavLink to='/alldrawings' className="flex items-center gap-2">
+                        <Icon icon="ion:images-outline" className="text-lg inline-flex" />
+                        <span>All Arts</span>
+                    </NavLink>
+                    {userInfo &&
+                        <NavLink to='/mygallery' className="flex items-center gap-2">
+                            <Icon icon="fa6-regular:images" className="text-lg inline-flex" />
+                            <span>My Gallery</span>
+                        </NavLink>}
+                </ul>
+            </nav>
+            <div className="flex justify-center items-center gap-5 px-10">
                 <NavLink
                     to='/createdrawing'
                     className="btn-primary flex justify-center items-center gap-1 text-base"
+                    onClick={handleCreateDrawing}
                 >
-                    <Icon onClick={handleCreateDrawing} className='text-xl' icon="tabler:brush" />
+                    <Icon className='text-xl' icon="tabler:brush" />
                     <span>Start Drawing</span>
                 </NavLink>
                 {!userInfo && <NavLink to='/login' className='text-base'> Log In</NavLink >}
-                {userInfo && <button to='/' className='text-base' onClick={handleLogOut} > Log Out</button >}
                 {userInfo &&
-                    <img src={userInfo.user.image} alt='profile' className='h-10 w-10 object-cover rounded-full' />
-
-                }
+                    <MenuDropDown handleClickLogout={handleLogOut} src={userInfo.user.image} />}
             </div>
-        </nav >
+        </header>
     )
 };
 

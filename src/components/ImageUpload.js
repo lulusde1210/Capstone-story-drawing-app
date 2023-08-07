@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+
 
 const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -23,6 +25,10 @@ const ImageUpload = ({ id, onInput, errorText, defaultImg }) => {
     useEffect(() => {
         if (!file) {
             return;
+        }
+        if (file.size > 0.5 * 1024 * 1024) {
+            toast.error('File is too big!')
+            return
         }
         const fileReader = new FileReader();
         fileReader.onload = () => {

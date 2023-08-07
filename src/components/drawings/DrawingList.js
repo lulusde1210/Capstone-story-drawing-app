@@ -19,7 +19,6 @@ const DrawingList = ({ uid }) => {
                             title={drawing.title}
                             imgURL={drawing.imgURL}
                             imgJSON={drawing.imgJSON}
-                            date={drawing.date}
                             artist={drawing.artist}
                         />
                     ))

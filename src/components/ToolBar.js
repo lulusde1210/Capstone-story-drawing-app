@@ -27,8 +27,6 @@ const ToolBar = ({ canvas }) => {
             <DeleteOne canvas={canvas} />
             <Clear canvas={canvas} />
             <Reset canvas={canvas} />
-
-
         </div>
     )
 };
