@@ -7,7 +7,7 @@
 }
 
 body {
-  @apply h-full text-gray-700;
+  @apply text-gray-700;
   font-family: 'Comfortaa', cursive;
   background: hsla(298, 68%, 90%, 1);
   background: linear-gradient(90deg, hsla(298, 68%, 90%, 1) 0%, hsla(30, 82%, 91%, 1) 100%);
@@ -17,6 +17,5 @@ body {
 }
 
 main {
-  @apply w-full pt-28 flex flex-col justify-center items-center;
-
+  @apply w-full flex flex-col justify-center items-center;
 }

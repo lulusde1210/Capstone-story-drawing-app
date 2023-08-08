@@ -29,7 +29,7 @@ const CreateDrawing = () => {
 
     return (
         <>
-            <div className='flex flex-col justify-center items-center gap-10'>
+            <div className='flex flex-col justify-center items-center gap-10 pt-28'>
                 <div>
                     {drawing ? <h1>Edit Drawing</h1> : <h1>Create new Drawing</h1>}
                 </div>
