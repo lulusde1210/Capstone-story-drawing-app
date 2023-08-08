@@ -22,6 +22,7 @@ const DrawingList = ({ uid }) => {
                                 imgJSON={drawing.imgJSON}
                                 likeCount={drawing.likeCount}
                                 artist={drawing.artist}
+                                comments={drawing.comments}
                             />
                         ))
                     }

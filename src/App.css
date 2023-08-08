@@ -37,21 +37,25 @@ h1 {
 }
 
 .form-input {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+  @apply w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-xl p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500
 }
 
 .form-input-warning {
-  @apply bg-pink-100 border border-pink-200 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+  @apply w-full bg-pink-100 border border-pink-200 text-gray-900 sm:text-sm rounded-xl  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500
 }
 
 .form-label {
-  @apply block text-sm mb-2 font-medium text-gray-900 dark:text-white
+  @apply w-full block text-sm mb-2 font-medium text-gray-900 dark:text-white
 }
 
 .form-invalid {
-  @apply text-red-500
+  @apply w-full text-red-500 text-sm
 }
 
-/* .active {
-  @apply underline
-} */
+.form-valid {
+  @apply w-full  text-sm
+}
+
+.active {
+  @apply bg-white bg-opacity-30 backdrop-blur p-2 border-none rounded-xl 
+}

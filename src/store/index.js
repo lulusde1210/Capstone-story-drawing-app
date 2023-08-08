@@ -4,8 +4,6 @@ import drawingReducer from './drawingSlice';
 import authReducer from './authSlice';
 import { apiSlice } from "./apiSlice";
 
-
-
 const store = configureStore({
     reducer: {
         canvas: canvasReducer,
@@ -17,8 +15,6 @@ const store = configureStore({
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware),
     devTools: true,
-
-
 
 });
 

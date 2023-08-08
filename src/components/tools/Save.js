@@ -91,7 +91,6 @@ const Save = ({ canvas }) => {
                 navigate('/mygallery')
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
-
             }
         }
         dispatch(saveCanvasJSON(''))

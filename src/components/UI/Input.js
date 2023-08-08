@@ -71,7 +71,7 @@ const Input = ({ defaultValue, valid, element, id, type, placeholder, rows, labe
         );
 
     return (
-        <div className={!inputState.isValid ? 'form-invalid' : ''}>
+        <div className={!inputState.isValid ? 'form-invalid' : 'form-valid'}>
             <label
                 className='form-label'
                 htmlFor={id}>

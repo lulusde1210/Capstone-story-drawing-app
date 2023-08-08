@@ -56,9 +56,11 @@ export const drawingsApiSlice = apiSlice.injectEndpoints({
                 method: 'PATCH',
             }),
             invalidatesTags: ['Drawing']
-        })
+        }),
     })
 })
+
+
 
 
 export const {
@@ -68,5 +70,5 @@ export const {
     useUpdateDrawingMutation,
     useDeleteDrawingMutation,
     useGetDrawingByUserIdQuery,
-    useUpdateDrawingLikeCountMutation
+    useUpdateDrawingLikeCountMutation,
 } = drawingsApiSlice;

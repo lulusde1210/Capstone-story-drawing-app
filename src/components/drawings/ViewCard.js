@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import { useUpdateDrawingLikeCountMutation } from "../../store/drawingsApiSlice";
 import { toast } from 'react-toastify';
 
-const ViewCard = ({ id, title, imgURL, likeCount, artist }) => {
+const ViewCard = ({ id, title, imgURL, likeCount, artist, comments }) => {
 
     const [updateDrawingLikeCount] = useUpdateDrawingLikeCountMutation();
 
@@ -32,9 +32,15 @@ const ViewCard = ({ id, title, imgURL, likeCount, artist }) => {
                     </div>
                 </Link>
 
-                <div className="flex justify-center items-end px-6 gap-2 text-xs">
-                    <Icon className="text-lg hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
-                    <span>{likeCount}</span>
+                <div className="flex justify-center items-end px-6 gap-5 text-xs">
+                    <div className="flex justify-center items-center gap-1">
+                        <Icon className="text-lg" icon="uil:comment" />
+                        <span>{comments.length}</span>
+                    </div>
+                    <div className="flex justify-center items-center gap-1">
+                        <Icon className="text-lg hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
+                        <span>{likeCount}</span>
+                    </div>
                 </div>
             </div>
         </div >

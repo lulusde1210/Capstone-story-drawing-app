@@ -19,6 +19,7 @@ const AllDrawings = () => {
                             imgURL={drawing.imgURL}
                             likeCount={drawing.likeCount}
                             artist={drawing.artist}
+                            comments={drawing.comments}
                         />
                     ))
                 }

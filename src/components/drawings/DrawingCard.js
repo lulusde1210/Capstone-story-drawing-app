@@ -11,7 +11,7 @@ import { setDrawing } from "../../store/drawingSlice";
 
 
 
-const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist }) => {
+const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist, comments }) => {
     const { userInfo } = useSelector(state => state.auth);
     const [deleteDrawing, { isLoading: deleteIsLoading }] = useDeleteDrawingMutation();
     const [updateDrawingLikeCount] = useUpdateDrawingLikeCountMutation();
@@ -49,16 +49,22 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist }) => {
         <div className="card relative">
             <Link to={`/alldrawings/${id}`}>
                 <img className="w-full" src={imgURL} alt={title} />
-                <div className="flex justify-between items-center">
-                    <div className="px-6 py-4 flex justify-between">
-                        <p className="text-xl">{title}</p>
+            </Link>
+            <div className="flex justify-between items-center">
+                <div className="px-6 py-4 flex justify-between">
+                    <p className="text-xl">{title}</p>
+                </div>
+                <div className="flex justify-center items-end px-6 gap-5 text-xs">
+                    <div className="flex justify-center items-center gap-1">
+                        <Icon className="text-lg" icon="uil:comment" />
+                        <span>{comments.length}</span>
                     </div>
-                    <div className="flex justify-center items-end px-6 gap-2 text-xs">
-                        <Icon className="text-lg hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
+                    <div className="flex justify-center items-center gap-1">
+                        <Icon className="text-lg cursor-pointer hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
                         <span>{likeCount}</span>
                     </div>
                 </div>
-            </Link>
+            </div>
             {userInfo && userInfo.user.id === artist._id &&
                 <div className="w-full flex justify-between p-1 absolute top-0 text-gray-500">
                     <Link to={`/alldrawings/${id}`}>

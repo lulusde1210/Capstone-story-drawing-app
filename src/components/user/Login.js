@@ -38,7 +38,7 @@ const Login = () => {
         try {
             const res = await login({ email, password }).unwrap();
             dispatch(setCredentials({ ...res }));
-            navigate('/mygallery')
+            navigate(-1)
         } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
