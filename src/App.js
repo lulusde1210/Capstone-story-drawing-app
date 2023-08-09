@@ -38,7 +38,7 @@ const App = () => {
 
           <Route path="" element={<PrivateRoute />} >
             <Route path="createdrawing" element={<CreateDrawing />} />
-            <Route path="mygallery" element={<Profile />} />
+            {/* <Route path="mygallery" element={<Profile />} /> */}
             <Route path="editprofile" element={<EditProfile />} />
           </Route>
 

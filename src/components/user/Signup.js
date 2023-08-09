@@ -53,21 +53,21 @@ const Signup = () => {
         try {
             const res = await signup({ username, email, password, image }).unwrap();
             dispatch(setCredentials({ ...res }));
-            navigate('/mygallery')
+            navigate(`/users/${userInfo.user.id}`)
         } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center mx-auto px-10 lg:py-0">
+        <div className="h-screen flex flex-col items-center justify-center mx-auto px-10 lg:py-0">
             <div className=" bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4  md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create an account
                     </h1>
                     <form onSubmit={handleSubmit} className="flex flex-col space-y-4 md:space-y-6">
-                        <div className="flex gap-20">
+                        <div className="flex gap-5">
                             <div className="flex flex-col space-y-4 md:space-y-6">
                                 <div>
                                     <Input

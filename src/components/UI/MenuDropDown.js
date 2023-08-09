@@ -3,12 +3,12 @@ import { Fragment } from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
-export default function MenuDropDown({ handleClickLogout, src }) {
+export default function MenuDropDown({ handleClickLogout, userInfo }) {
 
     return (
         <Menu as="div">
             <Menu.Button className="w-full h-full">
-                <img src={src} alt='profile' className='h-10 w-10 object-cover rounded-full  hidden lg:block' />
+                <img src={userInfo.user.image} alt='profile' className='h-10 w-10 object-cover rounded-full  hidden lg:block border-2 border-gray-50' />
                 <Icon icon="mdi:menu" className="text-xl lg:hidden" />
             </Menu.Button>
             <Transition
@@ -40,7 +40,7 @@ export default function MenuDropDown({ handleClickLogout, src }) {
                                 )}
                             </Menu.Item>
                         </Link>
-                        <Link to='/mygallery'>
+                        <Link to={`/users/${userInfo.user.id}`}>
                             <Menu.Item>
                                 {({ active }) => (
                                     <button

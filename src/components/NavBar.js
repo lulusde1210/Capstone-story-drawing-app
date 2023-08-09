@@ -43,7 +43,7 @@ const NavBar = () => {
         >
             <Link to="/" className="flex gap-2 items-center">
                 <Icon icon="emojione-monotone:artist-palette" className="text-2xl" />
-                <span className="text-xl font-bold">Little Picasso</span>
+                <span className="md:text-xl sm:text-sm font-bold">Little Picasso</span>
             </Link>
             <nav className="hidden lg:block text-base">
                 <ul className="flex gap-10 font-semibold">
@@ -56,24 +56,24 @@ const NavBar = () => {
                         <span>All Arts</span>
                     </NavLink>
                     {userInfo &&
-                        <NavLink to='/mygallery' className="flex items-center gap-2">
+                        <NavLink to={`/users/${userInfo.user.id}`} className="flex items-center gap-2">
                             <Icon icon="fa6-regular:images" className="text-lg inline-flex" />
                             <span>My Gallery</span>
                         </NavLink>}
                 </ul>
             </nav>
             <div className="flex justify-center items-center gap-5 px-10">
-                <NavLink
+                <Link
                     to='/createdrawing'
                     className="btn-primary flex justify-center items-center gap-1 text-base"
                     onClick={handleCreateDrawing}
                 >
                     <Icon className='text-xl' icon="tabler:brush" />
                     <span>Start Drawing</span>
-                </NavLink>
+                </Link>
                 {!userInfo && <NavLink to='/login' className='text-base'> Log In</NavLink >}
                 {userInfo &&
-                    <MenuDropDown handleClickLogout={handleLogOut} src={userInfo.user.image} />}
+                    <MenuDropDown handleClickLogout={handleLogOut} userInfo={userInfo} />}
             </div>
         </header>
     )

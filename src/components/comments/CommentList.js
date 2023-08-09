@@ -7,7 +7,7 @@ const CommentList = ({ drawingId }) => {
     const comments = data.comments;
 
     return (
-        <div className='w-96 bg-red-50 rounded-xl p-2 flex flex-col gap-2'>
+        <div className='w-full bg-red-50 rounded-xl p-2 flex flex-col gap-2'>
             {isLoading && <Loader />}
             {comments && comments.length === 0 &&
                 <p className='text-center text-gray-400'>Be the first to leave a comment!</p>}

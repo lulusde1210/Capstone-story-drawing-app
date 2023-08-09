@@ -71,7 +71,7 @@ const Save = ({ canvas }) => {
                 };
                 await createDrawing(data).unwrap();
                 toast.success('Drawing created Successfull!');
-                navigate('/mygallery')
+                navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
             }
@@ -88,7 +88,7 @@ const Save = ({ canvas }) => {
                     patch: data
                 }).unwrap();
                 toast.success('Drawing updated Successfull!');
-                navigate('/mygallery')
+                navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
             }

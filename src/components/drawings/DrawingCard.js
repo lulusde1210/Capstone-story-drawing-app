@@ -52,7 +52,7 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist, comments }
             </Link>
             <div className="flex justify-between items-center">
                 <div className="px-6 py-4 flex justify-between">
-                    <p className="text-xl">{title}</p>
+                    <p className="text-base">{title}</p>
                 </div>
                 <div className="flex justify-center items-end px-6 gap-5 text-xs">
                     <div className="flex justify-center items-center gap-1">

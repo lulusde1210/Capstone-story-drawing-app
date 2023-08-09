@@ -1,53 +1,46 @@
-import Input from '../UI/Input'
-import { VALIDATOR_REQUIRE } from "../util/validators";
-import { useForm } from "../../hooks/form-hook";
 import { toast } from 'react-toastify';
 import { useCreateCommentMutation } from '../../store/commentsApiSlice';
+import { useState } from 'react';
+
 
 const CommentForm = ({ drawingId }) => {
     const [createComment] = useCreateCommentMutation();
-
-    const [formState, inputHandler] = useForm({
-        comment: {
-            value: '',
-            isValid: false
-        },
-    }, false)
+    const [comment, setComment] = useState();
+    const formIsValid = comment && comment.length;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const data = {
-                body: formState.inputs.comment.value,
+                body: comment,
                 drawing: drawingId
             }
             await createComment(data).unwrap();
-            toast.success('Comment created Successfully!');
+            setComment('')
         } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
     };
 
+    const handleChange = (e) => {
+        setComment(e.target.value)
+    }
+
 
     return (
         <form
             className='w-full flex flex-col gap-3 justify-center items-center mb-10'>
-            <Input
-                id="comment"
-                validators={[VALIDATOR_REQUIRE()]}
-                placeholder='Type your comment'
-                errorText="You can't leave an empty comment"
-                onInput={inputHandler}
-                defaultValue=''
-                valid={false}
-            />
+            <textarea
+                className='form-input'
+                rows={2}
+                value={comment}
+                onChange={handleChange}
+            ></textarea>
             <button
-                className={formState.isValid ? "btn-secondary" : "btn-disabled"}
+                className={formIsValid ? 'btn-secondary' : 'btn-disabled'}
                 onClick={handleSubmit}
-                disabled={!formState.isValid}>
-                Post Comment
-            </button>
-        </form>
+                disabled={!formIsValid}>Post Comment</button>
+        </form >
     )
 };
 

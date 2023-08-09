@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #root {
-  @apply h-screen flex flex-col justify-between items-center
+  @apply flex flex-col justify-between items-center
 }
 
 body {
@@ -17,5 +17,10 @@ body {
 }
 
 main {
-  @apply w-full flex flex-col justify-center items-center;
+  @apply min-h-screen w-full flex flex-col justify-start items-center p-6;
 }
+
+/* 
+* {
+  border: solid red 1px
+} */

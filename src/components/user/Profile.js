@@ -24,6 +24,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <DrawingList uid={userInfo.user.id} />
+
             </div>
         </>
     )

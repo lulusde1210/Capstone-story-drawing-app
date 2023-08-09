@@ -28,13 +28,16 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: `${USERS_URL}`,
                 method: 'GET',
-            })
+            }),
+            providesTags: ['User']
+
         }),
         getOneUser: builder.query({
             query: (uid) => ({
                 url: `${USERS_URL}/${uid}`,
                 method: 'GET',
-            })
+            }),
+            providesTags: ['User']
         }),
         updateUser: builder.mutation({
             query: (data) => ({
@@ -42,6 +45,23 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: 'PATCH',
                 body: data
             })
+        }),
+        follow: builder.mutation({
+            query: (followId) => ({
+                url: `${USERS_URL}/follow`,
+                method: 'PATCH',
+                body: followId
+            }),
+            invalidatesTags: ['User']
+
+        }),
+        unfollow: builder.mutation({
+            query: (followId) => ({
+                url: `${USERS_URL}/unfollow`,
+                method: 'PATCH',
+                body: followId
+            }),
+            invalidatesTags: ['User']
         }),
     })
 })
@@ -53,4 +73,7 @@ export const {
     useSignupMutation,
     useGetAllUsersQuery,
     useGetOneUserQuery,
-    useUpdateUserMutation } = usersApiSlice;
+    useUpdateUserMutation,
+    useFollowMutation,
+    useUnfollowMutation,
+} = usersApiSlice;
