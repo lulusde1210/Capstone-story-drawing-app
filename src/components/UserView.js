@@ -57,10 +57,26 @@ const UserView = () => {
                     <div
                         className="lg:w-1/4 md:w-1/2 h-full flex flex-col justify-start items-center gap-8 py-8 px-8 max-w-sm mx-auto rounded-xl shadow-lg">
                         <img className="h-32 w-32 object-cover rounded-full border-4 border-gray-50 " src={user.image} alt="profile" />
-                        <div className="flex flex-col justify-center items-center text-center space-y-2 sm:text-left">
+                        <div className="flex flex-col gap-3 justify-center items-center text-center space-y-2 sm:text-left">
                             <p className="text-lg text-black font-semibold">
                                 {user.username}
                             </p>
+
+                            <div className="text-xs flex gap-5">
+                                <div className="w-20 flex flex-col justify-center items-center">
+                                    <p>{user.drawings.length}</p>
+                                    <p>Arts</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center">
+                                    <p>{user.followers.length}</p>
+                                    <p>Followers</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center">
+                                    <p>{user.following.length}</p>
+                                    <p>Following</p>
+                                </div>
+                            </div>
+
                             {userInfo && userInfo.user.id !== id &&
                                 <div>
                                     {!isFollowing && <button onClick={handleFollow} className="btn-small">Follow</button>}

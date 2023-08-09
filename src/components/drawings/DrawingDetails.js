@@ -59,7 +59,7 @@ const DrawingDetail = () => {
                             <div className="flex justify-start gap-14 items-center">
                                 <Link to={`/users/${drawing.artist._id}`}>
                                     <div className="flex gap-2">
-                                        <img src={drawing.artist.image} alt='author' className="h-14 w-14 object-cover rounded-full mb-8" />
+                                        <img src={drawing.artist.image} alt='author' className="h-14 w-14 object-cover rounded-full mb-8 border-2 border-gray-50" />
                                         <div className="text-xs flex flex-col">
                                             <span className="text-base">{drawing.artist.username}</span>
                                             <span>{date}</span>
