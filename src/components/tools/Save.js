@@ -70,12 +70,13 @@ const Save = ({ canvas }) => {
                     imgJSON: dataJSON,
                     artist: userInfo.user.id
                 };
+                console.log(data)
+
                 await createDrawing(data).unwrap();
-                toast.success('Drawing created Successfull!');
+                toast.success('Drawing created Successfully!');
                 navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
-                dispatch(logout())
             }
         } else {
             try {
@@ -85,11 +86,13 @@ const Save = ({ canvas }) => {
                     imgURL: dataURL,
                     imgJSON: dataJSON,
                 }
+                console.log(data)
                 await updateDrawing({
                     id: drawing.id,
                     patch: data
                 }).unwrap();
-                toast.success('Drawing updated Successfull!');
+
+                toast.success('Drawing updated Successfully!');
                 navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
