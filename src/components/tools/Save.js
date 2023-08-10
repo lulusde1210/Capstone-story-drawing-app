@@ -12,6 +12,7 @@ import { useCreateDrawingMutation, useUpdateDrawingMutation } from "../../store/
 import { toast } from 'react-toastify';
 import Loader from "../UI/Loader";
 import { setDrawing } from "../../store/drawingSlice";
+import { logout } from "../../store/authSlice";
 
 const Save = ({ canvas }) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -57,7 +58,7 @@ const Save = ({ canvas }) => {
 
         const dataURL = canvas.toDataURL({
             format: 'jpeg',
-            quality: 0.5,
+            quality: 0.8,
         });
 
         if (!drawing) {
@@ -74,6 +75,7 @@ const Save = ({ canvas }) => {
                 navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
+                dispatch(logout())
             }
         } else {
             try {
@@ -91,6 +93,7 @@ const Save = ({ canvas }) => {
                 navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
+                dispatch(logout())
             }
         }
         dispatch(saveCanvasJSON(''))

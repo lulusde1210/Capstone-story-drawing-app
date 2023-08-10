@@ -20,7 +20,6 @@ main {
   @apply min-h-screen w-full flex flex-col justify-start items-center p-6;
 }
 
-
-/* * {
-  border: solid red 1px
-} */
+* {
+  /* border: solid red 1px */
+}

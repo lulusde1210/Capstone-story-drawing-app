@@ -1,16 +1,17 @@
-import { useGetOneUserQuery } from "../store/usersApiSlice";
-import { useParams } from "react-router-dom";
 import DrawingList from "./drawings/DrawingList";
 import Loader from "./UI/Loader";
 import Follow from "./user/Follow";
+import { useGetOneUserQuery } from "../store/usersApiSlice";
+import { useParams } from "react-router-dom";
 import { useFollowMutation, useUnfollowMutation } from "../store/usersApiSlice";
 import { toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const UserView = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const { data: userData = {}, isLoading } = useGetOneUserQuery(id)
     const { userInfo } = useSelector(state => state.auth);
@@ -19,6 +20,13 @@ const UserView = () => {
     const [isFollowing, setIsFollowing] = useState(false)
 
     const user = useMemo(() => userData.user || {}, [userData.user])
+
+    useEffect(() => {
+        if (!userInfo) {
+            navigate('/')
+        }
+    }, [navigate, userInfo])
+
 
     useEffect(() => {
         if (Object.keys(user).length !== 0) {
@@ -34,7 +42,6 @@ const UserView = () => {
     const handleFollow = async () => {
         try {
             await follow({ followId: id }).unwrap()
-            toast.success('Follow Successfull!');
         } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
@@ -49,11 +56,12 @@ const UserView = () => {
         }
     }
 
+    if (isLoading) { return <Loader /> }
+
     return (
         <>
-            {isLoading && <Loader />}
             {!isLoading &&
-                <div className="w-full mt-28 flex">
+                <div className="w-full mt-16 sm:mt-28 flex flex-col gap-3 md:flex-row ">
                     <div
                         className="lg:w-1/4 md:w-1/2 h-full flex flex-col justify-start items-center gap-8 py-8 px-8 max-w-sm mx-auto rounded-xl shadow-lg">
                         <img className="h-32 w-32 object-cover rounded-full border-4 border-gray-50 " src={user.image} alt="profile" />

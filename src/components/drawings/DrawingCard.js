@@ -46,9 +46,9 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist, comments }
     };
 
     return (
-        <div className="card relative">
+        <div className="card relative min-w-fit">
             <Link to={`/alldrawings/${id}`}>
-                <img className="w-full" src={imgURL} alt={title} />
+                <img className="w-96" src={imgURL} alt={title} />
             </Link>
             <div className="flex justify-between items-center">
                 <div className="px-6 py-4 flex justify-between">

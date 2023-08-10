@@ -16,9 +16,9 @@ const ViewCard = ({ id, title, imgURL, likeCount, artist, comments }) => {
     };
 
     return (
-        <div className="card">
+        <div className="card min-w-fit">
             <Link to={`/alldrawings/${id}`}>
-                <img className="w-full" src={imgURL} alt={title} />
+                <img className="w-96" src={imgURL} alt={title} />
             </Link>
 
             <div className="flex justify-between items-center">

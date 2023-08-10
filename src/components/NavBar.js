@@ -38,10 +38,10 @@ const NavBar = () => {
 
     return (
         <header
-            className="w-screen fixed flex justify-between py-3 px-4 items-center z-50
+            className="w-full fixed flex justify-between py-3 items-center z-50
              bg-white bg-opacity-30 backdrop-blur"
         >
-            <Link to="/" className="flex gap-2 items-center">
+            <Link to="/" className="flex gap-2 items-center px-4">
                 <Icon icon="emojione-monotone:artist-palette" className="text-2xl" />
                 <span className="md:text-xl sm:text-sm font-bold">Little Picasso</span>
             </Link>
@@ -53,7 +53,7 @@ const NavBar = () => {
                     </NavLink>
                     <NavLink to='/alldrawings' className="flex items-center gap-2">
                         <Icon icon="ion:images-outline" className="text-lg inline-flex" />
-                        <span>All Arts</span>
+                        <span>Explore Arts</span>
                     </NavLink>
                     {userInfo &&
                         <NavLink to={`/users/${userInfo.user.id}`} className="flex items-center gap-2">
@@ -62,18 +62,24 @@ const NavBar = () => {
                         </NavLink>}
                 </ul>
             </nav>
-            <div className="flex justify-center items-center gap-5 px-10">
+            <div className="flex justify-center items-center gap-3 px-4">
                 <Link
                     to='/createdrawing'
-                    className="btn-primary flex justify-center items-center gap-1 text-base"
+                    className="hidden sm:flex btn-primary justify-center items-center gap-1 text-base"
                     onClick={handleCreateDrawing}
                 >
                     <Icon className='text-xl' icon="tabler:brush" />
                     <span>Start Drawing</span>
                 </Link>
-                {!userInfo && <NavLink to='/login' className='text-base'> Log In</NavLink >}
-                {userInfo &&
-                    <MenuDropDown handleClickLogout={handleLogOut} userInfo={userInfo} />}
+
+                <Link
+                    to='/createdrawing'
+                    className="block sm:hidden btn-primary justify-center items-center gap-1 text-base "
+                    onClick={handleCreateDrawing}
+                >
+                    <Icon className='text-xl' icon="tabler:brush" />
+                </Link>
+                <MenuDropDown handleClickLogout={handleLogOut} />
             </div>
         </header>
     )

@@ -1,9 +1,4 @@
 
-.hero {
-  
-}
-
-
 .icon {
   @apply text-4xl cursor-pointer transition duration-100;
   @apply hover:scale-110
@@ -40,6 +35,10 @@
 
 h1 {
   @apply text-3xl font-bold;
+}
+
+h2 {
+  @apply text-xl font-bold;
 }
 
 .form-input {

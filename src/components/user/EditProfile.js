@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { useUpdateUserMutation } from "../../store/usersApiSlice";
 import { setCredentials } from "../../store/authSlice";
+import { logout } from "../../store/authSlice";
 
 const EditProfile = () => {
     const { userInfo } = useSelector(state => state.auth);
@@ -47,14 +48,15 @@ const EditProfile = () => {
             const res = await updateUser({ username, email, password, image }).unwrap();
             dispatch(setCredentials({ ...res }));
             toast.success('Profile Updated Successfull!');
-            navigate('/mygallery')
+            navigate(-1)
         } catch (err) {
             toast.error(err?.data?.message || err.error)
+            dispatch(logout())
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center mx-auto px-10 lg:py-0">
+        <div className="mt-28 flex flex-col items-center justify-center mx-auto px-10 lg:py-0">
             <div className=" bg-red-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

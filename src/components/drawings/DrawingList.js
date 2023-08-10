@@ -12,7 +12,7 @@ const DrawingList = ({ uid }) => {
         <>
             {isLoading && <Loader />}
             {!isLoading &&
-                <div className="flex flex-wrap justify-start gap-5">
+                <div className="flex flex-wrap justify-center md:justify-start gap-5">
                     {drawings.length === 0 && userInfo && userInfo.user.id === uid &&
                         <h1 className="text-3xl">You don't have any drawing yet, go and create one!</h1>}
 

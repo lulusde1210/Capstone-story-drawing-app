@@ -13,12 +13,11 @@ export const drawingsApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['Drawing']
         }),
         getAllDrawings: builder.query({
-            query: () => ({
-                url: `${DRWINGS_URL}`,
+            query: (searchTerm) => ({
+                url: `${DRWINGS_URL}?search=${searchTerm}`,
                 method: 'GET',
             }),
             providesTags: ['Drawing']
-
         }),
         getOneDrawing: builder.query({
             query: (id) => ({
@@ -26,7 +25,6 @@ export const drawingsApiSlice = apiSlice.injectEndpoints({
                 method: "GET",
             }),
             providesTags: ['Drawing']
-
         }),
         updateDrawing: builder.mutation({
             query: ({ id, patch }) => ({
@@ -59,9 +57,6 @@ export const drawingsApiSlice = apiSlice.injectEndpoints({
         }),
     })
 })
-
-
-
 
 export const {
     useCreateDrawingMutation,

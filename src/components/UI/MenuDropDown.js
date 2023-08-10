@@ -2,14 +2,17 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export default function MenuDropDown({ handleClickLogout, userInfo }) {
+export default function MenuDropDown({ handleClickLogout }) {
+    const { userInfo } = useSelector((state) => state.auth);
 
     return (
         <Menu as="div">
             <Menu.Button className="w-full h-full">
-                <img src={userInfo.user.image} alt='profile' className='h-10 w-10 object-cover rounded-full  hidden lg:block border-2 border-gray-50' />
-                <Icon icon="mdi:menu" className="text-xl lg:hidden" />
+                {userInfo && <img src={userInfo && userInfo.user.image} alt='profile' className='h-10 w-10 object-cover rounded-full hidden lg:block border-2 border-gray-50' />}
+                {!userInfo && <Icon className='h-10 w-10 object-cover rounded-full hidden lg:block' icon="iconamoon:profile-circle-thin" />}
+                <Icon icon="mdi:menu" className="text-xl block lg:hidden" />
             </Menu.Button>
             <Transition
                 as={Fragment}
@@ -26,6 +29,20 @@ export default function MenuDropDown({ handleClickLogout, userInfo }) {
             ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <div className="px-1 py-1 lg:hidden">
+                        <Link to='/'>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        onClick={onclick}
+                                        className={`${active ? "bg-sky-300 text-white font-bold" : "text-gray-900"
+                                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                    >
+                                        <Icon icon='tabler:home' className="text-xl mr-2" />
+                                        Home
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </Link>
                         <Link to='/alldrawings'>
                             <Menu.Item>
                                 {({ active }) => (
@@ -35,13 +52,13 @@ export default function MenuDropDown({ handleClickLogout, userInfo }) {
                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                     >
                                         <Icon icon='ion:images-outline' className="text-xl mr-2" />
-                                        All Arts
+                                        Explore Arts
                                     </button>
                                 )}
                             </Menu.Item>
                         </Link>
-                        <Link to={`/users/${userInfo.user.id}`}>
-                            <Menu.Item>
+                        <Link to={`/users/${userInfo && userInfo.user.id}`}>
+                            {userInfo && <Menu.Item>
                                 {({ active }) => (
                                     <button
                                         onClick={onclick}
@@ -52,11 +69,11 @@ export default function MenuDropDown({ handleClickLogout, userInfo }) {
                                         My Gallery
                                     </button>
                                 )}
-                            </Menu.Item>
+                            </Menu.Item>}
                         </Link>
                     </div>
                     <div className="px-1 py-1">
-                        <Menu.Item>
+                        {userInfo && <Menu.Item>
                             {({ active }) => (
                                 <button
                                     onClick={handleClickLogout}
@@ -66,8 +83,22 @@ export default function MenuDropDown({ handleClickLogout, userInfo }) {
                                     <Icon icon='mdi:logout' className="text-xl mr-2" />
                                     Logout
                                 </button>
+
                             )}
-                        </Menu.Item>
+                        </Menu.Item>}
+                        {!userInfo && <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                    onClick={handleClickLogout}
+                                    className={`${active ? "bg-sky-300 text-white font-bold" : "text-gray-900"
+                                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                >
+                                    <Icon icon='mdi:logout' className="text-xl mr-2" />
+                                    login
+                                </button>
+
+                            )}
+                        </Menu.Item>}
                     </div>
                 </Menu.Items>
             </Transition>

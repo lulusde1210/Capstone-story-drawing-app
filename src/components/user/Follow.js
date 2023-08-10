@@ -2,8 +2,6 @@ import { Tab } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 
 const Follow = ({ user }) => {
-
-
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
     }
