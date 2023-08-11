@@ -25,7 +25,6 @@ const DrawingDetail = () => {
         date = format(new Date(drawing.date), 'LLL dd, yyyy')
     }
 
-
     const handleEditDrawing = () => {
         dispatch(saveCanvasJSON(drawing.imgJSON))
         dispatch(saveCanvasURL(drawing.imgURL))
@@ -36,11 +35,11 @@ const DrawingDetail = () => {
         <>
             {drawingIsLoading && <Loader />}
             {!drawingIsLoading &&
-                <div className="flex flex-col pt-16 lg:pt-28 gap-5">
+                <div className="flex flex-col justify-center items-center pt-16 lg:pt-28 gap-5">
                     <div className="flex flex-col justify-center items-center gap-6 w-full">
                         <div className="flex flex-col gap-3 sm:flex-row sm:gap-10 justify-center items-center px-10 ">
                             <div className="text-center  ">
-                                <h1 className="w-72 h1">{drawing.title}</h1>
+                                <h1 className="w-full h1">{drawing.title}</h1>
                             </div>
                             <div>
                                 {userInfo && userInfo.user.id === drawing.artist._id && <Link to={`/alldrawings/${id}/edit`}>
@@ -48,7 +47,7 @@ const DrawingDetail = () => {
                                 </Link>}
                             </div>
                         </div>
-                        <p className="text-center w-full sm:w-2/3">{drawing.description}</p>
+                        <p className="text-center w-full px-10 ">{drawing.description}</p>
                     </div>
 
                     <div className="flex flex-col lg:flex-row  gap-8">

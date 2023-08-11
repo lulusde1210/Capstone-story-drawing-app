@@ -9,9 +9,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 const UserView = () => {
-    const navigate = useNavigate();
     const { id } = useParams();
     const { data: userData = {}, isLoading } = useGetOneUserQuery(id)
     const { userInfo } = useSelector(state => state.auth);
@@ -20,13 +19,6 @@ const UserView = () => {
     const [isFollowing, setIsFollowing] = useState(false)
 
     const user = useMemo(() => userData.user || {}, [userData.user])
-
-    useEffect(() => {
-        if (!userInfo) {
-            navigate('/')
-        }
-    }, [navigate, userInfo])
-
 
     useEffect(() => {
         if (Object.keys(user).length !== 0) {

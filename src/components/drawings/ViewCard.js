@@ -16,7 +16,7 @@ const ViewCard = ({ id, title, imgURL, likeCount, artist, comments }) => {
     };
 
     return (
-        <div className="card min-w-fit">
+        <div className="card">
             <Link to={`/alldrawings/${id}`}>
                 <img className="w-96" src={imgURL} alt={title} />
             </Link>
@@ -38,7 +38,7 @@ const ViewCard = ({ id, title, imgURL, likeCount, artist, comments }) => {
                         <span>{comments.length}</span>
                     </div>
                     <div className="flex justify-center items-center gap-1">
-                        <Icon className="text-lg hover:scale-105" icon="fxemoji:redheart" onClick={handleLike} />
+                        <Icon className="text-lg hover:scale-105 cursor-pointer" icon="fxemoji:redheart" onClick={handleLike} />
                         <span>{likeCount}</span>
                     </div>
                 </div>

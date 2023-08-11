@@ -12,7 +12,6 @@ import Signup from './components/user/Signup';
 import AllDrawings from './components/AllDrawings';
 import PrivateRoute from './components/PrivateRoute';
 import NotFound from './components/NotFound';
-import Profile from './components/user/Profile';
 import EditProfile from './components/user/EditProfile';
 import UserView from './components/UserView';
 
@@ -38,7 +37,6 @@ const App = () => {
 
           <Route path="" element={<PrivateRoute />} >
             <Route path="createdrawing" element={<CreateDrawing />} />
-            {/* <Route path="mygallery" element={<Profile />} /> */}
             <Route path="editprofile" element={<EditProfile />} />
           </Route>
 

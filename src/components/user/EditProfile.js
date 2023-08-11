@@ -1,7 +1,7 @@
 import Input from "../UI/Input";
 import Loader from "../UI/Loader";
 import ImageUpload from "../ImageUpload";
-import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../util/validators"
+import { VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from "../util/validators"
 import { useForm } from "../../hooks/form-hook";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

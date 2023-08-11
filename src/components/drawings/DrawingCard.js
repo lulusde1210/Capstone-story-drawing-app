@@ -46,7 +46,7 @@ const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist, comments }
     };
 
     return (
-        <div className="card relative min-w-fit">
+        <div className="card relative">
             <Link to={`/alldrawings/${id}`}>
                 <img className="w-96" src={imgURL} alt={title} />
             </Link>
