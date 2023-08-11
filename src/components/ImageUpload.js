@@ -1,21 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 
-
-const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-            resolve(fileReader.result)
-        };
-        fileReader.onerror = (error) => {
-            reject(error)
-        }
-    })
-}
-
-
 const ImageUpload = ({ id, onInput, errorText, defaultImg }) => {
     const imgRef = useRef();
     const [file, setFile] = useState();
@@ -38,21 +23,9 @@ const ImageUpload = ({ id, onInput, errorText, defaultImg }) => {
 
     }, [file])
 
-
     const handlePickImage = async (e) => {
-        let pickedFile;
-        let fileIsValid = isValid;
-        let base64;
-        if (e.target.files && e.target.files.length === 1) {
-            pickedFile = e.target.files[0];
-            base64 = await convertToBase64(pickedFile)
-            setFile(pickedFile);
-            setIsValid(true)
-            fileIsValid = true;
-        } else {
-            setIsValid(false)
-        }
-        onInput(id, base64, fileIsValid);
+        setFile(e.target.files[0])
+        onInput(id, e.target.files[0], true)
     };
 
     return (

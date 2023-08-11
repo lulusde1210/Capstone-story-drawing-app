@@ -70,8 +70,6 @@ const Save = ({ canvas }) => {
                     imgJSON: dataJSON,
                     artist: userInfo.user.id
                 };
-                console.log(data)
-
                 await createDrawing(data).unwrap();
                 toast.success('Drawing created Successfully!');
                 navigate(`/users/${userInfo.user.id}`)
@@ -86,7 +84,6 @@ const Save = ({ canvas }) => {
                     imgURL: dataURL,
                     imgJSON: dataJSON,
                 }
-                console.log(data)
                 await updateDrawing({
                     id: drawing.id,
                     patch: data

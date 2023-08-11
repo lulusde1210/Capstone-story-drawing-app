@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useSignupMutation } from "../../store/usersApiSlice";
 import { setCredentials } from "../../store/authSlice";
 
+
 const Signup = () => {
     const [formState, inputHandler] = useForm({
         username: {
@@ -50,8 +51,14 @@ const Signup = () => {
         const password = formState.inputs.password.value
         const image = formState.inputs.image.value
 
+        const formData = new FormData();
+        formData.append("username", username)
+        formData.append("email", email)
+        formData.append("password", password)
+        formData.append("image", image)
+
         try {
-            const res = await signup({ username, email, password, image }).unwrap();
+            const res = await signup(formData).unwrap();
             dispatch(setCredentials({ ...res }));
             navigate(`/users/${userInfo.user.id}`)
         } catch (err) {
