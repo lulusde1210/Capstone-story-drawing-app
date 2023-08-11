@@ -1,6 +1,7 @@
 import ToolButton from "../UI/ToolButton"
 import Modal from "../UI/Modal";
 import Input from "../UI/Input";
+import Loader from "../UI/Loader";
 import { Icon } from '@iconify/react';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react'
@@ -10,15 +11,13 @@ import { VALIDATOR_REQUIRE } from "../util/validators";
 import { useForm } from "../../hooks/form-hook";
 import { useCreateDrawingMutation, useUpdateDrawingMutation } from "../../store/drawingsApiSlice";
 import { toast } from 'react-toastify';
-import Loader from "../UI/Loader";
 import { setDrawing } from "../../store/drawingSlice";
-import { logout } from "../../store/authSlice";
 
 const Save = ({ canvas }) => {
-    const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const drawing = useSelector((state) => state.drawings.drawing)
+    const [isOpen, setIsOpen] = useState(false)
     const [createDrawing, { isLoading: createIsLoading }] = useCreateDrawingMutation();
     const [updateDrawing, { isLoading: updateIsLoading }] = useUpdateDrawingMutation();
     const { userInfo } = useSelector(state => state.auth);
@@ -37,7 +36,6 @@ const Save = ({ canvas }) => {
         }
     }, false)
 
-
     let titleValue;
     let descriptionValue;
     let valid
@@ -51,6 +49,14 @@ const Save = ({ canvas }) => {
         valid = false
     };
 
+    const dataURItoBlob = (dataURI) => {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+    }
 
     const handleSave = async (e) => {
         e.preventDefault();
@@ -61,16 +67,19 @@ const Save = ({ canvas }) => {
             quality: 0.8,
         });
 
+        const blobData = dataURItoBlob(dataURL);
+
+
         if (!drawing) {
             try {
-                const data = {
-                    title: formState.inputs.title.value,
-                    description: formState.inputs.description.value,
-                    imgURL: dataURL,
-                    imgJSON: dataJSON,
-                    artist: userInfo.user.id
-                };
-                await createDrawing(data).unwrap();
+                const formData = new FormData();
+                formData.append("title", formState.inputs.title.value)
+                formData.append("description", formState.inputs.description.value)
+                formData.append("imgURL", blobData)
+                formData.append("imgJSON", dataJSON)
+                formData.append("artist", userInfo.user.id)
+
+                await createDrawing(formData).unwrap();
                 toast.success('Drawing created Successfully!');
                 navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
@@ -78,22 +87,21 @@ const Save = ({ canvas }) => {
             }
         } else {
             try {
-                const data = {
-                    title: formState.inputs.title.value,
-                    description: formState.inputs.description.value,
-                    imgURL: dataURL,
-                    imgJSON: dataJSON,
-                }
+                const formData = new FormData();
+                formData.append("title", formState.inputs.title.value)
+                formData.append("description", formState.inputs.description.value)
+                formData.append("imgURL", blobData)
+                formData.append("imgJSON", dataJSON)
+
                 await updateDrawing({
                     id: drawing.id,
-                    patch: data
+                    patch: formData
                 }).unwrap();
 
                 toast.success('Drawing updated Successfully!');
                 navigate(`/users/${userInfo.user.id}`)
             } catch (err) {
                 toast.error(err?.data?.message || err.error)
-                dispatch(logout())
             }
         }
         dispatch(saveCanvasJSON(''))

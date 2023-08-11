@@ -44,7 +44,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 url: `${USERS_URL}/user/update`,
                 method: 'PATCH',
                 body: data
-            })
+            }),
+            invalidatesTags: ['User']
         }),
         follow: builder.mutation({
             query: (followId) => ({

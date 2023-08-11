@@ -22,10 +22,6 @@ const EditProfile = () => {
             value: userInfo.user.email,
             isValid: true
         },
-        password: {
-            value: '',
-            isValid: true
-        },
         image: {
             value: userInfo.user.image,
             isValid: true
@@ -42,10 +38,15 @@ const EditProfile = () => {
         const username = formState.inputs.username.value
         const email = formState.inputs.email.value
         const image = formState.inputs.image.value
-        const password = formState.inputs.password.value
+
+        const formData = new FormData();
+        formData.append("username", username)
+        formData.append("email", email)
+        formData.append("image", image)
+
 
         try {
-            const res = await updateUser({ username, email, password, image }).unwrap();
+            const res = await updateUser(formData).unwrap();
             dispatch(setCredentials({ ...res }));
             toast.success('Profile Updated Successfull!');
             navigate(-1)
@@ -90,20 +91,6 @@ const EditProfile = () => {
                                         errorText="Please enter a valid email"
                                         onInput={inputHandler}
                                         defaultValue={userInfo.user.email}
-                                        valid={true}
-                                    />
-                                </div>
-                                <div>
-                                    <Input
-                                        id="password"
-                                        element="input"
-                                        type="password"
-                                        label="Your Password"
-                                        placeholder='******'
-                                        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
-                                        errorText="Please enter a valid password with a minimun length of 6 "
-                                        onInput={inputHandler}
-                                        defaultValue={userInfo.user.password}
                                         valid={true}
                                     />
                                 </div>
