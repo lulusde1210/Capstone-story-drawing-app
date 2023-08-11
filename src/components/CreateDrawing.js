@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import { fabric } from 'fabric';
 import Canvas from './Canvas';
 import ToolBar from './ToolBar';
 import DrawingTool from './DrawingTool';
 import SaveBar from './SaveBar';
-import { fabric } from 'fabric';
 import 'fabric-history';
 
 const CreateDrawing = () => {

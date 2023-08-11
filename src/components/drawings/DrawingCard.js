@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 import { setDrawing } from "../../store/drawingSlice";
 
 
-
 const DrawingCard = ({ id, title, imgURL, imgJSON, likeCount, artist, comments }) => {
     const { userInfo } = useSelector(state => state.auth);
     const [deleteDrawing, { isLoading: deleteIsLoading }] = useDeleteDrawingMutation();

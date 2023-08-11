@@ -38,7 +38,7 @@ const Follow = ({ user }) => {
 
                 <Tab.Panels className="mt-2">
                     <Tab.Panel className='flex flex-col gap-3 rounded-xl p-3'>
-                        {user.following.map((person) => (
+                        {user?.following?.map((person) => (
                             <Link key={person.id} to={`/users/${person.id}`}>
                                 <div className='flex justify-start items-center gap-3'>
                                     <img src={person.image} alt='profile' className='h-10 w-10 object-cover rounded-full hover:cursor-pointer' />
@@ -48,7 +48,7 @@ const Follow = ({ user }) => {
                         ))}
                     </Tab.Panel>
                     <Tab.Panel className='flex flex-col gap-3 rounded-xl p-3'>
-                        {user.followers.map((person) => (
+                        {user?.followers?.map((person) => (
                             <Link key={person.id} to={`/users/${person.id}`}>
                                 <div key={person.id} className='flex justify-start items-center gap-3'>
                                     <img src={person.image} alt='profile' className='h-10 w-10 object-cover rounded-full hover:cursor-pointer' />

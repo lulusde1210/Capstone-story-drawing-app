@@ -28,12 +28,10 @@ const DrawingTool = ({ canvas }) => {
 
     const handleChangeComplete = (color) => {
         setPenColor(color.hex)
-        // enableDrawing(color.hex, brushSize, penStyle)
     };
 
     const handleChangeBrushSize = (e) => {
         setBrushSize(+e.target.value)
-        // enableDrawing(penColor, +e.target.value, penStyle)
     };
 
     const chooseBrushStyle = (style = 'pencil') => {
@@ -44,7 +42,6 @@ const DrawingTool = ({ canvas }) => {
             setPenStyle('pencil')
             canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)
         }
-        // enableDrawing(penColor, brushSize, style)
     };
 
     const handleClickEraser = () => {
