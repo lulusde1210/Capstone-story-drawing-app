@@ -6,9 +6,9 @@ const PenBrushes = ({ onBrushStyle }) => {
         onBrushStyle('pencil')
     };
 
-    const handleClickSprayBrush = () => {
-        onBrushStyle('spray')
-    };
+    // const handleClickSprayBrush = () => {
+    //     onBrushStyle('spray')
+    // };
 
     return (
         <ToolButton>
@@ -16,11 +16,11 @@ const PenBrushes = ({ onBrushStyle }) => {
                 onClick={handleClickPencilBrush}
                 className='icon'
                 icon="ph:paint-brush-bold" />
-
+            {/* 
             <Icon
                 onClick={handleClickSprayBrush}
                 className='icon'
-                icon="lucide:spray-can" />
+                icon="lucide:spray-can" /> */}
         </ToolButton>
     )
 }

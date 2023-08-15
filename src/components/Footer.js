@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -11,21 +10,12 @@ const Footer = () => {
                     </p>
                 </div>
                 <div className="flex justify-center gap-6 h-10">
-                    <Link to='/'>
-                        <Icon className='icon-small' icon="devicon:github" />
-                    </Link>
-
-                    <Link to='/'>
+                    <a href='https://www.linkedin.com/in/lu-sun-a69048170/'>
                         <Icon className='icon-small' icon="mdi:linkedin" />
-                    </Link>
-
-                    <Link to='/'>
+                    </a>
+                    <a href="mailto: lulusun1210@gmail.com">
                         <Icon className='icon-small' icon="ic:outline-email" />
-                    </Link>
-
-                    <Link to='/'>
-                        <Icon className='icon-small' icon="fluent-mdl2:website" />
-                    </Link>
+                    </a>
                 </div>
             </div>
         </footer >

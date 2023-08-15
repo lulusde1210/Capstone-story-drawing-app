@@ -2,7 +2,6 @@ import Rectangle from "./tools/Rectangle";
 import Circle from "./tools/Circle";
 import Triangle from "./tools/Triangle";
 import Line from "./tools/Line";
-import AddImage from "./tools/AddImage";
 import Clear from "./tools/Clear";
 import Text from "./tools/Text";
 import Stickers from "./tools/Stickers";
@@ -22,7 +21,6 @@ const ToolBar = ({ canvas }) => {
             <Triangle canvas={canvas} />
             <Line canvas={canvas} />
             <Text canvas={canvas} />
-            <AddImage canvas={canvas} />
             <Stickers canvas={canvas} />
             <DeleteOne canvas={canvas} />
             <Clear canvas={canvas} />
